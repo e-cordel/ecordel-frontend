@@ -34,7 +34,7 @@ export default function Home() {
             Para mais informações, visite nossa pagina.
         </p>
           <p>
-            <Button variant="primary" >Projeto e-cordel</Button>
+            <Button variant="primary" onClick={e => router.push('https://ecordel.com.br/')} >Projeto e-cordel</Button>
           </p>
         </Container>
       </Jumbotron>
