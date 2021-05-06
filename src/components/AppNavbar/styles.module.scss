@@ -1,3 +1,11 @@
-.logo{
-  width: 150px;
+$logo_max_width: 12rem;
+$logo_min_width: 8rem;
+
+.logo_big {
+  width: $logo_max_width;
+  transition: 0.2s;
+}
+.logo_small {
+  width: $logo_min_width;
+  transition: 0.2s;
 }

@@ -29,12 +29,13 @@ export default function Home() {
     <>
       <Jumbotron>
         <Container>
-          <h1>Bem vindo ao e-cordel!</h1>
+          <h1>Bem vindo!</h1>
           <p>
-            Para mais informações, visite nossa pagina.
+            Quer contribuir ou conhecer mais sobre o projeto e-cordel? <br />
+            visite nossa pagina e saba mais.
         </p>
           <p>
-            <Button variant="primary" onClick={e => router.push('https://ecordel.com.br/')} >Projeto e-cordel</Button>
+            <Button variant="primary" onClick={e => router.push('https://ecordel.com.br/')} >ver site</Button>
           </p>
         </Container>
       </Jumbotron>
