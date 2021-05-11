@@ -46,10 +46,10 @@ export default function Home() {
                   title="Image title"
                 />
                 <CardContent className={classes.cardContent}>
-                  <Typography gutterBottom variant="h5" component="h2">
+                  <Typography gutterBottom variant="subtitle1" component="h2">
                     {title}
                   </Typography>
-                  <Typography>
+                  <Typography variant="subtitle2" component="h3">
                     {authorName}
                   </Typography>
                 </CardContent>

@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { AppBar, Button, IconButton, Toolbar, Typography } from '@material-ui/core';
-import { FiSun, FiMenu, FiMoon, FiUser } from 'react-icons/fi'
+import { FiSun, FiMenu, FiMoon, FiUser, FiUserX } from 'react-icons/fi'
 
 interface DarkModeProps {
   dark: boolean;
@@ -33,10 +33,10 @@ export default function Navbar({ dark, toogleDarkMode }: DarkModeProps) {
           <Typography variant="h6" className={classes.title}>
             e-cordel
           </Typography>
-          <Button color="inherit" onClick={toogleDarkMode}>
+          <IconButton color="inherit" onClick={toogleDarkMode}>
             {dark ? <FiSun /> : <FiMoon />}
-          </Button>
-          <Button color="inherit">Login</Button>
+          </IconButton>
+          <IconButton color="inherit"><FiUser /></IconButton>
         </Toolbar>
       </AppBar>
     </div>
