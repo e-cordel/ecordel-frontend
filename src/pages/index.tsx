@@ -1,10 +1,8 @@
-import { Button, Col, Container, FormControl, InputGroup, Jumbotron, Row } from "react-bootstrap";
-import { FiSearch } from 'react-icons/fi';
-import { useRouter } from 'next/router'
-
-import CordelCard from "../components/CordelCard";
-import { useFetch } from "../hooks/useFetch";
 import { useState } from "react";
+import { useRouter } from 'next/router'
+import { useFetch } from "../hooks/useFetch";
+import Hero from "../components/Hero";
+import { Button, Card, CardActions, CardContent, CardMedia, Container, Grid, makeStyles, Typography } from "@material-ui/core";
 
 interface Cordel {
   id: number;
@@ -25,51 +23,78 @@ export default function Home() {
 
   const { data } = useFetch<CordelRequest>(`cordels?title=${searchTitle}`);
 
+  const classes = useStyles();
+
   return (
     <>
-      <Jumbotron>
-        <Container>
-          <h1>Bem vindo!</h1>
-          <p>
-            Quer contribuir ou conhecer mais sobre o projeto e-cordel? <br />
-            visite nossa pagina e saba mais.
-        </p>
-          <p>
-            <Button variant="primary" onClick={e => router.push('https://ecordel.com.br/')} >ver site</Button>
-          </p>
-        </Container>
-      </Jumbotron>
+      <Hero
+        title="Bem vindo"
+        text="Quer contribuir ou conhecer mais sobre o projeto e-cordel?
+        visite nossa pagina e saba mais."
+        actionText="Visite nosso site"
+        action={() => router.push('https://ecordel.com.br/')}
+      />
+      <Container className={classes.cardGrid} maxWidth="md">
+        {/* End hero unit */}
+        <Grid container spacing={4}>
+          {data?.content.map(({ id, title, xilogravuraUrl, authorName }: Cordel) => (
+            <Grid item key={id} xs={12} sm={6} md={4}>
+              <Card className={classes.card}>
+                <CardMedia
+                  className={classes.cardMedia}
+                  image={xilogravuraUrl ? xilogravuraUrl : "/cover_not_found.png"}
+                  title="Image title"
+                />
+                <CardContent className={classes.cardContent}>
+                  <Typography gutterBottom variant="h5" component="h2">
+                    {title}
+                  </Typography>
+                  <Typography>
+                    {authorName}
+                  </Typography>
+                </CardContent>
+                <CardActions>
+                  <Button size="small" color="primary">
+                    View
+                    </Button>
+                  <Button size="small" color="primary">
+                    Edit
+                    </Button>
+                </CardActions>
+              </Card>
+            </Grid>
+          ))}
+        </Grid>
+      </Container>
 
-      <Container>
-        <InputGroup className="mb-3" size="lg">
-          <FormControl
+      {/* <div>
+        <div >
+          <input type="text"
             placeholder="Buscar cordel"
-            aria-label="buscar cordel"
-            aria-describedby="search"
             value={searchTitle}
             onChange={e => setSearchTitle(e.target.value)}
           />
-          <InputGroup.Append>
-            <Button variant="outline-primary">
-              <FiSearch />
-            </Button>
-          </InputGroup.Append>
-        </InputGroup>
+        </div> */}
 
-        <Row xs={1} md={2} lg={3}>
-          {data?.content.map(({ id, title, authorName, xilogravuraUrl }: Cordel) => (
-            <Col className="p-2 d-flex align-items-stretch" key={id} >
-              <CordelCard
-                click={() => router.push(`cordels/${id}`)}
-                title={title}
-                author={authorName}
-                xilogravuraUrl={xilogravuraUrl}
-              />
-            </Col>
-          ))}
-        </Row>
-
-      </Container>
     </>
   )
 }
+
+
+const useStyles = makeStyles((theme) => ({
+  cardGrid: {
+    paddingTop: theme.spacing(8),
+    paddingBottom: theme.spacing(8),
+  },
+  card: {
+    height: '100%',
+    display: 'flex',
+    flexDirection: 'column',
+  },
+  cardMedia: {
+    paddingTop: '56.25%', // 16:9
+  },
+  cardContent: {
+    flexGrow: 1,
+  },
+}));

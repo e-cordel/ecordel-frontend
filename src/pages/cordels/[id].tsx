@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
-import { Container, Row } from "react-bootstrap";
 import { useFetch } from "../../hooks/useFetch";
+
 
 interface Cordel {
   id: number;
@@ -12,7 +12,11 @@ interface Cordel {
   }
   title: string;
   content: string;
-  xilogravura: string;
+  xilogravura: {
+    url: string;
+    description: string;
+    xilografo: string;
+  };
   description: string;
   tags: string[];
 }
@@ -21,19 +25,22 @@ export default function Cordel() {
 
   const router = useRouter()
   const { id } = router.query
-
   const { data } = useFetch<Cordel>(`cordels/${id}`);
 
   return (
-    <Container>
-      <h1>{data?.title}</h1>
+    <div>
+      <img
+        src={data?.xilogravura?.url ? data?.xilogravura?.url : '/fake_cover.png'}
+        alt={data?.title}
+      />
       <div>
-        {data?.content.split('\n\n').map(block =>
-        (<p>
-          {block.split('\n').map(line => (<>{line}<br /></>))}
-        </p>)
-        )}
+        <h3>{data?.title}</h3>
+        <h4>{data?.author.name}</h4>
+        <div>
+          {data?.content.split('\n').map((line, index) => (<span key={index} > { line} <br /></span>))}
+        </div>
       </div>
-    </Container>
+    </div >
+
   )
 }
