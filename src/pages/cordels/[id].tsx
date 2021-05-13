@@ -1,4 +1,5 @@
 import { Container, Grid, makeStyles, Paper } from "@material-ui/core";
+import { Autocomplete } from "@material-ui/lab";
 import { useRouter } from "next/router";
 import { useFetch } from "../../hooks/useFetch";
 
@@ -39,15 +40,14 @@ export default function Cordel() {
   }
 
   return (
-    <Container>
+    <Container className={classes.cardGrid}>
       <Grid container
-        justify="center"
-        alignItems="center"
-        direction="row"
         className={classes.rootGrid}
+        spacing={4}
       >
-
-        <Grid item md={6} sm={8} xs={12} className={classes.gridChild}>
+        <Grid item md={6} sm={8} xs={12}
+          className={classes.gridChild}
+        >
           <Paper
             className={classes.virtualPage}
             elevation={5}
@@ -63,13 +63,14 @@ export default function Cordel() {
         </Grid>
 
         {data && getTextPages(data.content, 25).map((page, pageIndex) => (
-          <Grid item md={6} sm={8} xs={12} className={classes.gridChild}>
+          <Grid item md={6} sm={8} xs={12}
+            className={classes.gridChild}>
             <Paper
               className={classes.virtualPage}
               key={`page-${pageIndex}`}
               elevation={5}
             >
-              <div className={classes.div} >
+              <div className={classes.pageContent} >
                 {page.map((line, index) => (
                   <span key={`page-${pageIndex}-${index}`} > { line} <br />
                   </span>
@@ -86,16 +87,31 @@ export default function Cordel() {
 
 
 const useStyles = makeStyles((theme) => ({
+  cardGrid: {
+    paddingTop: theme.spacing(4),
+    paddingBottom: theme.spacing(4),
+  },
   rootGrid: {
-    marginTop: '1rem',
-    // borderTop: '4rem',
+    justifyContent: 'center',
+    alignItems: 'center',
+    [theme.breakpoints.down('sm')]: {
+      padding: 0,
+    },
+    flexGrow: 1,
   },
   gridChild: {
-    width: '100%',
+    // width: '100%',
+    margin: 0,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   virtualPage: {
-    margin: '1rem',
-    padding: '3rem',
+    // margin: '1rem',
+    padding: '4vw',
+    [theme.breakpoints.up('sm')]: {
+      padding: '2rem',
+    },
     height: '630px',
     maxWidth: '480px',
     display: 'flex',
@@ -105,9 +121,9 @@ const useStyles = makeStyles((theme) => ({
     cover: {
       alignItems: 'center',
     },
-
+    margin: 'auto',
   },
-  div: {
+  pageContent: {
     width: '80%',
     display: 'flex',
     flexDirection: 'column',
