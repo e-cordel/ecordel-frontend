@@ -32,7 +32,7 @@ export default function MyApp(props) {
       <ThemeProvider theme={getTheme(darkMode ? 'dark' : 'light')}>
         {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
         <CssBaseline />
-        <Navbar dark={darkMode} toogleDarkMode={handleDarkMode} />
+        <Navbar dark={darkMode} toggleDarkMode={handleDarkMode} />
         <Component {...pageProps} />
       </ThemeProvider>
     </>

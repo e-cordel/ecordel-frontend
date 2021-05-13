@@ -1,6 +1,6 @@
+import { Container, Grid, makeStyles, Paper } from "@material-ui/core";
 import { useRouter } from "next/router";
 import { useFetch } from "../../hooks/useFetch";
-
 
 interface Cordel {
   id: number;
@@ -23,24 +23,100 @@ interface Cordel {
 
 export default function Cordel() {
 
-  const router = useRouter()
-  const { id } = router.query
+  const classes = useStyles();
+  const router = useRouter();
+  const { id } = router.query;
   const { data } = useFetch<Cordel>(`cordels/${id}`);
 
+  const getTextPages = (content: string, lineCount = 25) => {
+    const lines: string[] = !content ? [] : content.split('\n');
+    let pages = [];
+    lines.forEach((line, index) => {
+      const page = Math.floor(index / lineCount);
+      !pages[page] ? pages[page] = [line] : pages[page].push(line)
+    })
+    return pages;
+  }
+
   return (
-    <div>
-      <img
-        src={data?.xilogravura?.url ? data?.xilogravura?.url : '/fake_cover.png'}
-        alt={data?.title}
-      />
-      <div>
-        <h3>{data?.title}</h3>
-        <h4>{data?.author.name}</h4>
-        <div>
-          {data?.content.split('\n').map((line, index) => (<span key={index} > { line} <br /></span>))}
-        </div>
-      </div>
-    </div >
+    <Container>
+      <Grid container
+        justify="center"
+        alignItems="center"
+        direction="row"
+        className={classes.rootGrid}
+      >
+
+        <Grid item md={6} sm={8} xs={12} className={classes.gridChild}>
+          <Paper
+            className={classes.virtualPage}
+            elevation={5}
+          >
+            <img
+              src={data?.xilogravura?.url ? data?.xilogravura?.url : '/cover_not_found.png'}
+              alt={data?.title}
+              className={classes.img}
+            />
+            <h3>{data?.title}</h3>
+            <h4>{data?.author.name}</h4>
+          </Paper>
+        </Grid>
+
+        {data && getTextPages(data.content, 25).map((page, pageIndex) => (
+          <Grid item md={6} sm={8} xs={12} className={classes.gridChild}>
+            <Paper
+              className={classes.virtualPage}
+              key={`page-${pageIndex}`}
+              elevation={5}
+            >
+              <div className={classes.div} >
+                {page.map((line, index) => (
+                  <span key={`page-${pageIndex}-${index}`} > { line} <br />
+                  </span>
+                ))}
+              </div>
+            </Paper>
+          </Grid>
+        ))}
+      </Grid>
+    </Container >
 
   )
 }
+
+
+const useStyles = makeStyles((theme) => ({
+  rootGrid: {
+    marginTop: '1rem',
+    // borderTop: '4rem',
+  },
+  gridChild: {
+    width: '100%',
+  },
+  virtualPage: {
+    margin: '1rem',
+    padding: '3rem',
+    height: '630px',
+    maxWidth: '480px',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    cover: {
+      alignItems: 'center',
+    },
+
+  },
+  div: {
+    width: '80%',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'flex-start',
+  },
+  img: {
+    width: '100%',
+    maxHeight: '80%',
+    objectFit: 'cover',
+  }
+}));
