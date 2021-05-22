@@ -78,14 +78,6 @@ export default function Home() {
         </Grid>
       </Container>
 
-      {/* <div>
-        <div >
-          <input type="text"
-            placeholder="Buscar cordel"
-            value={searchTitle}
-            onChange={e => setSearchTitle(e.target.value)}
-          />
-        </div> */}
 
     </>
   )
