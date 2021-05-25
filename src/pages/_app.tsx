@@ -11,11 +11,21 @@ export default function MyApp(props) {
   const { Component, pageProps } = props;
   const [darkMode, setDarkMode] = useState(false)
 
-  const handleDarkMode = useCallback(() => setDarkMode(!darkMode), [darkMode])
+  const handleDarkMode = useCallback(() => {
+    localStorage.setItem('@ecordel-theme', JSON.stringify(!darkMode));
+    setDarkMode(!darkMode);
+  }, [darkMode])
 
   React.useEffect(() => {
     // Remove the server-side injected CSS.
-    setDarkMode(window.matchMedia('(prefers-color-scheme: dark)').matches)
+    const darkState = JSON.parse(localStorage.getItem('@ecordel-theme'));
+    if (darkState !== null) {
+      setDarkMode(darkState);
+    } else {
+      setDarkMode(window.matchMedia('(prefers-color-scheme: dark)').matches)
+    }
+
+
     const jssStyles = document.querySelector('#jss-server-side');
     if (jssStyles) {
       jssStyles.parentElement.removeChild(jssStyles);
