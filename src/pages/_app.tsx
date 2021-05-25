@@ -5,6 +5,7 @@ import { ThemeProvider } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import theme, { getTheme } from '../theme';
 import Navbar from '../components/Navbar';
+import { AuthProvider } from '../hooks/Auth';
 
 export default function MyApp(props) {
 
@@ -24,8 +25,6 @@ export default function MyApp(props) {
     } else {
       setDarkMode(window.matchMedia('(prefers-color-scheme: dark)').matches)
     }
-
-
     const jssStyles = document.querySelector('#jss-server-side');
     if (jssStyles) {
       jssStyles.parentElement.removeChild(jssStyles);
@@ -39,12 +38,17 @@ export default function MyApp(props) {
         <title>e-cordel</title>
         <meta name="viewport" content="minimum-scale=1, initial-scale=1, width=device-width" />
       </Head>
+
       <ThemeProvider theme={getTheme(darkMode ? 'dark' : 'light')}>
-        {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
         <CssBaseline />
-        <Navbar dark={darkMode} toggleDarkMode={handleDarkMode} />
-        <Component {...pageProps} />
+        <AuthProvider>
+          <>
+            <Navbar dark={darkMode} toggleDarkMode={handleDarkMode} />
+            <Component {...pageProps} />
+          </>
+        </AuthProvider>
       </ThemeProvider>
+
     </>
   );
 }

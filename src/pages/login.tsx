@@ -1,8 +1,34 @@
 import { Avatar, Button, Checkbox, Container, FormControlLabel, Grid, Link, makeStyles, TextField, Typography } from "@material-ui/core"
 import { Copyright, LockOutlined } from "@material-ui/icons"
+import { FormEvent, useCallback, useRef } from "react";
+import { useAuth } from "../hooks/Auth";
 
 export default function Login() {
+  const usernameInputRef = useRef<HTMLInputElement>();
+  const passwordInputRef = useRef<HTMLInputElement>();
+
+  const { signIn, user } = useAuth();
   const classes = useStyles();
+
+  const handleSubmit = useCallback(
+    async (e: FormEvent) => {
+      e.preventDefault();
+      try {
+        await signIn({
+          username: usernameInputRef.current.value,
+          password: passwordInputRef.current.value,
+        })
+        console.log(user);
+        console.log(window.sessionStorage.getItem('@ECordel:token'))
+        //TODO redirecto to home page
+      } catch (error) {
+        console.log("crendenciais inválidas");
+      }
+
+
+    },
+    [usernameInputRef, passwordInputRef],
+  )
 
   return (
     <Container component="main" maxWidth="xs">
@@ -13,8 +39,9 @@ export default function Login() {
         <Typography component="h1" variant="h5">
           Login
           </Typography>
-        <form className={classes.form} noValidate>
+        <form className={classes.form} noValidate onSubmit={handleSubmit}>
           <TextField
+            inputRef={usernameInputRef}
             variant="outlined"
             margin="normal"
             required
@@ -26,6 +53,7 @@ export default function Login() {
             autoFocus
           />
           <TextField
+            inputRef={passwordInputRef}
             variant="outlined"
             margin="normal"
             required
@@ -36,10 +64,10 @@ export default function Login() {
             id="password"
             autoComplete="current-password"
           />
-          <FormControlLabel
+          {/* <FormControlLabel
             control={<Checkbox value="remember" color="primary" />}
             label="Remember me"
-          />
+          /> */}
           <Button
             type="submit"
             fullWidth
