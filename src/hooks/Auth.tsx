@@ -99,4 +99,7 @@ const useAuth = (): AuthContextData => {
   return context;
 };
 
+const withAuth = Component => {
+}
+
 export { AuthProvider, useAuth };
