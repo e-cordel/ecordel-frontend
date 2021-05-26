@@ -1,5 +1,6 @@
 import { Avatar, Button, Checkbox, Container, FormControlLabel, Grid, Link, makeStyles, TextField, Typography } from "@material-ui/core"
 import { Copyright, LockOutlined } from "@material-ui/icons"
+import { useRouter } from "next/router";
 import { FormEvent, useCallback, useRef } from "react";
 import { useAuth } from "../hooks/Auth";
 
@@ -8,6 +9,7 @@ export default function Login() {
   const passwordInputRef = useRef<HTMLInputElement>();
 
   const { signIn, user } = useAuth();
+  const router = useRouter();
   const classes = useStyles();
 
   const handleSubmit = useCallback(
@@ -17,15 +19,11 @@ export default function Login() {
         await signIn({
           username: usernameInputRef.current.value,
           password: passwordInputRef.current.value,
-        })
-        console.log(user);
-        console.log(window.sessionStorage.getItem('@ECordel:token'))
-        //TODO redirecto to home page
+        });
+        router.push('/');
       } catch (error) {
         console.log("crendenciais inválidas");
       }
-
-
     },
     [usernameInputRef, passwordInputRef],
   )

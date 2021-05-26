@@ -25,7 +25,7 @@ export default function Home() {
   const [searchTitle, setSearchTitle] = useState('');
 
   const { data } = useFetch<CordelRequest>(`cordels?title=${searchTitle}`);
-  // const data = null;
+
   return (
     <>
       <Hero
