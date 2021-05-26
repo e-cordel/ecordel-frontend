@@ -3,12 +3,14 @@ import { Copyright, LockOutlined } from "@material-ui/icons"
 import { useRouter } from "next/router";
 import { FormEvent, useCallback, useRef } from "react";
 import { useAuth } from "../hooks/Auth";
+import { useToast } from "../hooks/useToast";
 
 export default function Login() {
   const usernameInputRef = useRef<HTMLInputElement>();
   const passwordInputRef = useRef<HTMLInputElement>();
 
   const { signIn, user } = useAuth();
+  const { addToast } = useToast();
   const router = useRouter();
   const classes = useStyles();
 
@@ -22,7 +24,7 @@ export default function Login() {
         });
         router.push('/');
       } catch (error) {
-        console.log("crendenciais inválidas");
+        addToast({ message: "crendenciais inválidas", type: 'error' });
       }
     },
     [usernameInputRef, passwordInputRef],

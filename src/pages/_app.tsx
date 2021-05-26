@@ -6,6 +6,7 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import theme, { getTheme } from '../theme';
 import Navbar from '../components/Navbar';
 import { AuthProvider } from '../hooks/Auth';
+import { AppProvider } from '../hooks';
 
 export default function MyApp(props) {
 
@@ -41,12 +42,12 @@ export default function MyApp(props) {
 
       <ThemeProvider theme={getTheme(darkMode ? 'dark' : 'light')}>
         <CssBaseline />
-        <AuthProvider>
+        <AppProvider>
           <>
             <Navbar dark={darkMode} toggleDarkMode={handleDarkMode} />
             <Component {...pageProps} />
           </>
-        </AuthProvider>
+        </AppProvider>
       </ThemeProvider>
 
     </>

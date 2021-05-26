@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { useRouter } from 'next/router'
-import { Box, Container, FormControl, Grid, InputAdornment, InputLabel, makeStyles, OutlinedInput } from "@material-ui/core";
-import Skeleton from '@material-ui/lab/Skeleton';
+import { Container, Grid, InputAdornment, makeStyles, OutlinedInput } from "@material-ui/core";
 import { useFetch } from "../hooks/useFetch";
 import Hero from "../components/Hero";
 import CardCordel from '../components/CordelCard';
@@ -77,8 +76,6 @@ export default function Home() {
           }
         </Grid>
       </Container>
-
-
     </>
   )
 }
