@@ -45,11 +45,11 @@ export default function CordelCard({ id, title, authorName, xilogravuraUrl }: Co
           color="primary"
           onClick={handleCordel}
         >
-          View
+          Visualizar
         </Button>
-        <Button size="small" color="primary">
+        {/* <Button size="small" color="primary">
           Edit
-        </Button>
+        </Button> */}
       </CardActions>
     </Card >
   )
