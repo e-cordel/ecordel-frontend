@@ -1,6 +1,7 @@
 import { Container, Grid, makeStyles, Paper } from "@material-ui/core";
 import { Autocomplete } from "@material-ui/lab";
 import { useRouter } from "next/router";
+import withAuth from "../../hoc/withAuth";
 import { useFetch } from "../../hooks/useFetch";
 
 interface Cordel {
