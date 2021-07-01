@@ -2,6 +2,8 @@
 
 # ecordel-frontend
 
+e-cordel frontend build with React and Next. This project has two main features, the online reader and the administration area.
+
 ## Started development environment
 
 First, run the development server:
@@ -13,3 +15,7 @@ yarn dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+
+# How to contribute
+
+For more information please see [the official page.](https://ecordel.com.br/como-contribuir/)
