@@ -32,11 +32,6 @@ export default function Hero({ title, text, actionText, action }: HeroProps) {
                 {actionText}
               </Button>
             </Grid>
-            {/* <Grid item>
-              <Button variant="outlined" color="primary">
-                Secondary action
-                  </Button>
-            </Grid> */}
           </Grid>
         </div>
       </Container>

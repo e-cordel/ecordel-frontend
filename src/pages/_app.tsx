@@ -1,11 +1,10 @@
-import React, { useCallback, useMemo, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import PropTypes from 'prop-types';
 import Head from 'next/head';
 import { ThemeProvider } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import theme, { getTheme } from '../theme';
+import { getTheme } from '../theme';
 import Navbar from '../components/Navbar';
-import { AuthProvider } from '../hooks/Auth';
 import { AppProvider } from '../hooks';
 
 export default function MyApp(props) {

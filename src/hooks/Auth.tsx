@@ -70,17 +70,6 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
     setData({} as AuthState);
   }, []);
 
-  // const updateUser = useCallback(
-  //   (user: User) => {
-  //     window.sessionStorage.setItem("@ECordel:user", JSON.stringify(user));
-  //     setData({
-  //       token: data.token,
-  //       user,
-  //     });
-  //   },
-  //   [setData, data.token]
-  // );
-
   return (
     <AuthContext.Provider
       value={{ user: data.user, signIn, signOut }}

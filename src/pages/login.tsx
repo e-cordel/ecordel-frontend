@@ -1,5 +1,5 @@
-import { Avatar, Button, Checkbox, Container, FormControlLabel, Grid, Link, makeStyles, TextField, Typography } from "@material-ui/core"
-import { Copyright, LockOutlined } from "@material-ui/icons"
+import { Avatar, Button, Container, makeStyles, TextField, Typography } from "@material-ui/core"
+import { LockOutlined } from "@material-ui/icons"
 import { useRouter } from "next/router";
 import { FormEvent, useCallback, useRef } from "react";
 import { useAuth } from "../hooks/Auth";

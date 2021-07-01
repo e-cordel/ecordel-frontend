@@ -47,9 +47,6 @@ export default function CordelCard({ id, title, authorName, xilogravuraUrl }: Co
         >
           Visualizar
         </Button>
-        {/* <Button size="small" color="primary">
-          Edit
-        </Button> */}
       </CardActions>
     </Card >
   )
