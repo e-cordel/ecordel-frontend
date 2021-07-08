@@ -1,8 +1,7 @@
-import React, { useCallback, useState } from 'react';
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { AppBar, Button, IconButton, Menu, MenuItem, Toolbar, Typography } from '@material-ui/core';
-import { FiSun, FiMenu, FiMoon, FiUser, FiUserX, FiLogIn } from 'react-icons/fi'
-import { useAuth } from '../../hooks/Auth';
+import { AppBar, IconButton, Toolbar, Typography } from '@material-ui/core';
+import { FiSun, FiMenu, FiMoon } from 'react-icons/fi'
 import { AuthButton } from '../AuthButton'
 
 interface DarkModeProps {
