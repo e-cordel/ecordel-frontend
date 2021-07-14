@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import { useMemo } from "react";
 import { useFetch } from "../../hooks/useFetch";
 
-interface Cordel {
+interface CordelType {
   id: number;
   author: {
     id: number;
@@ -27,7 +27,7 @@ export default function Cordel() {
   const classes = useStyles();
   const router = useRouter();
   const { id } = useMemo(() => router.query, [router]);
-  const { data } = useFetch<Cordel>(`cordels/${id}`);
+  const { data } = useFetch<CordelType>(`cordels/${id}`);
 
   const getTextPages = (content: string, lineCount = 25) => {
     const lines: string[] = !content ? [] : content.split('\n');

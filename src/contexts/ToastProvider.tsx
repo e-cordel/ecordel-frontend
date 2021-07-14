@@ -22,11 +22,11 @@ export const ToastProvider = ({ children }: ToastProviderProps) => {
   const [message, setMessage] = useState<ToastMessage>();
   const [show, setShow] = useState(false)
 
-  const addToast = useCallback(({ type, message }: ToastMessage) => {
+  const addToast = useCallback((toastMessage: ToastMessage) => {
 
     const toast = {
-      type,
-      message
+      type: toastMessage.type,
+      message: toastMessage.message
     }
     setMessage(toast);
     setShow(true);

@@ -10,13 +10,7 @@ interface DarkModeProps {
 }
 
 export default function Navbar({ dark, toggleDarkMode }: DarkModeProps) {
-  const [anchorEl, setAnchorEl] = useState(null);
   const classes = useStyles();
-
-  const handleClose = () => setAnchorEl(null)
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  }
 
   return (
     <div className={classes.root}>
