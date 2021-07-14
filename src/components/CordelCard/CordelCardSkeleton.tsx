@@ -1,7 +1,7 @@
 import { Card, CardActions, CardContent, makeStyles } from "@material-ui/core";
 import Skeleton from "@material-ui/lab/Skeleton";
 
-export default function CordelCardSkeleton() {
+export function CordelCardSkeleton() {
   const classes = useStyles()
   return (
     <Card className={classes.card}>

@@ -4,7 +4,7 @@ import { Container, Grid, InputAdornment, makeStyles, OutlinedInput } from "@mat
 import { useFetch } from "../hooks/useFetch";
 import Hero from "../components/Hero";
 import CardCordel from '../components/CordelCard';
-import CardCordelSkeleton from '../components/CordelCard/skeleton';
+import { CordelCardSkeleton } from '../components/CordelCard/CordelCardSkeleton';
 import { FiSearch } from "react-icons/fi";
 
 interface Cordel {
@@ -63,13 +63,13 @@ export default function Home() {
             : (
               <>
                 <Grid item xs={12} sm={6} md={4}>
-                  <CardCordelSkeleton />
+                  <CordelCardSkeleton />
                 </Grid>
                 <Grid item xs={12} sm={6} md={4}>
-                  <CardCordelSkeleton />
+                  <CordelCardSkeleton />
                 </Grid>
                 <Grid item xs={12} sm={6} md={4}>
-                  <CardCordelSkeleton />
+                  <CordelCardSkeleton />
                 </Grid>
               </>
             )
