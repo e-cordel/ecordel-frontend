@@ -2,7 +2,7 @@ import { Avatar, Button, Container, makeStyles, TextField, Typography } from "@m
 import { LockOutlined } from "@material-ui/icons"
 import { useRouter } from "next/router";
 import { FormEvent, useCallback, useRef } from "react";
-import { useAuth } from "../hooks/Auth";
+import { useAuth } from "../hooks/useAuth";
 import { useToast } from "../hooks/useToast";
 
 export default function Login() {
@@ -38,7 +38,7 @@ export default function Login() {
         </Avatar>
         <Typography component="h1" variant="h5">
           Login
-          </Typography>
+        </Typography>
         <form className={classes.form} noValidate onSubmit={handleSubmit}>
           <TextField
             inputRef={usernameInputRef}
@@ -76,7 +76,7 @@ export default function Login() {
             className={classes.submit}
           >
             Sign In
-            </Button>
+          </Button>
           {/* <Grid container>
             <Grid item xs>
               <Link href="#" variant="body2">

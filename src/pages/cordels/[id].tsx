@@ -1,5 +1,6 @@
 import { Container, Grid, makeStyles, Paper } from "@material-ui/core";
 import { useRouter } from "next/router";
+import { useMemo } from "react";
 import { useFetch } from "../../hooks/useFetch";
 
 interface Cordel {
@@ -25,7 +26,7 @@ export default function Cordel() {
 
   const classes = useStyles();
   const router = useRouter();
-  const { id } = router.query;
+  const { id } = useMemo(() => router.query, [router]);
   const { data } = useFetch<Cordel>(`cordels/${id}`);
 
   const getTextPages = (content: string, lineCount = 25) => {
@@ -63,15 +64,15 @@ export default function Cordel() {
 
         {data && getTextPages(data.content, 25).map((page, pageIndex) => (
           <Grid item md={6} sm={8} xs={12}
-            className={classes.gridChild}>
+            className={classes.gridChild}
+            key={`page-${pageIndex}`}>
             <Paper
               className={classes.virtualPage}
-              key={`page-${pageIndex}`}
               elevation={5}
             >
               <div className={classes.pageContent} >
                 {page.map((line, index) => (
-                  <span key={`page-${pageIndex}-${index}`} > { line} <br />
+                  <span key={`page-${pageIndex}-${index}`} > {line} <br />
                   </span>
                 ))}
               </div>

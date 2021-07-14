@@ -2,7 +2,7 @@ import { Button } from "@material-ui/core";
 import { useRouter } from "next/router";
 import { useCallback } from "react";
 import { FiLogIn, FiLogOut } from "react-icons/fi";
-import { useAuth } from "../../hooks/Auth";
+import { useAuth } from "../../hooks/useAuth";
 
 export function AuthButton() {
   const router = useRouter()

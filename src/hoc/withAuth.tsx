@@ -1,4 +1,4 @@
-import { useAuth } from "../hooks/Auth";
+import { useAuth } from "../hooks/useAuth";
 import Login from "../pages/login";
 
 const withAuth = Component => {
