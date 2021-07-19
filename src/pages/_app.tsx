@@ -5,7 +5,7 @@ import { ThemeProvider } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { getTheme } from '../theme';
 import Navbar from '../components/Navbar';
-import { AppProvider } from '../hooks';
+import { AppProvider } from '../contexts';
 
 export default function MyApp(props) {
 
