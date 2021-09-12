@@ -76,6 +76,7 @@ export default function Cordel() {
                   </span>
                 ))}
               </div>
+              <span className={classes.pageNumber}>{pageIndex+1}</span>
             </Paper>
           </Grid>
         ))}
@@ -134,5 +135,8 @@ const useStyles = makeStyles((theme) => ({
     width: '100%',
     maxHeight: '80%',
     objectFit: 'cover',
+  }, 
+  pageNumber: {
+    marginLeft: 'auto'
   }
 }));
