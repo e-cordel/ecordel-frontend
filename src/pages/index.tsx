@@ -23,7 +23,7 @@ export default function Home() {
   const classes = useStyles();
   const [searchTitle, setSearchTitle] = useState('');
 
-  const { data } = useFetch<CordelRequest>(`cordels?title=${searchTitle}`);
+  const { data } = useFetch<CordelRequest>(`/cordels/summaries?title=${searchTitle}`);
 
   return (
     <>
