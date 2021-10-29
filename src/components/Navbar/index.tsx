@@ -1,29 +1,37 @@
-import React, { useState } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import { AppBar, IconButton, Toolbar, Typography } from '@material-ui/core';
-import { FiSun, FiMenu, FiMoon } from 'react-icons/fi'
-import { AuthButton } from '../AuthButton'
+import {
+  AppBar,
+  IconButton,
+  Toolbar,
+  Typography,
+  useTheme,
+} from "@material-ui/core";
+import { FiSun, FiMenu, FiMoon } from "react-icons/fi";
+import { useColorMode } from "../../hooks/useColorMode";
+import { AuthButton } from "../AuthButton";
 
-interface DarkModeProps {
-  dark: boolean;
-  toggleDarkMode: () => void;
-}
-
-export default function Navbar({ dark, toggleDarkMode }: DarkModeProps) {
-  const classes = useStyles();
+export default function Navbar() {
+  const theme = useTheme();
+  const { mode, toggleColorMode } = useColorMode();
 
   return (
-    <div className={classes.root}>
+    <div style={{ flexGrow: 1 }}>
       <AppBar position="sticky">
         <Toolbar>
-          <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
+          <IconButton
+            edge="start"
+            color="inherit"
+            aria-label="menu"
+            sx={{
+              marginRight: theme.spacing(2),
+            }}
+          >
             <FiMenu />
           </IconButton>
-          <Typography variant="h6" className={classes.title}>
+          <Typography variant="h6" sx={{ flexGrow: 1 }}>
             e-cordel
           </Typography>
-          <IconButton color="inherit" onClick={toggleDarkMode}>
-            {dark ? <FiSun /> : <FiMoon />}
+          <IconButton color="inherit" onClick={toggleColorMode}>
+            {mode === "dark" ? <FiSun /> : <FiMoon />}
           </IconButton>
           <AuthButton />
         </Toolbar>
@@ -31,15 +39,3 @@ export default function Navbar({ dark, toggleDarkMode }: DarkModeProps) {
     </div>
   );
 }
-
-const useStyles = makeStyles((theme) => ({
-  root: {
-    flexGrow: 1,
-  },
-  menuButton: {
-    marginRight: theme.spacing(2),
-  },
-  title: {
-    flexGrow: 1,
-  },
-}));
