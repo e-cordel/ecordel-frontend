@@ -32,8 +32,6 @@ export default function Home() {
     `cordels/summaries?title=${searchTitle}`
   );
 
-  console.log(data);
-
   return (
     <>
       <Hero

@@ -6,6 +6,7 @@ import {
   CardMedia,
   Typography,
 } from "@material-ui/core";
+import { useHistory } from "react-router";
 
 // import { useRouter } from "next/router";
 
@@ -22,10 +23,10 @@ export default function CordelCard({
   authorName,
   xilogravuraUrl,
 }: CordelCardProps) {
-  // const router = useRouter();
+  const router = useHistory();
 
   const handleCordel = () => {
-    // router.push(`cordels/${id}`);
+    router.push(`cordels/${id}`);
   };
 
   return (
