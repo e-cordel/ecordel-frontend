@@ -18,7 +18,7 @@ interface Cordel {
   xilogravuraUrl: string;
 }
 
-export default function CordelDetail(){
+export default function CordelDetails(){
 
   const {id} = useParams<{id: string}>()
 

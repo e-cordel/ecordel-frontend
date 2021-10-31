@@ -1,5 +1,5 @@
 import { Switch } from "react-router-dom";
-import CordelDetail from "../pages/cordels/CodelDetails";
+import CordelDetails from "../pages/cordels/CodelDetails";
 import Home from "../pages/Home";
 import Login from "../pages/Login";
 
@@ -10,7 +10,7 @@ export const Routes = () => (
     <Switch>
       <Route path="/" exact component={Home} />
       <Route path="/login" exact component={Login} />
-      <Route path="/cordels/:id" exact component={CordelDetail} />
+      <Route path="/cordels/:id" exact component={CordelDetails} />
     </Switch>
   </>
 );

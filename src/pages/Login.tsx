@@ -21,12 +21,12 @@ export default function Login() {
   const { handleSubmit, register } = useForm();
 
   const onSubmit = async (data: SignInCredentials) => {
-    // e.preventDefault();
     try {
       await signIn(data);
       console.table(data);
       addToast({ message: "credenciais Ok!", type: "success" });
       history.push("/");
+      addToast({ message: "Usuário atenticado com sucesso", type: "success" });
     } catch (error) {
       addToast({ message: "credenciais inválidas", type: "error" });
     }

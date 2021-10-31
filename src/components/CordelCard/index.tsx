@@ -8,8 +8,6 @@ import {
 } from "@material-ui/core";
 import { useHistory } from "react-router";
 
-// import { useRouter } from "next/router";
-
 interface CordelCardProps {
   id: number;
   title: string;
