@@ -36,7 +36,9 @@ jobs:
       
       - name: Deploy to Review environment
         if: github.event_name =='pull_request'
-        run: npx surge --project ./build --domain ecordel-review-${{ github.event.pull_request.number }}.surge.sh
+        run: |
+          npx surge --project ./build --domain ecordel-review-${{ github.event.pull_request.number }}.surge.sh
+          echo ecordel-review-${{ github.event.pull_request.number }}.surge.sh
         env:
           SURGE_LOGIN: ${{secrets.SURGE_LOGIN}}
           SURGE_TOKEN: ${{secrets.SURGE_TOKEN}}
