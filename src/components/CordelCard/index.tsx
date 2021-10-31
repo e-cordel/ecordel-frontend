@@ -4,10 +4,9 @@ import {
   CardActions,
   CardContent,
   CardMedia,
-  makeStyles,
-  Typography
+  Typography,
 } from "@material-ui/core";
-import { useRouter } from "next/router";
+import { useHistory } from "react-router";
 
 interface CordelCardProps {
   id: number;
@@ -16,22 +15,34 @@ interface CordelCardProps {
   xilogravuraUrl: string;
 }
 
-export default function CordelCard({ id, title, authorName, xilogravuraUrl }: CordelCardProps) {
-  const router = useRouter();
-  const classes = useStyles();
+export default function CordelCard({
+  id,
+  title,
+  authorName,
+  xilogravuraUrl,
+}: CordelCardProps) {
+  const router = useHistory();
 
-  const handleCordel = (e) => {
+  const handleCordel = () => {
     router.push(`cordels/${id}`);
-  }
+  };
 
   return (
-    <Card className={classes.card}>
+    <Card
+      sx={{
+        height: "100%",
+        display: "flex",
+        flexDirection: "column",
+      }}
+    >
       <CardMedia
-        className={classes.cardMedia}
+        sx={{
+          paddingTop: "100%",
+        }}
         image={xilogravuraUrl ? xilogravuraUrl : "/cover_not_found.png"}
         title="Image title"
       />
-      <CardContent className={classes.cardContent}>
+      <CardContent sx={{ flexGrow: 1 }}>
         <Typography gutterBottom variant="subtitle1" component="h2">
           {title}
         </Typography>
@@ -40,30 +51,10 @@ export default function CordelCard({ id, title, authorName, xilogravuraUrl }: Co
         </Typography>
       </CardContent>
       <CardActions>
-        <Button
-          size="small"
-          color="primary"
-          onClick={handleCordel}
-        >
+        <Button size="small" color="primary" onClick={handleCordel}>
           Visualizar
         </Button>
       </CardActions>
-    </Card >
-  )
+    </Card>
+  );
 }
-
-
-
-const useStyles = makeStyles((theme) => ({
-  card: {
-    height: '100%',
-    display: 'flex',
-    flexDirection: 'column',
-  },
-  cardMedia: {
-    paddingTop: '100%', // 16:9
-  },
-  cardContent: {
-    flexGrow: 1,
-  },
-}));

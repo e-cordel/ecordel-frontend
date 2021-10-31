@@ -1,5 +1,7 @@
 import { ReactNode } from "react";
+import { BrowserRouter } from "react-router-dom";
 import { AuthProvider } from "./AuthProvider";
+import { ColorModeProvider } from "./ColorModeProvider";
 import { ToastProvider } from "./ToastProvider";
 
 interface AppProviderProps {
@@ -8,10 +10,12 @@ interface AppProviderProps {
 
 export function AppProvider({ children }: AppProviderProps) {
   return (
-    <AuthProvider>
-      <ToastProvider>
-        {children}
-      </ToastProvider>
-    </AuthProvider>
-  )
+    <ColorModeProvider>
+      <AuthProvider>
+        <BrowserRouter>
+          <ToastProvider>{children}</ToastProvider>
+        </BrowserRouter>
+      </AuthProvider>
+    </ColorModeProvider>
+  );
 }
