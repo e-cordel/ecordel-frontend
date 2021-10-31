@@ -1,5 +1,5 @@
 import { Switch } from "react-router-dom";
-import CordelDetails from "../pages/cordels/CodelDetails";
+import CordelDetails from "../pages/cordels/CordelDetails";
 import Home from "../pages/Home";
 import Login from "../pages/Login";
 
