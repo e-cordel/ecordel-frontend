@@ -1,4 +1,4 @@
-name: deploy-to-ftp
+name: ci and app review
 
 on:
   push:
@@ -39,9 +39,8 @@ jobs:
       - name: Deploy to Review environment
         if: github.event_name =='pull_request'
         run: |      
-          echo ecordel-review-${{ github.event.pull_request.number }}.surge.sh\
-          npx surge ./build ecordel-review-${{ github.event.pull_request.number }}.surge.sh --token ${{ secrets.SURGE_TOKEN }}
-          # npx surge --project ./build --domain ecordel-review-${{ github.event.pull_request.number }}.surge.sh
+          echo ecordel-review-${{ github.event.pull_request.number }}.surge.sh
+          npx surge --project ./build --domain ecordel-review-${{ github.event.pull_request.number }}.surge.sh
         env:
           SURGE_LOGIN: ${{secrets.SURGE_LOGIN}}
           SURGE_TOKEN: ${{secrets.SURGE_TOKEN}}
