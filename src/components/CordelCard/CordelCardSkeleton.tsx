@@ -1,29 +1,23 @@
-import { Card, CardActions, CardContent, makeStyles } from "@material-ui/core";
-import Skeleton from "@material-ui/lab/Skeleton";
+import { Card, CardActions, CardContent, Skeleton } from "@material-ui/core";
 
 export function CordelCardSkeleton() {
-  const classes = useStyles()
   return (
-    <Card className={classes.card}>
-      <Skeleton variant="rect" width="100%" height="50%" />
-      <CardContent className={classes.cardContent}>
+    <Card
+      sx={{
+        height: "300px",
+        display: "flex",
+        flexDirection: "column",
+      }}
+    >
+      <Skeleton variant="rectangular" width="100%" height="50%" />
+      <CardContent sx={{ flexGrow: 1 }}>
         <Skeleton />
         <Skeleton width="60%" />
         <Skeleton />
       </CardContent>
       <CardActions>
-        <Skeleton variant="rect" width="4rem" height="2rem" />
+        <Skeleton variant="rectangular" width="4rem" height="2rem" />
       </CardActions>
-    </Card >
-  )
+    </Card>
+  );
 }
-const useStyles = makeStyles((theme) => ({
-  card: {
-    height: '300px',
-    display: 'flex',
-    flexDirection: 'column',
-  },
-  cardContent: {
-    flexGrow: 1,
-  },
-}));
