@@ -1,3 +1,7 @@
+[![Build](https://github.com/e-cordel/ecordel-frontend/actions/workflows/deploy.yml/badge.svg)](https://github.com/e-cordel/ecordel-frontend/actions/workflows/deploy.yml)
+
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=e-cordel_ecordel-frontend&metric=alert_status)](https://sonarcloud.io/dashboard?id=e-cordel_ecordel-frontend)
+
 # e-cordel frontend
 
 ## Available Scripts
@@ -48,3 +52,7 @@ You don’t have to ever use `eject`. The curated feature set is suitable for sm
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
 To learn React, check out the [React documentation](https://reactjs.org/).
+
+## How to contribute
+
+To get more help or find out how to contribute with this project please take a look at [this page](http://www.ecordel.com.br/como-contribuir).
