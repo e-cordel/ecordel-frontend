@@ -1,9 +1,6 @@
 name: ci and review
 
 on:
-  push:
-    branches: [main]
-
   pull_request:
     branches: [main]
 
