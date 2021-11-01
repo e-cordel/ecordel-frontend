@@ -25,7 +25,6 @@ jobs:
         env: 
           REACT_APP_API_URL: ${{secrets.API_DEV}}
       - name: Deploy to review environment
-        if: github.event_name =='pull_request'
         run: |      
           echo ecordel-review-${{ github.event.pull_request.number }}.surge.sh
           npx surge --project ./build --domain ecordel-review-${{ github.event.pull_request.number }}.surge.sh
