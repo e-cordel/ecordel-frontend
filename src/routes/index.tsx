@@ -9,6 +9,7 @@ export const Routes = () => (
   <>
     <Switch>
       <Route path="/" exact component={Home} />
+      <Route path="/cordels" exact component={Home} />
       <Route path="/login" exact component={Login} />
       <Route path="/cordels/:id" exact component={CordelDetails} />
     </Switch>

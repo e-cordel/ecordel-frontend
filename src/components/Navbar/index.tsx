@@ -1,5 +1,6 @@
 import {
   AppBar,
+  Container,
   IconButton,
   Toolbar,
   Typography,
@@ -16,25 +17,27 @@ export default function Navbar() {
   return (
     <div style={{ flexGrow: 1 }}>
       <AppBar position="sticky">
-        <Toolbar>
-          <IconButton
-            edge="start"
-            color="inherit"
-            aria-label="menu"
-            sx={{
-              marginRight: theme.spacing(2),
-            }}
-          >
-            <FiMenu />
-          </IconButton>
-          <Typography variant="h6" sx={{ flexGrow: 1 }}>
-            e-cordel
-          </Typography>
-          <IconButton color="inherit" onClick={toggleColorMode}>
-            {mode === "dark" ? <FiSun /> : <FiMoon />}
-          </IconButton>
-          <AuthButton />
-        </Toolbar>
+        <Container>
+          <Toolbar>
+            <IconButton
+              edge="start"
+              color="inherit"
+              aria-label="menu"
+              sx={{
+                marginRight: theme.spacing(2),
+              }}
+            >
+              <FiMenu />
+            </IconButton>
+            <Typography variant="h6" sx={{ flexGrow: 1 }}>
+              e-cordel
+            </Typography>
+            <IconButton color="inherit" onClick={toggleColorMode}>
+              {mode === "dark" ? <FiSun /> : <FiMoon />}
+            </IconButton>
+            <AuthButton />
+          </Toolbar>
+        </Container>
       </AppBar>
     </div>
   );

@@ -22,7 +22,7 @@ type CordelViewerProps = {
 }
 
 const toParagraph = (fullText: string) => {
-  return fullText.split('/n/n').map((block) => (<p>{block}</p>))
+  return fullText.split('/n/n').map((block, index) => (<p key={`block-${index}`}>{block}</p>))
 }
 
 export const CordelViewer = ({ cordel }: CordelViewerProps) => {
@@ -31,7 +31,9 @@ export const CordelViewer = ({ cordel }: CordelViewerProps) => {
 
   return (
     <Container component="main" maxWidth="xs">
-      <T variant="h3">{cordel.title}</T>
+      <T variant="h3" sx={{
+        marginTop: theme.spacing(8)
+      }}>{cordel.title} </T>
       <T variant="subtitle1">{cordel.author.name}</T>
       <Card sx={{
         display: 'flex',
