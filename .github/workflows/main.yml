@@ -36,6 +36,26 @@ jobs:
           name: ecordel-web
           path: dist.tar.gz
       
+      # - name: Deploy to Review environment
+      #   if: github.event_name =='pull_request'
+      #   run: |      
+      #     echo ecordel-review-${{ github.event.pull_request.number }}.surge.sh
+      #     npx surge --project ./build --domain ecordel-review-${{ github.event.pull_request.number }}.surge.sh
+      #   env:
+      #     SURGE_LOGIN: ${{secrets.SURGE_LOGIN}}
+      #     SURGE_TOKEN: ${{secrets.SURGE_TOKEN}}
+      
+  deploy: 
+    runs-on: ubuntu-latest
+    needs: [build]
+    steps:
+      - name: Download ecordel-web artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: build
+      - shell: bash
+        run: |
+          tar -zxf dist.tar.gz
       - name: Deploy to Review environment
         if: github.event_name =='pull_request'
         run: |      
@@ -44,3 +64,11 @@ jobs:
         env:
           SURGE_LOGIN: ${{secrets.SURGE_LOGIN}}
           SURGE_TOKEN: ${{secrets.SURGE_TOKEN}}
+      # - name: FTP deployment
+      #   uses: SamKirkland/FTP-Deploy-Action@4.0.0
+      #   with:
+      #     server: ${{ secrets.FTP_SERVER }}
+      #     username: ${{ secrets.FTP_USER }}
+      #     password: ${{ secrets.FTP_PASSWORD }}
+      #     local-dir: ./dist/ecordel-web/
+      #     exclude: .ftpquota .htaccess .well-known
