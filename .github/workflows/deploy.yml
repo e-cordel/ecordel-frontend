@@ -1,0 +1,43 @@
+name: build and deploy to Prod
+
+on:
+  push:
+    branches: [main]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js 14.x
+        uses: actions/setup-node@v1
+        with:
+          node-version: "14.x"
+      - name: Install Dependencies
+        run: |
+          npm install -g yarn
+          yarn install --frozen-lockfile
+      - name: Build
+        run: yarn build
+        env: 
+          REACT_APP_API_URL: ${{secrets.API_PROD}}
+      - name: Compact bundle
+        shell: bash
+        run: tar -zcf dist.tar.gz ./build/
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: build
+          path: dist.tar.gz
+      - name: Deploy to Production environment
+        if: github.event_name =='push' && github.ref == 'refs/heads/main'
+        uses: SamKirkland/FTP-Deploy-Action@4.0.0
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USER }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          local-dir: ./dist/ecordel-web/
+          exclude: .ftpquota .htaccess .well-known
