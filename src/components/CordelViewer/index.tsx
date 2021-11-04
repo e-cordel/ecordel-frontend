@@ -26,7 +26,7 @@ const toParagraph = (fullText: string) => {
   return fullText.substring(0, fullText.indexOf('https://')).split('\n\n').map((block, index) => (<p key={`block-${index}`}>{toLines(block)}</p>));
 }
 
-const toLines = (textBlock: String) => {
+const toLines = (textBlock: string) => {
   return textBlock.split('\n').map((line, index) => (<React.Fragment key={line} >{line}<br /></React.Fragment>));
 }
 
