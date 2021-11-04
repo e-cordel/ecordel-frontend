@@ -1,4 +1,5 @@
 import { Card, Container, Skeleton, Typography as T, useTheme } from "@material-ui/core";
+import React from "react";
 
 
 export interface CordelDetailsInterface {
@@ -22,7 +23,16 @@ type CordelViewerProps = {
 }
 
 const toParagraph = (fullText: string) => {
-  return fullText.split('/n/n').map((block, index) => (<p key={`block-${index}`}>{block}</p>))
+  return fullText.substring(0, fullText.indexOf('https://')).split('\n\n').map((block, index) => (<p key={`block-${index}`}>{toLines(block)}</p>));
+}
+
+const toLines = (textBlock: String) => {
+  return textBlock.split('\n').map((line, index) => (<React.Fragment key={line} >{line}<br /></React.Fragment>));
+}
+
+const getSourceLink = (fullText: string) => {
+  const linkText = fullText.substring(fullText.indexOf('https://'))
+  return (<a href={linkText}>{linkText}</a>)
 }
 
 export const CordelViewer = ({ cordel }: CordelViewerProps) => {
@@ -30,10 +40,11 @@ export const CordelViewer = ({ cordel }: CordelViewerProps) => {
   const theme = useTheme();
 
   return (
-    <Container component="main" maxWidth="xs">
-      <T variant="h3" sx={{
-        marginTop: theme.spacing(8)
-      }}>{cordel.title} </T>
+    <Container component="main" maxWidth="xs" sx={{
+      marginTop: theme.spacing(3),
+      marginBottom: theme.spacing(3),
+    }}>
+      <T variant="h3" >{cordel.title} </T>
       <T variant="subtitle1">{cordel.author.name}</T>
       <Card sx={{
         display: 'flex',
@@ -50,6 +61,7 @@ export const CordelViewer = ({ cordel }: CordelViewerProps) => {
       </Card>
 
       {toParagraph(cordel.content)}
+      {getSourceLink(cordel.content)}
     </Container>);
 }
 
