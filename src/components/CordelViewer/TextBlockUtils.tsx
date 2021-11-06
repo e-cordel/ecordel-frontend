@@ -1,6 +1,6 @@
 import React from "react";
 
-export const toParagraphs = (fullText: string) => {
+export const toParagraphs = (fullText: string): JSX.Element[] => {
   const indexOfBlock = fullText.indexOf('\n\n')
   const indexOfSource = fullText.indexOf('Fonte:')
 
@@ -9,7 +9,7 @@ export const toParagraphs = (fullText: string) => {
   if (indexOfBlock >= 0) {
     return text.split('\n\n').map((block, index) => (<p key={`block-${index}`}>{toLines(block)}</p>));
   }
-  return (<p>{fullText}</p>);
+  return ([<p>{fullText}</p>]);
 }
 
 export const toLines = (textBlock: string) => {
@@ -21,7 +21,7 @@ export const toLines = (textBlock: string) => {
 }
 
 export const getSourceLink = (fullText: string) => {
-  const firstIndex = fullText.indexOf('https://');
+  const firstIndex = fullText.indexOf('https://') === -1 ? fullText.indexOf('http://') : fullText.indexOf('https://');
   const lastIndex = fullText.indexOf(' ', firstIndex);
   if (firstIndex === -1) return null
   const linkText = lastIndex > 0 ? fullText.substring(firstIndex, lastIndex) : fullText.substring(firstIndex)

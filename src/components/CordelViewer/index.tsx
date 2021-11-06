@@ -1,6 +1,6 @@
 import { Card, Container, Skeleton, Typography as T, useTheme } from "@material-ui/core";
 import { useMemo } from "react";
-import { getSourceLink, toParagraphs } from "./utils";
+import { getSourceLink, toParagraphs } from "./TextBlockUtils";
 
 
 export interface CordelDetailsInterface {
