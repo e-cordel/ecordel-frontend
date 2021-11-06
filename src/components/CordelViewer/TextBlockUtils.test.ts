@@ -1,4 +1,3 @@
-import React, { FC } from 'react'
 import { getSourceLink, toParagraphs, toLines } from "./TextBlockUtils";
 
 describe('paragraphs', () => {
@@ -35,12 +34,6 @@ describe('source links', () => {
 })
 
 describe('line breaks', () => {
-
-  it('should render line breaks', () => {
-    const textblock = 'Lorem ipsum dolor sit amet, \n consectetur adipiscing elit, \n sed do eiusmod tempor incididunt \nut labore et dolore magna aliqua.'
-    const lines = toLines(textblock);
-    expect(lines).toHaveLength(4);
-  });
 
   it('should render line breaks', () => {
     const textblock = 'Lorem ipsum dolor sit amet, \n consectetur adipiscing elit, \n sed do eiusmod tempor incididunt \nut labore et dolore magna aliqua.'
