@@ -1,5 +1,4 @@
 import { Card, Container, Skeleton, Typography as T, useTheme } from "@material-ui/core";
-import { ContactPhoneTwoTone } from "@material-ui/icons";
 import { useMemo } from "react";
 import { getSourceLink, toParagraphs } from "./utils";
 
