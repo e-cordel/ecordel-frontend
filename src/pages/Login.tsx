@@ -2,6 +2,8 @@ import {
   Avatar,
   Button,
   Container,
+  Grid,
+  Link,
   TextField,
   Typography,
   useTheme,
@@ -12,6 +14,7 @@ import { useHistory } from "react-router";
 import { useAuth } from "../hooks/useAuth";
 import { SignInCredentials } from "../contexts/AuthProvider";
 import { useToast } from "../hooks/useToast";
+import { Link as RouterLink } from "react-router-dom";
 
 export default function Login() {
   const { signIn } = useAuth();
@@ -92,6 +95,13 @@ export default function Login() {
           >
             Sign In
           </Button>
+          <Grid container>
+            <Grid item xs>
+              <Link component={RouterLink} to="/">
+                Voltar
+              </Link>
+            </Grid>
+          </Grid>
         </form>
       </div>
     </Container>
