@@ -1,5 +1,7 @@
 import { Card, Container, Skeleton, Typography as T, useTheme } from "@material-ui/core";
-import React from "react";
+import { ContactPhoneTwoTone } from "@material-ui/icons";
+import { useMemo } from "react";
+import { getSourceLink, toParagraphs } from "./utils";
 
 
 export interface CordelDetailsInterface {
@@ -22,22 +24,13 @@ type CordelViewerProps = {
   cordel: CordelDetailsInterface
 }
 
-const toParagraph = (fullText: string) => {
-  return fullText.substring(0, fullText.indexOf('https://')).split('\n\n').map((block, index) => (<p key={`block-${index}`}>{toLines(block)}</p>));
-}
 
-const toLines = (textBlock: string) => {
-  return textBlock.split('\n').map((line, index) => (<React.Fragment key={line} >{line}<br /></React.Fragment>));
-}
-
-const getSourceLink = (fullText: string) => {
-  const linkText = fullText.substring(fullText.indexOf('https://'))
-  return (<a href={linkText}>{linkText}</a>)
-}
 
 export const CordelViewer = ({ cordel }: CordelViewerProps) => {
 
   const theme = useTheme();
+  const paragraphs = useMemo(() => toParagraphs(cordel.content), [cordel])
+  const sourceLink = useMemo(() => getSourceLink(cordel.content), [cordel])
 
   return (
     <Container component="main" maxWidth="xs" sx={{
@@ -60,8 +53,8 @@ export const CordelViewer = ({ cordel }: CordelViewerProps) => {
           }} />
       </Card>
 
-      {toParagraph(cordel.content)}
-      {getSourceLink(cordel.content)}
+      {paragraphs}
+      {sourceLink}
     </Container>);
 }
 
