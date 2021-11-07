@@ -1,11 +1,11 @@
 import { Container } from "@material-ui/core"
 import { useLocation } from "react-router"
-import { CordelList } from "../../components/CordelList"
-import { StructuralNavigation } from "../../components/StructuralNavigation"
+import { CordelList } from "../../../components/CordelList"
+import { StructuralNavigation } from "../../../components/StructuralNavigation"
 
 
 
-export default function CordelsReview() {
+export default function CordelsReviewList() {
 
   const location = useLocation()
 

@@ -1,7 +1,10 @@
 import {
   Avatar,
   Button,
+  Checkbox,
   Container,
+  FormControlLabel,
+  FormGroup,
   Grid,
   Link,
   Skeleton,
@@ -13,44 +16,63 @@ import { LockOutlined } from "@material-ui/icons";
 import { useForm } from "react-hook-form";
 import { useHistory, useParams } from "react-router";
 import { Link as RouterLink } from "react-router-dom";
-import { CordelDetailsInterface } from "../../components/CordelViewer";
-import { useFetch } from "../../hooks/useFetch";
-import { useToast } from "../../hooks/useToast";
+import { CordelDetailsInterface } from "../../../components/CordelViewer";
+import { useFetch } from "../../../hooks/useFetch";
+import { useToast } from "../../../hooks/useToast";
+import api from "../../../services/api";
 
-interface EditCordelValues {
+interface CordelReviewValues {
   title: string;
-  author: string;
   content: string;
   published: boolean;
-  tags?: Array<string>;
-  xilogravuraUrl?: string;
 }
 
-export default function EditCordel() {
+interface CordelUpdateValues {
+  author: {
+    id: number;
+  },
+  title: string;
+  description: string;
+  content: string;
+  xilogravuraUrl: string;
+  published: boolean;
+  tags: string[];
+}
 
+export default function CordelReview() {
+
+  const router = useHistory();
   const { id } = useParams<{ id: string }>()
+  const theme = useTheme()
+  const { addToast } = useToast()
+  const { handleSubmit, register } = useForm();
 
   const { data: cordel } = useFetch<CordelDetailsInterface, Error>(`cordels/${id}`);
 
+  const onSubmit = async (cordelReviewFields: CordelReviewValues) => {
+    try {
 
-  const theme = useTheme()
+      const data: CordelUpdateValues = {
+        author: {
+          id: Number(cordel?.author.id),
+        },
+        title: cordelReviewFields.title,
+        description: cordel?.description || '',
+        content: cordelReviewFields.content,
+        xilogravuraUrl: cordel?.xilogravuraUrl || '',
+        tags: cordel?.tags || [],
+        published: cordelReviewFields.published
+      }
 
-  const { handleSubmit, register } = useForm();
-
-
-  const onSubmit = async (data: EditCordelValues) => {
-    // try {
-    //   await signIn(data);
-    //   console.table(data);
-    //   addToast({ message: "credenciais Ok!", type: "success" });
-    //   history.push("/");
-    //   addToast({ message: "Usuário atenticado com sucesso", type: "success" });
-    // } catch (error) {
-    //   addToast({ message: "credenciais inválidas", type: "error" });
-    // }
+      await api.put(`cordels/${id}`, data);
+      router.goBack();
+      addToast({ message: "Cordel revisado com sucesso!", type: "success" });
+    } catch (error) {
+      addToast({ message: "credenciais inválidas", type: "error" });
+    }
   };
 
-  if (!cordel) return <EditCordelSkeleton />
+  if (!cordel) return <CordelREviewSkeleton />
 
   return (
     <Container component="main" maxWidth="md">
@@ -71,7 +93,7 @@ export default function EditCordel() {
           <LockOutlined />
         </Avatar>
         <Typography component="h1" variant="h5">
-          Editar Cordel
+          Revisão de Cordel
         </Typography>
         <form
           style={{
@@ -96,17 +118,6 @@ export default function EditCordel() {
           <TextField
             variant="outlined"
             margin="normal"
-            fullWidth
-            label="URL da Xilogravura"
-            type="xilogravuraUrl"
-            id="xilogravuraUrl"
-            defaultValue={cordel.xilogravuraUrl}
-            autoComplete="Xilogravura"
-            {...register("xilogravuraUrl")}
-          />
-          <TextField
-            variant="outlined"
-            margin="normal"
             required
             fullWidth
             label="author"
@@ -114,7 +125,7 @@ export default function EditCordel() {
             id="author"
             defaultValue={cordel.author.name}
             autoComplete="Author"
-            {...register("author")}
+            disabled={true}
           />
           <TextField
             variant="outlined"
@@ -129,6 +140,9 @@ export default function EditCordel() {
             rows="15"
             {...register("content")}
           />
+          <FormGroup>
+            <FormControlLabel control={<Checkbox defaultChecked {...register("published")} />} label="Publicado" />
+          </FormGroup>
           <Button
             type="submit"
             fullWidth
@@ -153,7 +167,7 @@ export default function EditCordel() {
 }
 
 
-const EditCordelSkeleton = () => {
+const CordelREviewSkeleton = () => {
 
   const theme = useTheme()
 

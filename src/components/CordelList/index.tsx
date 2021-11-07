@@ -1,6 +1,6 @@
-import { Avatar, Divider, IconButton, List, ListItem, ListItemAvatar, ListItemText, Skeleton } from '@material-ui/core'
+import { Avatar, Divider, FormControlLabel, IconButton, List, ListItem, ListItemAvatar, ListItemText, Skeleton, Switch } from '@material-ui/core'
 import { Edit as EditIcon, Description as DescriptionIcon } from '@material-ui/icons';
-import { Fragment, useState } from 'react';
+import { ChangeEvent, Fragment, useState } from 'react';
 import { useHistory } from 'react-router';
 import { useFetch } from '../../hooks/useFetch';
 
@@ -17,14 +17,20 @@ interface CordelRequest {
 
 export const CordelList = () => {
 
+  const [publishedCordels, setPublishedCordels] = useState(false)
+
   const router = useHistory()
 
   const { data, mutate } = useFetch<CordelRequest>(
-    `cordels/summaries`
+    `cordels/summaries?published=${publishedCordels}`
   );
 
   const handleClickEditButton = (id: number) => {
-    router.push(`edit/${id}`)
+    router.push(`/cordels/review/${id}`)
+  }
+  const handleCheckPublished = (e: ChangeEvent<HTMLInputElement>) => {
+    setPublishedCordels((e.target.checked));
+    mutate()
   }
 
   if (!data) return (<>{[1, 2, 3, 4, 5, 6].map(n => (
@@ -38,7 +44,8 @@ export const CordelList = () => {
     </ListItem>
   ))}</>)
 
-  return (
+  return (<>
+    <FormControlLabel control={<Switch checked={publishedCordels} onChange={handleCheckPublished} />} label="Publicados" />
     <List >
       {data.content.map(({ id, title, authorName }, index) => (<Fragment
         key={id}>
@@ -63,5 +70,5 @@ export const CordelList = () => {
       </Fragment>)
       )}
     </List>
-  )
+  </>)
 }
