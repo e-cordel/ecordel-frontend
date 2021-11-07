@@ -14,9 +14,10 @@ import {
 } from "@material-ui/core";
 import { LockOutlined } from "@material-ui/icons";
 import { useForm } from "react-hook-form";
-import { useHistory, useParams } from "react-router";
+import { useHistory, useLocation, useParams } from "react-router";
 import { Link as RouterLink } from "react-router-dom";
 import { CordelDetailsInterface } from "../../../components/CordelViewer";
+import { StructuralNavigation } from "../../../components/StructuralNavigation";
 import { useFetch } from "../../../hooks/useFetch";
 import { useToast } from "../../../hooks/useToast";
 import api from "../../../services/api";
@@ -42,6 +43,7 @@ interface CordelUpdateValues {
 export default function CordelReview() {
 
   const router = useHistory();
+  const location = useLocation();
   const { id } = useParams<{ id: string }>()
   const theme = useTheme()
   const { addToast } = useToast()
@@ -75,93 +77,97 @@ export default function CordelReview() {
   if (!cordel) return <CordelREviewSkeleton />
 
   return (
-    <Container component="main" maxWidth="md">
-      <div
-        style={{
-          marginTop: theme.spacing(8),
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-        }}
-      >
-        <Avatar
-          sx={{
-            margin: theme.spacing(1),
-            backgroundColor: theme.palette.secondary.main,
-          }}
-        >
-          <LockOutlined />
-        </Avatar>
-        <Typography component="h1" variant="h5">
-          Revisão de Cordel
-        </Typography>
-        <form
+    <Container>
+      <StructuralNavigation path={location.pathname} title={cordel.title} />
+      <Container component="main" maxWidth="md">
+
+        <div
           style={{
-            width: "100%", // Fix IE 11 issue.
-            marginTop: theme.spacing(1),
+            marginTop: theme.spacing(8),
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
           }}
-          noValidate
-          onSubmit={handleSubmit(onSubmit)}
         >
-          <TextField
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            id="title"
-            label="Título do Cordel"
-            autoComplete="title"
-            defaultValue={cordel.title}
-            autoFocus
-            {...register("title")}
-          />
-          <TextField
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            label="author"
-            type="author"
-            id="author"
-            defaultValue={cordel.author.name}
-            autoComplete="Author"
-            disabled={true}
-          />
-          <TextField
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            label="Texto do Cordel"
-            type="content"
-            id="content"
-            defaultValue={cordel.content}
-            multiline
-            rows="15"
-            {...register("content")}
-          />
-          <FormGroup>
-            <FormControlLabel control={<Checkbox defaultChecked {...register("published")} />} label="Publicado" />
-          </FormGroup>
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            color="primary"
-            sx={{ margin: theme.spacing(3, 0, 2) }}
+          <Avatar
+            sx={{
+              margin: theme.spacing(1),
+              backgroundColor: theme.palette.secondary.main,
+            }}
           >
-            Salvar
-          </Button>
-          <Grid container>
-            <Grid item xs>
-              <Link component={RouterLink} to="/cordels/review">
-                Voltar
-              </Link>
+            <LockOutlined />
+          </Avatar>
+          <Typography component="h1" variant="h5">
+            Revisão de Cordel
+          </Typography>
+          <form
+            style={{
+              width: "100%", // Fix IE 11 issue.
+              marginTop: theme.spacing(1),
+            }}
+            noValidate
+            onSubmit={handleSubmit(onSubmit)}
+          >
+            <TextField
+              variant="outlined"
+              margin="normal"
+              required
+              fullWidth
+              id="title"
+              label="Título do Cordel"
+              autoComplete="title"
+              defaultValue={cordel.title}
+              autoFocus
+              {...register("title")}
+            />
+            <TextField
+              variant="outlined"
+              margin="normal"
+              required
+              fullWidth
+              label="author"
+              type="author"
+              id="author"
+              defaultValue={cordel.author.name}
+              autoComplete="Author"
+              disabled={true}
+            />
+            <TextField
+              variant="outlined"
+              margin="normal"
+              required
+              fullWidth
+              label="Texto do Cordel"
+              type="content"
+              id="content"
+              defaultValue={cordel.content}
+              multiline
+              rows="15"
+              {...register("content")}
+            />
+            <FormGroup>
+              <FormControlLabel control={<Checkbox defaultChecked {...register("published")} />} label="Publicado" />
+            </FormGroup>
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              color="primary"
+              sx={{ margin: theme.spacing(3, 0, 2) }}
+            >
+              Salvar
+            </Button>
+            <Grid container>
+              <Grid item xs>
+                <Link component={RouterLink} to="/cordels/review">
+                  Voltar
+                </Link>
+              </Grid>
             </Grid>
-          </Grid>
-        </form>
-      </div>
-    </Container>
+          </form>
+        </div>
+      </Container>
+    </Container >
   )
 
 }
