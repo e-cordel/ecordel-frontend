@@ -26,7 +26,6 @@ export default function Login() {
   const onSubmit = async (data: SignInCredentials) => {
     try {
       await signIn(data);
-      console.table(data);
       addToast({ message: "credenciais Ok!", type: "success" });
       history.push("/");
       addToast({ message: "Usuário atenticado com sucesso", type: "success" });
