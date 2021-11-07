@@ -1,7 +1,7 @@
 import { Switch } from "react-router-dom";
 import CordelDetails from "../pages/cordels/CordelDetails";
 import CordelsReviewList from "../pages/cordels/review/CordelsReviewList";
-import CordelReview from "../pages/cordels/review/CordelTextReview";
+import CordelReview from "../pages/cordels/review/CordelReview";
 import Home from "../pages/Home";
 import Login from "../pages/Login";
 
