@@ -162,7 +162,7 @@ export default function CordelReview() {
               {...register("content")}
             />
             <FormGroup>
-              <FormControlLabel control={<Checkbox checked={cordel.published} {...register("published")} />} label="Publicado" />
+              <FormControlLabel control={<Checkbox defaultChecked={cordel.published} {...register("published")} />} label="Publicado" />
             </FormGroup>
             <Button
               type="submit"
