@@ -13,6 +13,7 @@ import {
   useTheme,
 } from "@material-ui/core";
 import { LockOutlined } from "@material-ui/icons";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useHistory, useLocation, useParams } from "react-router";
 import { Link as RouterLink } from "react-router-dom";
@@ -26,6 +27,7 @@ interface CordelReviewValues {
   title: string;
   content: string;
   published: boolean;
+  xilogravuraUrl: string
 }
 
 interface CordelUpdateValues {
@@ -42,6 +44,8 @@ interface CordelUpdateValues {
 
 export default function CordelReview() {
 
+  const [cordel, setCordel] = useState<CordelDetailsInterface | null>(null);
+
   const router = useHistory();
   const location = useLocation();
   const { id } = useParams<{ id: string }>()
@@ -49,7 +53,9 @@ export default function CordelReview() {
   const { addToast } = useToast()
   const { handleSubmit, register } = useForm();
 
-  const { data: cordel } = useFetch<CordelDetailsInterface, Error>(`cordels/${id}`);
+  useEffect(() => {
+    api.get<CordelDetailsInterface>(`cordels/${id}`).then(({ data }) => setCordel(data))
+  }, [id])
 
   const onSubmit = async (cordelReviewFields: CordelReviewValues) => {
     try {
@@ -61,7 +67,7 @@ export default function CordelReview() {
         title: cordelReviewFields.title,
         description: cordel?.description || '',
         content: cordelReviewFields.content,
-        xilogravuraUrl: cordel?.xilogravuraUrl || '',
+        xilogravuraUrl: cordelReviewFields?.xilogravuraUrl || '',
         tags: cordel?.tags || [],
         published: cordelReviewFields.published
       }
@@ -74,7 +80,7 @@ export default function CordelReview() {
     }
   };
 
-  if (!cordel) return <CordelREviewSkeleton />
+  if (!cordel) return <CordelReviewSkeleton />
 
   return (
     <Container>
@@ -125,12 +131,23 @@ export default function CordelReview() {
               margin="normal"
               required
               fullWidth
-              label="author"
+              label="Autor"
               type="author"
               id="author"
               defaultValue={cordel.author.name}
               autoComplete="Author"
               disabled={true}
+            />
+            <TextField
+              variant="outlined"
+              margin="normal"
+              required
+              fullWidth
+              label="Url da Xilogravura"
+              type="xilogravuraUrl"
+              id="xilogravuraUrl"
+              defaultValue={cordel.xilogravuraUrl}
+              autoComplete="xilogravuraUrl"
             />
             <TextField
               variant="outlined"
@@ -146,7 +163,7 @@ export default function CordelReview() {
               {...register("content")}
             />
             <FormGroup>
-              <FormControlLabel control={<Checkbox defaultChecked {...register("published")} />} label="Publicado" />
+              <FormControlLabel control={<Checkbox checked={cordel.published} {...register("published")} />} label="Publicado" />
             </FormGroup>
             <Button
               type="submit"
@@ -173,7 +190,7 @@ export default function CordelReview() {
 }
 
 
-const CordelREviewSkeleton = () => {
+const CordelReviewSkeleton = () => {
 
   const theme = useTheme()
 
