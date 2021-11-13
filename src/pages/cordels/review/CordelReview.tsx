@@ -19,7 +19,6 @@ import { useHistory, useLocation, useParams } from "react-router";
 import { Link as RouterLink } from "react-router-dom";
 import { CordelDetailsInterface } from "../../../components/CordelViewer";
 import { StructuralNavigation } from "../../../components/StructuralNavigation";
-import { useFetch } from "../../../hooks/useFetch";
 import { useToast } from "../../../hooks/useToast";
 import api from "../../../services/api";
 
