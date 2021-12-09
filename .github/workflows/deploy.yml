@@ -33,7 +33,6 @@ jobs:
           name: build
           path: dist.tar.gz
       - name: Deploy to Production environment
-        if: github.event_name =='push' && github.ref == 'refs/heads/main'
         uses: SamKirkland/FTP-Deploy-Action@4.0.0
         with:
           server: ${{ secrets.FTP_SERVER }}
