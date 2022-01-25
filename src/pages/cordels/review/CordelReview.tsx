@@ -147,6 +147,7 @@ export default function CordelReview() {
               id="xilogravuraUrl"
               defaultValue={cordel.xilogravuraUrl}
               autoComplete="xilogravuraUrl"
+              {...register("xilogravuraUrl")}
             />
             <TextField
               variant="outlined"
