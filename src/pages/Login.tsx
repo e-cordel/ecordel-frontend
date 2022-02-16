@@ -28,7 +28,7 @@ export default function Login() {
       await signIn(data);
       addToast({ message: "credenciais Ok!", type: "success" });
       history.push("/");
-      addToast({ message: "Usuário atenticado com sucesso", type: "success" });
+      addToast({ message: "Usuário autenticado com sucesso", type: "success" });
     } catch (error) {
       addToast({ message: "credenciais inválidas", type: "error" });
     }
