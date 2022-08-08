@@ -41,6 +41,8 @@ interface CordelUpdateValues {
   tags: string[];
 }
 
+const AUTO_SAVE_INTERVAL = 5000;
+
 export default function CordelReview() {
 
   const [cordel, setCordel] = useState<CordelDetailsInterface | null>(null);
@@ -48,13 +50,42 @@ export default function CordelReview() {
   const router = useHistory();
   const location = useLocation();
   const { id } = useParams<{ id: string }>()
-  const theme = useTheme()
-  const { addToast } = useToast()
-  const { handleSubmit, register } = useForm();
+  const theme = useTheme();
+  const { addToast } = useToast();
+  const { handleSubmit, register, watch } = useForm();
 
   useEffect(() => {
     api.get<CordelDetailsInterface>(`cordels/${id}`).then(({ data }) => setCordel(data))
   }, [id])
+
+  useEffect(() => {
+    let timeoutId : any; 
+    const subscription = watch(
+      (value) => {
+        // for each change the timeout will be set. So clear the previous one right away 
+        clearTimeout(timeoutId);
+        timeoutId = setTimeout( async () => {
+          // @ts-ignore
+          const data: CordelUpdateValues = {
+            ...value,
+            author: {
+              id: Number(cordel?.author.id),
+            },
+            tags: cordel?.tags || [],
+            description: cordel?.description || ''
+          }
+
+          await api.put(`cordels/${id}`, data);
+          addToast({ message: "Alterações salvas automaticamente!", type: "success" });
+        }, AUTO_SAVE_INTERVAL);
+      }
+    );
+    
+    return () => {
+      clearTimeout(timeoutId);
+      subscription.unsubscribe();
+    }
+  }, [watch, cordel?.tags, cordel?.author.id, cordel?.description, id, addToast]);
 
   const onSubmit = async (cordelReviewFields: CordelReviewValues) => {
     try {
