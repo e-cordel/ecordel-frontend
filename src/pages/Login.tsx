@@ -21,7 +21,7 @@ export default function Login() {
   const { addToast } = useToast();
   const history = useHistory();
   const theme = useTheme();
-  const { handleSubmit, register } = useForm();
+  const { handleSubmit, register } = useForm<SignInCredentials>();
 
   const onSubmit = async (data: SignInCredentials) => {
     try {
