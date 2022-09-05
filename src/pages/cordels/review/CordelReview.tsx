@@ -52,7 +52,7 @@ export default function CordelReview() {
   const { id } = useParams<{ id: string }>()
   const theme = useTheme();
   const { addToast } = useToast();
-  const { handleSubmit, register, watch } = useForm();
+  const { handleSubmit, register, watch } = useForm<CordelReviewValues>();
 
   useEffect(() => {
     api.get<CordelDetailsInterface>(`cordels/${id}`).then(({ data }) => setCordel(data))

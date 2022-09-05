@@ -1,4 +1,4 @@
-import { getSourceLink, toParagraphs, toLines } from "./TextBlockUtils";
+import { getSourceLink, toParagraphs, toLines } from "../TextBlockUtils";
 
 describe('paragraphs', () => {
 

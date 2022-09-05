@@ -22,8 +22,8 @@ export default function Nav() {
       >
         Cordéis
       </Link>
-      {
-        user && (<Link
+      {user && <>
+        <Link
           component={Button}
           variant="button"
           color="text.primary"
@@ -31,10 +31,18 @@ export default function Nav() {
           onClick={() => router.push('/cordels/review')}
         >
           Revisão de Cordéis
-        </Link>)
+        </Link>
+        <Link
+          component={Button}
+          variant="button"
+          color="text.primary"
+          sx={linkStyles}
+          onClick={() => router.push('/autores')}
+        >
+          Autores
+        </Link>
+      </>
       }
-
-
     </nav >
   )
 }

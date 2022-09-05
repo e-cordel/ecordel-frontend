@@ -6,6 +6,8 @@ import Home from "../pages/Home";
 import Login from "../pages/Login";
 
 import { Route } from "./Route";
+import AuthorList from "../pages/authors/AuthorsList";
+import NewAuthor from "../pages/authors/NewAuthor";
 
 export const Routes = () => (
   <>
@@ -16,6 +18,8 @@ export const Routes = () => (
       <Route path="/cordels/review" exact component={CordelsReviewList} isPrivate />
       <Route path="/cordels/review/:id" exact component={CordelReview} isPrivate />
       <Route path="/cordels/:id" exact component={CordelDetails} />
+      <Route path="/autores" exact component={AuthorList} />
+      <Route path="/autores/novo" exact component={NewAuthor} />
     </Switch>
   </>
 );
