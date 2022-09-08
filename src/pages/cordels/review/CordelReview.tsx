@@ -207,7 +207,7 @@ export default function CordelReview() {
             </Button>
             <Grid container>
               <Grid item xs>
-                <Link component={RouterLink} to="/cordels/review">
+                <Link component={RouterLink} to="/cordeis/review">
                   Voltar
                 </Link>
               </Grid>

@@ -24,7 +24,7 @@ export default function CordelCard({
   const router = useHistory();
 
   const handleCordel = () => {
-    router.push(`cordels/${id}`);
+    router.push(`cordeis/${id}`);
   };
 
   return (
