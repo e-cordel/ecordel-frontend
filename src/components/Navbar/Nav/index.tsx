@@ -18,7 +18,7 @@ export default function Nav() {
         variant="button"
         color="text.primary"
         sx={linkStyles}
-        onClick={() => router.push('/cordels')}
+        onClick={() => router.push('/cordeis')}
       >
         Cordéis
       </Link>
@@ -28,7 +28,7 @@ export default function Nav() {
           variant="button"
           color="text.primary"
           sx={linkStyles}
-          onClick={() => router.push('/cordels/review')}
+          onClick={() => router.push('/cordeis/review')}
         >
           Revisão de Cordéis
         </Link>
