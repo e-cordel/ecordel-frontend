@@ -7,7 +7,7 @@ import Login from "../pages/Login";
 
 import { Route } from "./Route";
 import AuthorList from "../pages/authors/AuthorsList";
-import NewAuthor from "../pages/authors/NewAuthor";
+import AuthorForm from "../pages/authors/AuthorForm";
 
 export const Routes = () => (
   <>
@@ -19,7 +19,8 @@ export const Routes = () => (
       <Route path="/cordeis/review/:id" exact component={CordelReview} isPrivate />
       <Route path="/cordeis/:id" exact component={CordelDetails} />
       <Route path="/autores" exact component={AuthorList} />
-      <Route path="/autores/novo" exact component={NewAuthor} />
+      <Route path="/autores/novo" exact component={AuthorForm} />
+      <Route path="/autores/editar/:id" exact component={AuthorForm} />
     </Switch>
   </>
 );
