@@ -1,4 +1,4 @@
-import { Card, Container, Skeleton, Typography as T, useTheme } from "@material-ui/core";
+import { Card, Container, Skeleton, Typography as T, useTheme } from "@mui/material";
 import { useMemo } from "react";
 import { getSourceLink, toParagraphs } from "./TextBlockUtils";
 

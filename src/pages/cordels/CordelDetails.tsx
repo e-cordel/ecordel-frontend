@@ -1,4 +1,4 @@
-import { Container } from "@material-ui/core";
+import { Container } from "@mui/material";
 import { useParams, useLocation } from "react-router"
 import { CordelDetailsInterface, CordelViewer, CordelViewerSkeleton } from "../../components/CordelViewer";
 import { StructuralNavigation } from "../../components/StructuralNavigation";

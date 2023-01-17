@@ -1,5 +1,5 @@
-import { Avatar, Container, Divider, Grid, IconButton, List, ListItem, ListItemAvatar, ListItemText } from '@material-ui/core'
-import { Edit as EditIcon, Description as DescriptionIcon } from '@material-ui/icons';
+import { Avatar, Container, Divider, Grid, IconButton, List, ListItem, ListItemAvatar, ListItemText } from '@mui/material'
+import { Edit as EditIcon, Description as DescriptionIcon } from '@mui/icons-material';
 import { Fragment } from 'react';
 import { Link, useHistory, useLocation } from "react-router-dom";
 import { StructuralNavigation } from "../../components/StructuralNavigation";

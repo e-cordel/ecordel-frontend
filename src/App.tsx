@@ -1,4 +1,4 @@
-import { CssBaseline, ThemeProvider } from "@material-ui/core";
+import { CssBaseline, ThemeProvider } from "@mui/material";
 import { useMemo } from "react";
 import Navbar from "./components/Navbar";
 import { useColorMode } from "./hooks/useColorMode";

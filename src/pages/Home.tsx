@@ -5,7 +5,7 @@ import {
   InputAdornment,
   OutlinedInput,
   useTheme,
-} from "@material-ui/core";
+} from "@mui/material";
 import { useFetch } from "../hooks/useFetch";
 import Hero from "../components/Hero";
 import CardCordel from "../components/CordelCard";

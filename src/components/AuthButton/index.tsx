@@ -1,4 +1,4 @@
-import { Button, useTheme } from "@material-ui/core";
+import { Button, useTheme } from "@mui/material";
 import { FiLogIn, FiLogOut } from "react-icons/fi";
 import { useHistory } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth";

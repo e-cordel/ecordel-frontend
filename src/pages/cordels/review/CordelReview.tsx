@@ -11,8 +11,8 @@ import {
   TextField,
   Typography,
   useTheme,
-} from "@material-ui/core";
-import { LockOutlined } from "@material-ui/icons";
+} from "@mui/material";
+import { LockOutlined } from "@mui/icons-material";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useHistory, useLocation, useParams } from "react-router";

@@ -7,8 +7,8 @@ import {
   TextField,
   Typography,
   useTheme,
-} from "@material-ui/core";
-import { LockOutlined } from "@material-ui/icons";
+} from "@mui/material";
+import { LockOutlined } from "@mui/icons-material";
 import { useForm } from "react-hook-form";
 import { useHistory } from "react-router";
 import { useAuth } from "../hooks/useAuth";

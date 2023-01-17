@@ -5,7 +5,7 @@ import {
   CardContent,
   CardMedia,
   Typography,
-} from "@material-ui/core";
+} from "@mui/material";
 import { useHistory } from "react-router";
 
 interface CordelCardProps {

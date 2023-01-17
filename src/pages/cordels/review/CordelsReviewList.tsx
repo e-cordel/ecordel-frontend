@@ -1,4 +1,4 @@
-import { Container } from "@material-ui/core"
+import { Container } from "@mui/material"
 import { useLocation } from "react-router"
 import { CordelList } from "../../../components/CordelList"
 import { StructuralNavigation } from "../../../components/StructuralNavigation"
