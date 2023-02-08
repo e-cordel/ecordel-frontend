@@ -2,13 +2,15 @@ import { Switch } from "react-router-dom";
 import CordelDetails from "../pages/cordels/CordelDetails";
 import CordelsReviewList from "../pages/cordels/review/CordelsReviewList";
 import CordelReview from "../pages/cordels/review/CordelReview";
-import ScrollToTop from "../hooks/useSrollTop";
 import Home from "../pages/Home";
 import Login from "../pages/Login";
 
 import { Route } from "./Route";
 import AuthorList from "../pages/authors/AuthorsList";
 import AuthorForm from "../pages/authors/AuthorForm";
+
+//hook
+import ScrollToTop from "../hooks/useSrollTop";
 
 export const Routes = () => (
   <>
