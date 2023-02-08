@@ -10,7 +10,7 @@ import AuthorList from "../pages/authors/AuthorsList";
 import AuthorForm from "../pages/authors/AuthorForm";
 
 //hook
-import ScrollToTop from "../hooks/useSrollTop";
+import ScrollToTop from "../hooks/useSrollToTop";
 
 export const Routes = () => (
   <>
