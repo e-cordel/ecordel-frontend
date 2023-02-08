@@ -17,8 +17,8 @@ export const Routes = () => (
     <Switch>
         <Route path="/" exact component={Home} />
         <Route path="/login" exact component={Login} />
-      <ScrollToTop>
         <Route path="/cordeis" exact component={Home} />
+      <ScrollToTop>
         <Route path="/cordeis/review" exact component={CordelsReviewList} isPrivate />
         <Route path="/cordeis/review/:id" exact component={CordelReview} isPrivate />
         <Route path="/cordeis/:id" exact component={CordelDetails} />
