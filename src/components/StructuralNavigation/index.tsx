@@ -22,7 +22,7 @@ export const StructuralNavigation = ({ path, title }: { path: string, title?: st
     <Container component="div" sx={{
       padding: 2,
     }}>
-      {/* <Breadcrumbs separator="›" aria-label="breadcrumb">
+      <Breadcrumbs separator="›" aria-label="breadcrumb">
         <Link
           key="breadcrumb-home"
           underline="hover"
@@ -45,7 +45,7 @@ export const StructuralNavigation = ({ path, title }: { path: string, title?: st
               {buildLabel(item)}
             </Link>))
         }
-      </Breadcrumbs> */}
+      </Breadcrumbs>
     </Container >
   )
 }
