@@ -1,4 +1,3 @@
-// import { useEffect } from "react";
 import { Container } from "@mui/material";
 import { useParams, useLocation } from "react-router"
 import { CordelDetailsInterface, CordelViewer, CordelViewerSkeleton } from "../../components/CordelViewer";
@@ -12,14 +11,6 @@ export default function CordelDetails() {
   const location = useLocation()
 
   const { data: cordel } = useFetch<CordelDetailsInterface, Error>(`cordels/${id}`);
-
-  // useEffect(() => {
-  //   window.scrollTo({
-  //     top: 0,
-  //     left: 0,
-  //     behavior: "smooth"
-  //   });
-  // }, []);
 
   if (!cordel) return <CordelViewerSkeleton />
   
