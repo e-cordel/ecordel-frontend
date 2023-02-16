@@ -1,4 +1,4 @@
-import { Card, Container, Skeleton, Typography as T, useTheme } from "@material-ui/core";
+import { Card, Container, Skeleton, Typography as T, useTheme } from "@mui/material";
 import { useMemo } from "react";
 import { getSourceLink, toParagraphs } from "./TextBlockUtils";
 
@@ -23,13 +23,11 @@ type CordelViewerProps = {
   cordel: CordelDetailsInterface
 }
 
-
-
 export const CordelViewer = ({ cordel }: CordelViewerProps) => {
 
   const theme = useTheme();
-  const paragraphs = useMemo(() => toParagraphs(cordel.content), [cordel])
-  const sourceLink = useMemo(() => getSourceLink(cordel.content), [cordel])
+  const paragraphs = useMemo(() => toParagraphs(cordel.content), [cordel]);
+  const sourceLink = useMemo(() => getSourceLink(cordel.content), [cordel]);
 
   return (
     <Container component="main" maxWidth="xs" sx={{

@@ -4,7 +4,7 @@ import {
   Grid,
   Typography,
   useTheme,
-} from "@material-ui/core";
+} from "@mui/material";
 
 interface HeroProps {
   title: string;

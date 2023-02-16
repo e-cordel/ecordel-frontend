@@ -1,4 +1,4 @@
-import { Card, CardActions, CardContent, Skeleton } from "@material-ui/core";
+import { Card, CardActions, CardContent, Skeleton } from "@mui/material";
 
 export function CordelCardSkeleton() {
   return (

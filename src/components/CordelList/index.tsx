@@ -1,5 +1,5 @@
-import { Avatar, Divider, FormControlLabel, IconButton, List, ListItem, ListItemAvatar, ListItemText, Skeleton, Switch } from '@material-ui/core'
-import { Edit as EditIcon, Description as DescriptionIcon } from '@material-ui/icons';
+import { Avatar, Divider, FormControlLabel, IconButton, List, ListItem, ListItemAvatar, ListItemText, Skeleton, Switch } from '@mui/material'
+import { Edit as EditIcon, Description as DescriptionIcon } from '@mui/icons-material';
 import { ChangeEvent, Fragment, useState } from 'react';
 import { useHistory } from 'react-router';
 import { useFetch } from '../../hooks/useFetch';

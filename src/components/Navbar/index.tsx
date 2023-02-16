@@ -4,7 +4,7 @@ import {
   IconButton,
   Toolbar,
   Typography,
-} from "@material-ui/core";
+} from "@mui/material";
 import { FiSun, FiMoon } from "react-icons/fi";
 import { useColorMode } from "../../hooks/useColorMode";
 import { AuthButton } from "../AuthButton";

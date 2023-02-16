@@ -1,4 +1,4 @@
-import { createTheme } from "@material-ui/core/styles";
+import { createTheme } from "@mui/material/styles";
 
 export type ModeTypes = "dark" | "light";
 export const getTheme = (mode: ModeTypes = "light") => {

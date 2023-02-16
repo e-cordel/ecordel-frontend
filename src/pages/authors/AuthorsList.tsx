@@ -1,7 +1,7 @@
-import { Avatar, Container, Divider, Grid, List, ListItem, ListItemAvatar, ListItemText } from '@material-ui/core'
-import { Description as DescriptionIcon } from '@material-ui/icons';
+import { Avatar, Container, Divider, Grid, IconButton, List, ListItem, ListItemAvatar, ListItemText } from '@mui/material'
+import { Edit as EditIcon, Description as DescriptionIcon } from '@mui/icons-material';
 import { Fragment } from 'react';
-import { Link, useLocation } from "react-router-dom";
+import { Link, useHistory, useLocation } from "react-router-dom";
 import { StructuralNavigation } from "../../components/StructuralNavigation";
 import { useFetch } from "../../hooks/useFetch";
 import Author from "../../model/Author";
@@ -13,6 +13,11 @@ interface AuthorRequest {
 const AuthorList = () => {
   const location = useLocation();
   const { data } = useFetch<AuthorRequest>("authors");
+  const router = useHistory();
+
+  const handleClickEditButton = (id: number) => {
+    router.push(`/autores/editar/${id}`)
+  }
 
   return (
     <Container>
@@ -31,7 +36,13 @@ const AuthorList = () => {
         {data.content.map((author, index) => (<Fragment
           key={author.id}>
           {index ? <Divider variant="inset" component="li" /> : null}
-          <ListItem>
+          <ListItem
+            secondaryAction={
+              <IconButton edge="end" aria-label="edit" onClick={() => handleClickEditButton(author.id)}>
+                <EditIcon />
+              </IconButton>
+            }
+          >
             <ListItemAvatar>
               <Avatar>
                 <DescriptionIcon />

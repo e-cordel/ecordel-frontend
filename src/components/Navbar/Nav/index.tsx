@@ -1,5 +1,5 @@
 
-import { Button, Link } from '@material-ui/core'
+import { Button, Link } from '@mui/material'
 import { useHistory } from 'react-router'
 import { useAuth } from '../../../hooks/useAuth'
 

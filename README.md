@@ -4,6 +4,25 @@
 
 # e-cordel frontend
 
+SPA responsible to display e-cordels and allow work reviews
+
+## How to test
+
+Test frontend against a mocked API.
+
+1. Install prism
+
+```npm install -g @stoplight/prism-cli```
+
+
+2. Create a mock from e-cordel OpenAPI spec
+
+```
+prism mock https://raw.githubusercontent.com/e-cordel/ecordel-restapi/main/openapi.yaml
+```
+
+3. change `.env.deveopment` file accordingly
+
 ## Available Scripts
 
 In the project directory, you can run:

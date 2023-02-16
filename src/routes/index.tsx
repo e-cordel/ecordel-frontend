@@ -7,19 +7,25 @@ import Login from "../pages/Login";
 
 import { Route } from "./Route";
 import AuthorList from "../pages/authors/AuthorsList";
-import NewAuthor from "../pages/authors/NewAuthor";
+import AuthorForm from "../pages/authors/AuthorForm";
+
+//hook
+import ScrollToTop from "../hooks/useScrollToTop";
 
 export const Routes = () => (
   <>
     <Switch>
-      <Route path="/" exact component={Home} />
-      <Route path="/login" exact component={Login} />
-      <Route path="/cordeis" exact component={Home} />
-      <Route path="/cordeis/review" exact component={CordelsReviewList} isPrivate />
-      <Route path="/cordeis/review/:id" exact component={CordelReview} isPrivate />
-      <Route path="/cordeis/:id" exact component={CordelDetails} />
-      <Route path="/autores" exact component={AuthorList} />
-      <Route path="/autores/novo" exact component={NewAuthor} />
+        <Route path="/" exact component={Home} />
+        <Route path="/login" exact component={Login} />
+        <Route path="/cordeis" exact component={Home} />
+      <ScrollToTop>
+        <Route path="/cordeis/review" exact component={CordelsReviewList} isPrivate />
+        <Route path="/cordeis/review/:id" exact component={CordelReview} isPrivate />
+        <Route path="/cordeis/:id" exact component={CordelDetails} />
+        <Route path="/autores" exact component={AuthorList} />
+        <Route path="/autores/novo" exact component={AuthorForm} />
+        <Route path="/autores/editar/:id" exact component={AuthorForm} />
+      </ScrollToTop>
     </Switch>
   </>
 );

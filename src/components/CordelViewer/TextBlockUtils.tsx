@@ -15,7 +15,7 @@ export const toParagraphs = (fullText: string): JSX.Element[] => {
 export const toLines = (textBlock: string) => {
   const indexBreakLine = textBlock.indexOf('\n')
   if (indexBreakLine >= 0) {
-    return textBlock.split('\n').map((line, index) => (<React.Fragment key={line} >{line}<br /></React.Fragment>));
+    return textBlock.split('\n').map((line, index) => (<React.Fragment key={`line-${index}`} >{line}<br /></React.Fragment>));
   }
   return textBlock
 }

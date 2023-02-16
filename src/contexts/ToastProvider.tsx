@@ -1,4 +1,4 @@
-import { Alert, Snackbar } from "@material-ui/core";
+import { Alert, Snackbar } from "@mui/material";
 import { createContext, ReactNode, useCallback, useState } from "react";
 
 export interface ToastMessage {
