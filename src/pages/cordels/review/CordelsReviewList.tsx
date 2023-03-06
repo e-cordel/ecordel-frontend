@@ -3,12 +3,9 @@ import { useLocation } from "react-router"
 import { CordelList } from "../../../components/CordelList"
 import { StructuralNavigation } from "../../../components/StructuralNavigation"
 
-
-
 export default function CordelsReviewList() {
 
-  const location = useLocation()
-
+  const location = useLocation();
 
   return (
     <Container>

@@ -13,22 +13,13 @@ export default function Nav() {
 
   return (
     <nav>
-      <Link
-        component={Button}
-        variant="button"
-        color="text.primary"
-        sx={linkStyles}
-        onClick={() => router.push('/cordeis')}
-      >
-        Cordéis
-      </Link>
       {user && <>
         <Link
           component={Button}
           variant="button"
           color="text.primary"
           sx={linkStyles}
-          onClick={() => router.push('/cordeis/review')}
+          onClick={() => router.push('/revisao')}
         >
           Revisão de Cordéis
         </Link>
