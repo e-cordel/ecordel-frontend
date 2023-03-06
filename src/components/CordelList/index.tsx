@@ -26,7 +26,7 @@ export const CordelList = () => {
   );
 
   const handleClickEditButton = (id: number) => {
-    router.push(`/cordeis/review/${id}`)
+    router.push(`/revisao/${id}`)
   }
   const handleCheckPublished = (e: ChangeEvent<HTMLInputElement>) => {
     setPublishedCordels((e.target.checked));

@@ -17,14 +17,13 @@ export const Routes = () => (
     <Switch>
         <Route path="/" exact component={Home} />
         <Route path="/login" exact component={Login} />
-        <Route path="/cordeis" exact component={Home} />
       <ScrollToTop>
-        <Route path="/cordeis/review" exact component={CordelsReviewList} isPrivate />
-        <Route path="/cordeis/review/:id" exact component={CordelReview} isPrivate />
+        <Route path="/revisao" exact component={CordelsReviewList} isPrivate />
+        <Route path="/revisao/:id" exact component={CordelReview} isPrivate />
         <Route path="/cordeis/:id" exact component={CordelDetails} />
-        <Route path="/autores" exact component={AuthorList} />
-        <Route path="/autores/novo" exact component={AuthorForm} />
-        <Route path="/autores/editar/:id" exact component={AuthorForm} />
+        <Route path="/autores" exact component={AuthorList} isPrivate />
+        <Route path="/autores/novo" exact component={AuthorForm} isPrivate />
+        <Route path="/autores/editar/:id" exact component={AuthorForm} isPrivate />
       </ScrollToTop>
     </Switch>
   </>
