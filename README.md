@@ -11,12 +11,12 @@ SPA responsável por exibir e-cordeis e permitir revisões de trabalho
 Frontend de teste em uma API simulada.
 
 
-1. Instalar prisma
+1. Instalar prism
 
 ```npm install -g @stoplight/prism-cli```
 
 
-2. Crie uma simulação a partir da especificação e-cordel OpenAPI
+2. Crie um mock a partir da especificação e-cordel OpenAPI
 
 ```
 prism mock https://raw.githubusercontent.com/e-cordel/ecordel-restapi/main/openapi.yaml
@@ -33,10 +33,10 @@ No diretório do projeto, você pode executar:
 Copie `.env.template` para `.env.development` e preencha com as variáveis ​​do ambiente de desenvolvimento.
 
 
-Executa o aplicativo no modo de desenvolvimento.\
+Inicie o app no modo de desenvolvimento.\
 Abra [http://localhost:3000](http://localhost:3000) para visualizá-lo no navegador.
 
-A página será recarregada se você fizer edições.\
+A página será recarregada se você fizer alterações.\
 Você também verá quaisquer erros de lint no console.
 
 `yarn test`
@@ -60,16 +60,6 @@ Seu aplicativo está pronto para ser implantado!
 
 Veja a seção sobre [deployment](https://facebook.github.io/create-react-app/docs/deployment) Para maiores informações.
 
-`yarn eject`
-
-**Nota: esta é uma operação unidirecional. Depois de 'ejetar', você não pode voltar!**
-
-
-Se você não estiver satisfeito com a ferramenta de construção e opções de configuração, você pode `eject` a qualquer momento. Este comando removerá a dependência de compilação única do seu projeto.
-
-Em vez disso, ele copiará todos os arquivos de configuração e as dependências transitivas (webpack, Babel, ESLint, etc) diretamente para o seu projeto, para que você tenha controle total sobre eles. Todos os comandos, exceto `eject`, ainda funcionarão, mas apontarão para os scripts copiados para que você possa ajustá-los. Neste ponto, você está por conta própria.
-
-Você nunca precisa usar `eject`. O conjunto de recursos selecionados é adequado para implantações pequenas e médias, e você não deve se sentir obrigado a usar esse recurso. No entanto, entendemos que esta ferramenta não seria útil se você não pudesse personalizá-la quando estivesse pronto para ela.
 
 ## Saiba mais
 
@@ -85,9 +75,8 @@ Para ajuda e informações de como contribuir com o projeto, acesse a [página o
 
 Nos encontre nas seguintes plataformas abaixo:
 
-<a href="https://ecordel.com.br/"><img align="center" alt="C++" height="27" width="90" src="https://img.shields.io/badge/website-000000?style=for-the-badge&logo=About.me&logoColor=white
-Site: https://ecordel.com.br/"></a>
+<a href="https://ecordel.com.br/"><img align="center" alt="Site E-cordel" height="27" width="90" src="https://img.shields.io/badge/website-000000?style=for-the-badge&logo=About.me&logoColor=white"></a>
 
-<a href="https://www.linkedin.com/company/e-cordel/"> <img align="center" alt="C++" height="27" width="90" src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white"> </a>
+<a href="https://www.linkedin.com/company/e-cordel/"> <img align="center" alt="Linkedin" height="27" width="90" src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white"> </a>
 
-<a href="https://www.instagram.com/projetoecordel/"><img align="center" alt="C++" height="27" width="90" src="https://img.shields.io/badge/Instagram-E4405F?style=for-the-badge&logo=instagram&logoColor=white"></a>
+<a href="https://www.instagram.com/projetoecordel/"><img align="center" alt="Instagram" height="27" width="90" src="https://img.shields.io/badge/Instagram-E4405F?style=for-the-badge&logo=instagram&logoColor=white"></a>
