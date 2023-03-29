@@ -2,76 +2,65 @@
 
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=e-cordel_ecordel-frontend&metric=alert_status)](https://sonarcloud.io/dashboard?id=e-cordel_ecordel-frontend)
 
-# e-cordel frontend
 
-SPA responsible to display e-cordels and allow work reviews
+# E-cordel frontend
 
-## How to test
+SPA responsável por exibir e-cordeis e permitir revisões de obras.
 
-Test frontend against a mocked API.
+## Como fazer build do projeto
 
-1. Install prism
+`yarn build`
+
+Copia `.env.template` para `.env.production` e preenche com as variáveis ​​do ambiente de produção.
+
+Cria o aplicativo para produção na pasta `build`.\
+Empacota corretamente o React no modo de produção e otimiza a compilação para obter o melhor desempenho.
+
+A compilação é minificada e os nomes dos arquivos incluem os hashes.\
+
+## Como testar
+
+`yarn test`
+
+Copia `.env.template` para `.env.test` e preenche com as variáveis ​​de ambiente de teste.
+
+Inicia o executor de teste no modo de observação interativo.\
+
+## Como executar localmente
+
+No diretório do projeto, você pode executar:
+
+`yarn start`
+
+Copia `.env.template` para `.env.development` e preenche com as variáveis ​​do ambiente de desenvolvimento.
+
+A página será recarregada se você fizer alterações.\
+Você também verá quaisquer erros de lint no console.
+
+Você pode testar o frontend com uma API simulada.
+
+1. Instalar prism
 
 ```npm install -g @stoplight/prism-cli```
 
-
-2. Create a mock from e-cordel OpenAPI spec
+2. Crie um mock a partir da especificação OpenAPI do e-cordel
 
 ```
 prism mock https://raw.githubusercontent.com/e-cordel/ecordel-restapi/main/openapi.yaml
 ```
 
-3. change `.env.deveopment` file accordingly
+3. altere o arquivo `.env.development` de acordo com a url criada pelo prism
 
-## Available Scripts
+## Como contribuir
 
-In the project directory, you can run:
+Para ajuda e informações de como contribuir com o projeto, acesse a [página oficial do e-codel](http://www.ecordel.com.br/como-contribuir).
 
-### `yarn start`
+## Canais de Comunicação
 
-Copy `.env.template` to `.env.development` and populate with the development environment variables.
+Nos encontre nas seguintes plataformas abaixo:
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+<a href="https://ecordel.com.br/"><img align="center" alt="Site E-cordel" height="27" width="90" src="https://img.shields.io/badge/website-000000?style=for-the-badge&logo=About.me&logoColor=white"></a>
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+<a href="https://www.linkedin.com/company/e-cordel/"> <img align="center" alt="Linkedin" height="27" width="90" src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white"> </a>
 
-### `yarn test`
-
-Copy `.env.template` to `.env.test` and populate with the test environment variables.
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `yarn build`
-
-Copy `.env.template` to `.env.production` and populate with the production environment variables.
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-## How to contribute
-
-To get more help or find out how to contribute with this project please take a look at [this page](http://www.ecordel.com.br/como-contribuir).
+<a href="https://www.instagram.com/projetoecordel/"><img align="center" alt="Instagram" height="27" width="90" src="https://img.shields.io/badge/Instagram-E4405F?style=for-the-badge&logo=instagram&logoColor=white"></a>
