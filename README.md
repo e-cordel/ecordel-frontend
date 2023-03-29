@@ -5,67 +5,51 @@
 
 # E-cordel frontend
 
-SPA responsável por exibir e-cordeis e permitir revisões de trabalho
+SPA responsável por exibir e-cordeis e permitir revisões de obras.
+
+## Como fazer build do projeto
+
+`yarn build`
+
+Copia `.env.template` para `.env.production` e preenche com as variáveis ​​do ambiente de produção.
+
+Cria o aplicativo para produção na pasta `build`.\
+Empacota corretamente o React no modo de produção e otimiza a compilação para obter o melhor desempenho.
+
+A compilação é minificada e os nomes dos arquivos incluem os hashes.\
 
 ## Como testar
-Frontend de teste em uma API simulada.
 
+`yarn test`
 
-1. Instalar prism
+Copia `.env.template` para `.env.test` e preenche com as variáveis ​​de ambiente de teste.
 
-```npm install -g @stoplight/prism-cli```
+Inicia o executor de teste no modo de observação interativo.\
 
-
-2. Crie um mock a partir da especificação e-cordel OpenAPI
-
-```
-prism mock https://raw.githubusercontent.com/e-cordel/ecordel-restapi/main/openapi.yaml
-```
-
-3. altere o arquivo `.env.deveopment` de acordo
-
-## Scripts Disponíveis
+## Como executar localmente
 
 No diretório do projeto, você pode executar:
 
 `yarn start`
 
-Copie `.env.template` para `.env.development` e preencha com as variáveis ​​do ambiente de desenvolvimento.
-
-
-Inicie o app no modo de desenvolvimento.\
-Abra [http://localhost:3000](http://localhost:3000) para visualizá-lo no navegador.
+Copia `.env.template` para `.env.development` e preenche com as variáveis ​​do ambiente de desenvolvimento.
 
 A página será recarregada se você fizer alterações.\
 Você também verá quaisquer erros de lint no console.
 
-`yarn test`
+Você pode testar o frontend com uma API simulada.
 
-Copie `.env.template` para `.env.test` e preencha com as variáveis ​​de ambiente de teste.
+1. Instalar prism
 
-Inicia o executor de teste no modo de observação interativo.\
-Veja a seção sobre [running tests](https://facebook.github.io/create-react-app/docs/running-tests) 
-Para maiores informações.
+```npm install -g @stoplight/prism-cli```
 
-`yarn build`
+2. Crie um mock a partir da especificação OpenAPI do e-cordel
 
-Copie `.env.template` para `.env.production` e preencha com as variáveis ​​do ambiente de produção.
+```
+prism mock https://raw.githubusercontent.com/e-cordel/ecordel-restapi/main/openapi.yaml
+```
 
-Cria o aplicativo para produção na pasta `build`.\
-Ele empacota corretamente o React no modo de produção e otimiza a compilação para obter o melhor desempenho.
-
-A compilação é minificada e os nomes dos arquivos incluem os hashes.\
-Seu aplicativo está pronto para ser implantado!
-
-
-Veja a seção sobre [deployment](https://facebook.github.io/create-react-app/docs/deployment) Para maiores informações.
-
-
-## Saiba mais
-
-Você pode aprender mais no [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-Para aprender React, confira o [React documentation](https://reactjs.org/).
+3. altere o arquivo `.env.development` de acordo com a url criada pelo prism
 
 ## Como contribuir
 
