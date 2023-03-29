@@ -79,7 +79,7 @@ Para aprender React, confira o [React documentation](https://reactjs.org/).
 
 ## Como contribuir
 
-To get more help or find out how to contribute with this project please take a look at [this page](http://www.ecordel.com.br/como-contribuir).
+Para ajuda e informações de como contribuir com o projeto, acesse a [página oficial do e-codel](http://www.ecordel.com.br/como-contribuir).
 
 ## Canais de Comunicação
 
