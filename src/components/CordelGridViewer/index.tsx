@@ -1,8 +1,8 @@
-import {Container, Grid, Skeleton, Typography as T} from "@mui/material";
+import {Grid} from "@mui/material";
 import CardCordel from "../CordelCard";
 import {CordelCardSkeleton} from "../CordelCard/CordelCardSkeleton";
 
-interface Cordel {
+export interface CordelInterface {
     id: number;
     title: string;
     xilogravuraUrl: string;
@@ -14,7 +14,7 @@ export const CordelGridViewer = ({cordels}: any) => {
     return <Grid container spacing={4} paddingTop={4}>
         {cordels ? (
             cordels?.map(
-                ({ id, title, xilogravuraUrl, authorName }: Cordel) => (
+                ({ id, title, xilogravuraUrl, authorName }: CordelInterface) => (
                     <Grid item key={id} xs={12} sm={6} md={4}>
                         <CardCordel
                             id={id}
@@ -40,25 +40,3 @@ export const CordelGridViewer = ({cordels}: any) => {
         )}
     </Grid>;
 }
-
-export const CordelViewerSkeleton = () => (
-    <Container component="main" maxWidth="xs">
-        <T variant="h3"><Skeleton variant="text"/></T>
-        <T variant="subtitle1"><Skeleton variant="text"/></T>
-        <Skeleton variant="rectangular" height={550}/>
-        <p>
-            <Skeleton variant="text"/>
-            <Skeleton variant="text"/>
-            <Skeleton variant="text"/>
-            <Skeleton variant="text"/>
-        </p>
-        <p>
-            <Skeleton variant="text"/>
-            <Skeleton variant="text"/>
-            <Skeleton variant="text"/>
-            <Skeleton variant="text"/>
-        </p>
-
-    </Container>
-
-)

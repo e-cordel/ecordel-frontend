@@ -9,17 +9,10 @@ import {
 import { useFetch } from "../hooks/useFetch";
 import Hero from "../components/Hero";
 import { FiSearch } from "react-icons/fi";
-import {CordelGridViewer} from "../components/CordelGridViewer";
-
-interface Cordel {
-  id: number;
-  title: string;
-  xilogravuraUrl: string;
-  authorName: string;
-}
+import {CordelGridViewer, CordelInterface} from "../components/CordelGridViewer";
 
 interface CordelRequest {
-  content: Cordel[];
+  content: CordelInterface[];
 }
 
 export default function Home() {

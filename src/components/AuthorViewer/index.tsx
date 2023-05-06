@@ -1,18 +1,11 @@
 import {Container, Skeleton, Typography as T, useTheme} from "@mui/material";
-import {CordelGridViewer} from "../CordelGridViewer";
+import {CordelGridViewer, CordelInterface} from "../CordelGridViewer";
 
 export interface AuthorDetailsInterface {
     id: number;
     name: string;
     about: string;
     email: string;
-}
-
-export interface CordelInterface {
-    id: number;
-    title: string;
-    authorName: string;
-    xilogravuraUrl: string;
 }
 
 type AuthorViewerProps = {
