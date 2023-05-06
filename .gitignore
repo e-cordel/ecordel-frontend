@@ -24,3 +24,5 @@ yarn-error.log*
 
 #removido enquanto usarmos yarn
 package-lock.json
+
+.idea/**

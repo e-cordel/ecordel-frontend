@@ -11,6 +11,7 @@ import AuthorForm from "../pages/authors/AuthorForm";
 
 //hook
 import ScrollToTop from "../hooks/useScrollToTop";
+import AuthorDetails from "../pages/authors/AuthorDetails";
 
 export const Routes = () => (
   <>
@@ -22,6 +23,7 @@ export const Routes = () => (
         <Route path="/revisao/:id" exact component={CordelReview} isPrivate />
         <Route path="/cordeis/:id" exact component={CordelDetails} />
         <Route path="/autores" exact component={AuthorList} isPrivate />
+        <Route path="/autores/:id" exact component={AuthorDetails} isPrivate />
         <Route path="/autores/novo" exact component={AuthorForm} isPrivate />
         <Route path="/autores/editar/:id" exact component={AuthorForm} isPrivate />
       </ScrollToTop>

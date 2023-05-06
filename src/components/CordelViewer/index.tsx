@@ -35,7 +35,7 @@ export const CordelViewer = ({ cordel }: CordelViewerProps) => {
       marginBottom: theme.spacing(3),
     }}>
       <T variant="h3" >{cordel.title} </T>
-      <T variant="subtitle1">{cordel.author.name}</T>
+      <T variant="subtitle1"><a href={`/autores/${cordel.author.id}`}>{cordel.author.name}</a></T>
       <Card sx={{
         display: 'flex',
         alignItems: 'center',

@@ -8,9 +8,8 @@ import {
 } from "@mui/material";
 import { useFetch } from "../hooks/useFetch";
 import Hero from "../components/Hero";
-import CardCordel from "../components/CordelCard";
-import { CordelCardSkeleton } from "../components/CordelCard/CordelCardSkeleton";
 import { FiSearch } from "react-icons/fi";
+import {CordelGridViewer} from "../components/CordelGridViewer";
 
 interface Cordel {
   id: number;
@@ -61,33 +60,8 @@ export default function Home() {
               onChange={(e) => setSearchTitle(e.target.value)}
             />
           </Grid>
-          {data ? (
-            data?.content.map(
-              ({ id, title, xilogravuraUrl, authorName }: Cordel) => (
-                <Grid item key={id} xs={12} sm={6} md={4}>
-                  <CardCordel
-                    id={id}
-                    title={title}
-                    xilogravuraUrl={xilogravuraUrl}
-                    authorName={authorName}
-                  ></CardCordel>
-                </Grid>
-              )
-            )
-          ) : (
-            <>
-              <Grid item xs={12} sm={6} md={4}>
-                <CordelCardSkeleton />
-              </Grid>
-              <Grid item xs={12} sm={6} md={4}>
-                <CordelCardSkeleton />
-              </Grid>
-              <Grid item xs={12} sm={6} md={4}>
-                <CordelCardSkeleton />
-              </Grid>
-            </>
-          )}
         </Grid>
+        <CordelGridViewer cordels={data?.content} />
       </Container>
     </>
   );
