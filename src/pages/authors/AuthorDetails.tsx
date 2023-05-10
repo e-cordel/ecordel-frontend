@@ -11,7 +11,7 @@ export default function AuthorDetails() {
     const location = useLocation()
 
     const {data: author} = useFetch<AuthorDetailsInterface, Error>(`authors/${id}`);
-    const {data: cordels} = useFetch<any, Error>(`cordels/summaries?author_id=${id}`);
+    const {data: cordels} = useFetch<any, Error>(`cordels/summaries?authorId=${id}`);
 
     if (!author) return <AuthorViewerSkeleton/>
 
