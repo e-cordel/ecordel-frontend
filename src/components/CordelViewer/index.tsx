@@ -1,4 +1,4 @@
-import { Card, Container, Skeleton, Typography as T, useTheme } from "@mui/material";
+import { Card, Container, Link, Skeleton, Typography as T, useTheme } from "@mui/material";
 import { useMemo } from "react";
 import { getSourceLink, toParagraphs } from "./TextBlockUtils";
 
@@ -35,7 +35,7 @@ export const CordelViewer = ({ cordel }: CordelViewerProps) => {
       marginBottom: theme.spacing(3),
     }}>
       <T variant="h3" >{cordel.title} </T>
-      <T variant="subtitle1"><a href={`/autores/${cordel.author.id}`}>{cordel.author.name}</a></T>
+      <Link variant="subtitle1" underline="none" href={`/autores/${cordel.author.id}`}>{cordel.author.name}</Link>
       <Card sx={{
         display: 'flex',
         alignItems: 'center',

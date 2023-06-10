@@ -4,6 +4,7 @@ import {
   CardActions,
   CardContent,
   CardMedia,
+  Link,
   Typography,
 } from "@mui/material";
 import { useHistory } from "react-router";
@@ -13,12 +14,14 @@ interface CordelCardProps {
   title: string;
   authorName: string;
   xilogravuraUrl: string;
+  authorId: number;
 }
 
 export default function CordelCard({
   id,
   title,
   authorName,
+  authorId,
   xilogravuraUrl,
 }: CordelCardProps) {
   const router = useHistory();
@@ -46,8 +49,8 @@ export default function CordelCard({
         <Typography gutterBottom variant="subtitle1" component="h2">
           {title}
         </Typography>
-        <Typography variant="subtitle2" component="h3">
-          {authorName}
+        <Typography variant="subtitle2">
+          <Link href={`/autores/${authorId}`} underline="none">{authorName}</Link>
         </Typography>
       </CardContent>
       <CardActions>
