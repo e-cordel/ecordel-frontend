@@ -1,5 +1,6 @@
 import {
   AppBar,
+  Button,
   Container,
   IconButton,
   Toolbar,
@@ -10,6 +11,7 @@ import { Link } from "react-router-dom";
 import { useColorMode } from "../../hooks/useColorMode";
 import { AuthButton } from "../AuthButton";
 import Nav from "./Nav";
+import { theme } from "../../theme";
 
 export default function Navbar() {
 
@@ -20,8 +22,9 @@ export default function Navbar() {
         <Container>
           <Toolbar sx={{ flexWrap: 'wrap' }}>
             <Typography variant="h6" color="inherit" noWrap sx={{ flexGrow: 1 }}>
-              <Link style={{ textDecoration: 'none', color: "black" }} to="/">e-cordel</Link>
+              <Button color="inherit" href="/" LinkComponent={Link}>e-cordel</Button>
             </Typography>
+            
             <Nav />
             <IconButton color="inherit" onClick={toggleColorMode}>
               {mode === "dark" ? <FiSun /> : <FiMoon />}
