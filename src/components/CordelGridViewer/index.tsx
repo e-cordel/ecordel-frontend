@@ -7,6 +7,7 @@ export interface CordelInterface {
     title: string;
     xilogravuraUrl: string;
     authorName: string;
+    authorId: number;
 }
 
 export const CordelGridViewer = ({cordels}: any) => {
@@ -14,13 +15,10 @@ export const CordelGridViewer = ({cordels}: any) => {
     return <Grid container spacing={4} paddingTop={4}>
         {cordels ? (
             cordels?.map(
-                ({ id, title, xilogravuraUrl, authorName }: CordelInterface) => (
-                    <Grid item key={id} xs={12} sm={6} md={4}>
+                ( cordel: CordelInterface) => (
+                    <Grid item key={cordel.id} xs={12} sm={6} md={4}>
                         <CardCordel
-                            id={id}
-                            title={title}
-                            xilogravuraUrl={xilogravuraUrl}
-                            authorName={authorName}
+                            {...cordel}
                         ></CardCordel>
                     </Grid>
                 )
