@@ -11,7 +11,6 @@ import { Link } from "react-router-dom";
 import { useColorMode } from "../../hooks/useColorMode";
 import { AuthButton } from "../AuthButton";
 import Nav from "./Nav";
-import { theme } from "../../theme";
 
 export default function Navbar() {
 
