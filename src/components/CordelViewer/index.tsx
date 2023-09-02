@@ -1,26 +1,10 @@
 import { Card, Container, Link, Skeleton, Typography as T, useTheme } from "@mui/material";
 import { useMemo } from "react";
 import { getSourceLink, toParagraphs } from "./TextBlockUtils";
-
-
-export interface CordelDetailsInterface {
-  id: string;
-  author: {
-    id: number;
-    name: string;
-    about: string;
-    email: string;
-  }
-  title: string;
-  description: string;
-  content: string;
-  published: boolean;
-  tags: Array<string>;
-  xilogravuraUrl: string;
-}
+import { Cordel } from "../../types";
 
 type CordelViewerProps = {
-  cordel: CordelDetailsInterface
+  cordel: Cordel
 }
 
 export const CordelViewer = ({ cordel }: CordelViewerProps) => {

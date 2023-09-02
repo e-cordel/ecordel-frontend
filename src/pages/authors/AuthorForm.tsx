@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import { useHistory, useLocation, useParams } from "react-router-dom";
 import { StructuralNavigation } from "../../components/StructuralNavigation";
 import { useToast } from "../../hooks/useToast";
-import Author from "../../model/Author";
+import { Author } from "../../types";
 import api from "../../services/api";
 
 const AuthorForm = () => {

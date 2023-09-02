@@ -4,7 +4,7 @@ import { Fragment } from 'react';
 import { Link, useHistory, useLocation } from "react-router-dom";
 import { StructuralNavigation } from "../../components/StructuralNavigation";
 import { useFetch } from "../../hooks/useFetch";
-import Author from "../../model/Author";
+import { Author } from '../../types';
 
 interface AuthorRequest {
   content: Author[];

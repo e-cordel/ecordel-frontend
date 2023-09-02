@@ -21,6 +21,7 @@ export const Routes = () => (
       <ScrollToTop>
         <Route path="/revisao" exact component={CordelsReviewList} isPrivate />
         <Route path="/revisao/:id" exact component={CordelReview} isPrivate />
+        <Route path="/cordeis/novo" exact component={CordelReview} isPrivate />
         <Route path="/cordeis/:id" exact component={CordelDetails} />
         <Route path="/autores" exact component={AuthorList} isPrivate />
         <Route path="/autores/:id" exact component={AuthorDetails} />

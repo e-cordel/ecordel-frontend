@@ -17,7 +17,7 @@ import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useHistory, useLocation, useParams } from "react-router";
 import { Link as RouterLink } from "react-router-dom";
-import { CordelDetailsInterface } from "../../../components/CordelViewer";
+import { Cordel } from "../../../types";
 import { StructuralNavigation } from "../../../components/StructuralNavigation";
 import { useToast } from "../../../hooks/useToast";
 import api from "../../../services/api";
@@ -45,7 +45,7 @@ const AUTO_SAVE_INTERVAL = 5000;
 
 export default function CordelReview() {
 
-  const [cordel, setCordel] = useState<CordelDetailsInterface | null>(null);
+  const [cordel, setCordel] = useState<Cordel | null>(null);
 
   const router = useHistory();
   const location = useLocation();
@@ -55,7 +55,7 @@ export default function CordelReview() {
   const { handleSubmit, register, watch } = useForm<CordelReviewValues>();
 
   useEffect(() => {
-    api.get<CordelDetailsInterface>(`cordels/${id}`).then(({ data }) => setCordel(data))
+    api.get<Cordel>(`cordels/${id}`).then(({ data }) => setCordel(data))
   }, [id])
 
   useEffect(() => {

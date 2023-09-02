@@ -2,7 +2,8 @@ import {Container} from "@mui/material";
 import {useParams, useLocation} from "react-router"
 import {StructuralNavigation} from "../../components/StructuralNavigation";
 import {useFetch} from "../../hooks/useFetch"
-import {AuthorDetailsInterface, AuthorViewer, AuthorViewerSkeleton} from "../../components/AuthorViewer";
+import {AuthorViewer, AuthorViewerSkeleton} from "../../components/AuthorViewer";
+import { Author } from "../../types";
 
 export default function AuthorDetails() {
 
@@ -10,7 +11,7 @@ export default function AuthorDetails() {
 
     const location = useLocation()
 
-    const {data: author} = useFetch<AuthorDetailsInterface, Error>(`authors/${id}`);
+    const {data: author} = useFetch<Author, Error>(`authors/${id}`);
     const {data: cordels} = useFetch<any, Error>(`cordels/summaries?authorId=${id}`);
 
     if (!author) return <AuthorViewerSkeleton/>
