@@ -1,13 +1,13 @@
 
 import { Button, Link } from '@mui/material'
-import { useHistory } from 'react-router'
+import { useNavigate } from 'react-router'
 import { useAuth } from '../../../hooks/useAuth'
 
 export default function Nav() {
 
   const { user } = useAuth();
 
-  const router = useHistory();
+  const navigate = useNavigate();
 
   const linkStyles = { my: 1, mx: 1.5, textDecoration: 'none', color: "text.primary" };
 
@@ -19,7 +19,7 @@ export default function Nav() {
           variant="button"
           color="text.primary"
           sx={linkStyles}
-          onClick={() => router.push('/revisao')}
+          onClick={() => navigate('/revisao')}
         >
           Revisão de Cordéis
         </Link>
@@ -28,7 +28,7 @@ export default function Nav() {
           variant="button"
           color="text.primary"
           sx={linkStyles}
-          onClick={() => router.push('/autores')}
+          onClick={() => navigate('/autores')}
         >
           Autores
         </Link>

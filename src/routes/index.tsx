@@ -1,34 +1,49 @@
-import { Switch } from "react-router-dom";
 import CordelDetails from "../pages/cordels/CordelDetails";
 import CordelsReviewList from "../pages/cordels/review/CordelsReviewList";
 import CordelReview from "../pages/cordels/review/CordelReview";
 import Home from "../pages/Home";
 import Login from "../pages/Login";
 
-import { Route } from "./Route";
 import AuthorList from "../pages/authors/AuthorsList";
 import AuthorForm from "../pages/authors/AuthorForm";
 
-//hook
-import ScrollToTop from "../hooks/useScrollToTop";
+
 import AuthorDetails from "../pages/authors/AuthorDetails";
+import { Route, Routes } from "react-router-dom";
+import { RequireAuth } from "./RequireAuth";
 
-export const Routes = () => (
+export const ECordelRoutes = () => (
   <>
-    <Switch>
-        <Route path="/" exact component={Home} />
-        <Route path="/login" exact component={Login} />
-      <ScrollToTop>
-        <Route path="/revisao" exact component={CordelsReviewList} isPrivate />
-        <Route path="/revisao/:id" exact component={CordelReview} isPrivate />
-        <Route path="/cordeis/novo" exact component={CordelReview} isPrivate />
-        <Route path="/cordeis/:id" exact component={CordelDetails} />
-        <Route path="/autores" exact component={AuthorList} isPrivate />
-        <Route path="/autores/:id" exact component={AuthorDetails} />
-
-        <Route path="/autores/novo" exact component={AuthorForm} isPrivate />
-        <Route path="/autores/editar/:id" exact component={AuthorForm} isPrivate />
-      </ScrollToTop>
-    </Switch>
+    <Routes>
+        <Route path="/" element={<Home/>} />
+        <Route path="/login" element={<Login/>} />
+        <Route path="/cordeis/:id" element={<CordelDetails />} />
+        <Route path="/autores/:id" element={<AuthorDetails />} />
+        <Route path="/revisao" element={
+          <RequireAuth>
+            <CordelsReviewList />
+          </RequireAuth>
+        } />
+        <Route path="/revisao/:id" element={
+          <RequireAuth>
+            <CordelReview />
+          </RequireAuth>
+        } />
+        <Route path="/autores" element={
+          <RequireAuth>
+            <AuthorList />
+          </RequireAuth>
+        } />
+        <Route path="/autores/novo" element={
+          <RequireAuth>
+            <AuthorForm />
+          </RequireAuth>
+        } />
+        <Route path="/autores/editar/:id" element={
+          <RequireAuth>
+            <AuthorForm />
+          </RequireAuth>
+        } />
+    </Routes>
   </>
 );

@@ -5,7 +5,7 @@ import { StructuralNavigation } from "../../components/StructuralNavigation";
 import { useFetch } from "../../hooks/useFetch"
 import { Cordel } from "../../types";
 
-export default function CordelDetails() {
+const CordelDetails = () => {
 
   const { id } = useParams<{ id: string }>()
 
@@ -20,3 +20,5 @@ export default function CordelDetails() {
     <CordelViewer cordel={cordel} />
   </Container>)
 }
+
+export default CordelDetails;

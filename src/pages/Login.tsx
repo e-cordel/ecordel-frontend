@@ -10,7 +10,7 @@ import {
 } from "@mui/material";
 import { LockOutlined } from "@mui/icons-material";
 import { useForm } from "react-hook-form";
-import { useHistory } from "react-router";
+import { useNavigate } from "react-router";
 import { useAuth } from "../hooks/useAuth";
 import { SignInCredentials } from "../contexts/AuthProvider";
 import { useToast } from "../hooks/useToast";
@@ -19,7 +19,7 @@ import { Link as RouterLink } from "react-router-dom";
 export default function Login() {
   const { signIn } = useAuth();
   const { addToast } = useToast();
-  const history = useHistory();
+  const navigate = useNavigate();
   const theme = useTheme();
   const { handleSubmit, register } = useForm<SignInCredentials>();
 
@@ -27,7 +27,7 @@ export default function Login() {
     try {
       await signIn(data);
       addToast({ message: "credenciais Ok!", type: "success" });
-      history.push("/");
+      navigate("/");
       addToast({ message: "Usuário autenticado com sucesso", type: "success" });
     } catch (error) {
       addToast({ message: "credenciais inválidas", type: "error" });

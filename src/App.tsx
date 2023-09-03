@@ -2,7 +2,7 @@ import { CssBaseline, ThemeProvider } from "@mui/material";
 import { useMemo } from "react";
 import Navbar from "./components/Navbar";
 import { useColorMode } from "./hooks/useColorMode";
-import { Routes } from "./routes";
+import { ECordelRoutes } from "./routes";
 import { getTheme } from "./theme";
 
 export function App() {
@@ -14,7 +14,7 @@ export function App() {
     <ThemeProvider theme={theme}>
       <Navbar />
       <CssBaseline />
-      <Routes />
+      <ECordelRoutes />
     </ThemeProvider>
   );
 }

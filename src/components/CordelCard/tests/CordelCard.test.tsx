@@ -1,3 +1,4 @@
+import { BrowserRouter } from "react-router-dom";
 import CordelCard from "..";
 import { render, screen } from "@testing-library/react";
 
@@ -11,7 +12,11 @@ describe("CordelCard component", () => {
       title: "title",
       xilogravuraUrl: ""
     }
-    render(<CordelCard {...summary} ></CordelCard>)
+    render(
+      <BrowserRouter>
+        <CordelCard {...summary} ></CordelCard>
+      </BrowserRouter>
+    );
 
     const authorLink = await screen.findAllByRole("link", { name: "author"})
     expect(authorLink).toBeInTheDocument

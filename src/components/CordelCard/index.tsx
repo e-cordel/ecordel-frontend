@@ -7,7 +7,7 @@ import {
   Link,
   Typography,
 } from "@mui/material";
-import { useHistory } from "react-router";
+import { useNavigate } from "react-router";
 
 interface CordelCardProps {
   id: number;
@@ -24,10 +24,10 @@ export default function CordelCard({
   authorId,
   xilogravuraUrl,
 }: CordelCardProps) {
-  const router = useHistory();
+  const navigate = useNavigate();
 
   const handleCordel = () => {
-    router.push(`/cordeis/${id}`);
+    navigate(`/cordeis/${id}`);
   };
 
   return (

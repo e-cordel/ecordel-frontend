@@ -1,7 +1,7 @@
 import { Avatar, Divider, FormControlLabel, IconButton, List, ListItem, ListItemAvatar, ListItemText, Skeleton, Switch } from '@mui/material'
 import { Edit as EditIcon, Description as DescriptionIcon } from '@mui/icons-material';
 import { ChangeEvent, Fragment, useState } from 'react';
-import { useHistory } from 'react-router';
+import { useNavigate } from 'react-router';
 import { useFetch } from '../../hooks/useFetch';
 
 export interface Cordel {
@@ -19,14 +19,14 @@ export const CordelList = () => {
 
   const [publishedCordels, setPublishedCordels] = useState(false)
 
-  const router = useHistory()
+  const navigate = useNavigate()
 
   const { data, mutate } = useFetch<CordelRequest>(
     `cordels/summaries?published=${publishedCordels}`
   );
 
   const handleClickEditButton = (id: number) => {
-    router.push(`/revisao/${id}`)
+    navigate(`/revisao/${id}`)
   }
   const handleCheckPublished = (e: ChangeEvent<HTMLInputElement>) => {
     setPublishedCordels((e.target.checked));

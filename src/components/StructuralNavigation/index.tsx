@@ -1,15 +1,15 @@
 import { Breadcrumbs, Container, Link } from '@mui/material';
 import { Home } from '@mui/icons-material'
-import { useHistory } from 'react-router';
+import { useNavigate } from 'react-router';
 
 
 
 export const StructuralNavigation = ({ path, title }: { path: string, title?: string }) => {
 
-  const router = useHistory()
+  const navigate = useNavigate()
 
   const handleClick = (url: string) => {
-    router.push(url);
+    navigate(url);
   }
 
   const buildUrl = (item: string) => path.substring(0, path.indexOf(item) + item.length)

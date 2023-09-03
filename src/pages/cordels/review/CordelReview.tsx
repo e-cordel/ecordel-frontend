@@ -15,7 +15,7 @@ import {
 import { LockOutlined } from "@mui/icons-material";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { useHistory, useLocation, useParams } from "react-router";
+import { useNavigate, useLocation, useParams } from "react-router";
 import { Link as RouterLink } from "react-router-dom";
 import { Cordel } from "../../../types";
 import { StructuralNavigation } from "../../../components/StructuralNavigation";
@@ -47,7 +47,7 @@ export default function CordelReview() {
 
   const [cordel, setCordel] = useState<Cordel | null>(null);
 
-  const router = useHistory();
+  const navigate = useNavigate();
   const location = useLocation();
   const { id } = useParams<{ id: string }>()
   const theme = useTheme();
@@ -103,7 +103,7 @@ export default function CordelReview() {
       }
 
       await api.put(`cordels/${id}`, data);
-      router.goBack();
+      navigate(-1);
       addToast({ message: "Cordel revisado com sucesso!", type: "success" });
     } catch (error) {
       addToast({ message: "credenciais inválidas", type: "error" });

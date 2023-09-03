@@ -1,7 +1,7 @@
 import { Button, Container, TextField, useTheme } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { useHistory, useLocation, useParams } from "react-router-dom";
+import { useNavigate, useLocation, useParams } from "react-router-dom";
 import { StructuralNavigation } from "../../components/StructuralNavigation";
 import { useToast } from "../../hooks/useToast";
 import { Author } from "../../types";
@@ -9,7 +9,7 @@ import api from "../../services/api";
 
 const AuthorForm = () => {
   const [author, setAuthor] = useState<Author | null>(null);
-  const router = useHistory();
+  const navigate = useNavigate();
   const location = useLocation();
   const theme = useTheme();
   const { addToast } = useToast();
@@ -35,7 +35,7 @@ const AuthorForm = () => {
     }
     await request.then(response => addToast({ message: "Autor salvo com sucesso!", type: "success" }))
       .catch(reason => addToast({ message: "Não foi possível salvar o autor!", type: "error" }));
-    router.goBack();
+    navigate(-1);
   }
 
   if (!author && id) {

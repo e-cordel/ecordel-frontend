@@ -1,7 +1,7 @@
 import { Avatar, Container, Divider, Grid, IconButton, List, ListItem, ListItemAvatar, ListItemText } from '@mui/material'
 import { Edit as EditIcon, Description as DescriptionIcon } from '@mui/icons-material';
 import { Fragment } from 'react';
-import { Link, useHistory, useLocation } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { StructuralNavigation } from "../../components/StructuralNavigation";
 import { useFetch } from "../../hooks/useFetch";
 import { Author } from '../../types';
@@ -13,10 +13,10 @@ interface AuthorRequest {
 const AuthorList = () => {
   const location = useLocation();
   const { data } = useFetch<AuthorRequest>("authors");
-  const router = useHistory();
+  const router = useNavigate();
 
   const handleClickEditButton = (id: number) => {
-    router.push(`/autores/editar/${id}`)
+    router(`/autores/editar/${id}`)
   }
 
   return (

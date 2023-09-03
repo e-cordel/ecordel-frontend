@@ -1,20 +1,20 @@
 import { Button, useTheme } from "@mui/material";
 import { FiLogIn, FiLogOut } from "react-icons/fi";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth";
 
 export function AuthButton() {
-  const history = useHistory();
+  const navigate = useNavigate();
   const { user, signOut } = useAuth();
   const theme = useTheme();
 
   const login = () => {
-    history.push("/login");
+    navigate("/login");
   };
 
   const logout = () => {
     signOut();
-    history.push("/");
+    navigate("/");
   };
 
   if (!user)
