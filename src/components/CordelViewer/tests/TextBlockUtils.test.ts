@@ -1,16 +1,19 @@
 import { getSourceLink, toParagraphs, toLines } from "../TextBlockUtils";
+import {render, screen} from "@testing-library/react"
 
 describe('paragraphs', () => {
 
   it('should build paragraphs', () => {
     const textWithParagraphs = 'Lorem ipsum dolor sit amet,\n consectetur adipiscing elit,\n sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.\n\n Donec pretium vulputate sapien\n nec sagittis aliquam malesuada bibendum.\n Ut diam quam nulla porttitor massa id neque.\n Cras tincidunt lobortis feugiat vivamus at.'
-    const paragraphs = toParagraphs(textWithParagraphs);
+    render(toParagraphs(textWithParagraphs));
+    const paragraphs = screen.getAllByRole("paragraph");
     expect(paragraphs).toHaveLength(2);
   });
 
   it('should build text with a single paragraph', () => {
     const textWithoutParagraphs = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse dui est, pellentesque non sagittis nec, volutpat id ante. In pharetra lacus tortor, vitae bibendum erat mattis a. Etiam efficitur lacinia ipsum quis elementum'
-    const paragraphs = toParagraphs(textWithoutParagraphs);
+    render(toParagraphs(textWithoutParagraphs));
+    const paragraphs = screen.getAllByRole("paragraph");
     expect(paragraphs).toHaveLength(1);
   });
 

@@ -2,7 +2,7 @@ import { createTheme } from "@mui/material/styles";
 
 export type ModeTypes = "dark" | "light";
 export const getTheme = (mode: ModeTypes = "light") => {
-  return createTheme({
+  const theme = createTheme({
     palette: {
       mode,
       primary: {
@@ -11,14 +11,12 @@ export const getTheme = (mode: ModeTypes = "light") => {
       secondary: {
         main: "#ab003c",
       },
-      // error: {
-      //   main: red.A400,
-      // },
-      // background: {
-      //   default: "#fff",
-      // },
     },
   });
+
+  theme.spacing(2); // `${8 * 2}px` = '16px'
+
+  return theme;
 };
 
 export const theme = createTheme({
@@ -27,14 +25,5 @@ export const theme = createTheme({
     primary: {
       main: "#556cd6",
     },
-    // secondary: {
-    //   main: '#19857b',
-    // },
-    // error: {
-    //   main: red.A400,
-    // },
-    // background: {
-    //   default: "#fff",
-    // },
   },
 });

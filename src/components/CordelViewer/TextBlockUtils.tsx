@@ -1,15 +1,21 @@
+import { Typography } from "@mui/material";
 import React from "react";
 
-export const toParagraphs = (fullText: string): JSX.Element[] => {
+export const toParagraphs = (fullText: string) => {
   const indexOfBlock = fullText.indexOf('\n\n')
+  // TODO review. Usar campo source do cordel
   const indexOfSource = fullText.indexOf('Fonte:')
 
   const text = indexOfSource === -1 ? fullText : fullText.substring(0, indexOfSource)
 
+  let paragraphs = [<p role='paragraph'>{fullText}</p>];
   if (indexOfBlock >= 0) {
-    return text.split('\n\n').map((block, index) => (<p key={`block-${index}`}>{toLines(block)}</p>));
+    paragraphs = text.split('\n\n').map((block, index) => (<p key={`block-${index}`} role='paragraph'>{toLines(block)}</p>));
   }
-  return ([<p>{fullText}</p>]);
+  return <section>
+    <Typography variant="h5">Texto do cordel</Typography>
+    {paragraphs}
+  </section>;
 }
 
 export const toLines = (textBlock: string) => {

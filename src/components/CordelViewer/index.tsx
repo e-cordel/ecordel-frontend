@@ -1,7 +1,8 @@
-import { Card, Container, Link, Skeleton, Typography as T, useTheme } from "@mui/material";
+import { Box, Button, Container, Link, Skeleton, Typography as T, useTheme } from "@mui/material";
 import { useMemo } from "react";
-import { getSourceLink, toParagraphs } from "./TextBlockUtils";
+import { toParagraphs } from "./TextBlockUtils";
 import { Cordel } from "../../types";
+import { Download } from "@mui/icons-material";
 
 type CordelViewerProps = {
   cordel: Cordel
@@ -11,31 +12,39 @@ export const CordelViewer = ({ cordel }: CordelViewerProps) => {
 
   const theme = useTheme();
   const paragraphs = useMemo(() => toParagraphs(cordel.content), [cordel]);
-  const sourceLink = useMemo(() => getSourceLink(cordel.content), [cordel]);
 
   return (
-    <Container component="main" maxWidth="xs" sx={{
-      marginTop: theme.spacing(3),
-      marginBottom: theme.spacing(3),
-    }}>
+    <Container component="main"
+      sx={{
+        marginTop: theme.spacing(3),
+        marginBottom: theme.spacing(3),
+      }}
+    >
       <T variant="h3" >{cordel.title} </T>
-      <Link variant="subtitle1" underline="none" href={`/autores/${cordel.author.id}`}>{cordel.author.name}</Link>
-      <Card sx={{
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        marginBottom: theme.spacing(3)
-      }}>
-        <img
-          src={cordel.xilogravuraUrl}
-          alt={cordel.title}
-          style={{
-            flex: 1,
-          }} />
-      </Card>
+
+      <Box
+        component="img"
+        src={cordel.xilogravuraUrl}
+        alt={cordel.title}
+        sx={{
+          width: '100%',
+          maxWidth: '400px',
+          height: 'auto',
+          borderRadius: '8px',
+          marginBottom: '10px'
+        }}
+      />
+
+      <T variant="body1" paragraph >{cordel.description}</T>
+      <T variant="subtitle2">Autor: <Link underline="none" href={`/autores/${cordel.author.id}`}>{cordel.author.name}</Link></T>
+      {cordel.year && <T variant="subtitle2">Publicado em: {cordel.year}</T>}
+      {cordel.source && <T variant="subtitle2">Fonte: {cordel.source}</T>}
+      {cordel.ebookUrl && <Button href={cordel.ebookUrl} variant="outlined" endIcon={<Download />}>
+        Baixar e-cordel
+      </Button>}
 
       {paragraphs}
-      {sourceLink}
+
     </Container>);
 }
 
