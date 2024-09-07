@@ -26,7 +26,10 @@ interface CordelReviewValues {
   title: string;
   content: string;
   published: boolean;
-  xilogravuraUrl: string
+  xilogravuraUrl: string;
+  year: number;
+  ebookUrl: string;
+  source: string;
 }
 
 interface CordelUpdateValues {
@@ -91,15 +94,13 @@ export default function CordelReview() {
     try {
 
       const data: CordelUpdateValues = {
+        ...cordelReviewFields,
         author: {
           id: Number(cordel?.author.id),
         },
-        title: cordelReviewFields.title,
+        // TODO add description to the page
         description: cordel?.description || '',
-        content: cordelReviewFields.content,
-        xilogravuraUrl: cordelReviewFields?.xilogravuraUrl || '',
         tags: cordel?.tags || [],
-        published: cordelReviewFields.published
       }
 
       await api.put(`cordels/${id}`, data);
@@ -161,6 +162,18 @@ export default function CordelReview() {
               margin="normal"
               required
               fullWidth
+              id="year"
+              label="Ano de publicação"
+              autoComplete="year"
+              defaultValue={cordel.year}
+              autoFocus
+              {...register("year")}
+            />
+            <TextField
+              variant="outlined"
+              margin="normal"
+              required
+              fullWidth
               label="Autor"
               type="author"
               id="author"
@@ -173,12 +186,33 @@ export default function CordelReview() {
               margin="normal"
               required
               fullWidth
-              label="Url da Xilogravura"
+              label="URL da Xilogravura"
               type="xilogravuraUrl"
               id="xilogravuraUrl"
               defaultValue={cordel.xilogravuraUrl}
               autoComplete="xilogravuraUrl"
               {...register("xilogravuraUrl")}
+            />
+            <TextField
+              variant="outlined"
+              margin="normal"
+              fullWidth
+              label="e-book URL"
+              type="ebookUrl"
+              id="ebookUrl"
+              defaultValue={cordel.ebookUrl}
+              {...register("ebookUrl")}
+            />
+            <TextField
+              variant="outlined"
+              margin="normal"
+              fullWidth
+              label="URL de origem, fonte ou referência"
+              type="source"
+              id="source"
+              defaultValue={cordel.source}
+              autoComplete="source"
+              {...register("source")}
             />
             <TextField
               variant="outlined"

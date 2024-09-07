@@ -10,9 +10,7 @@ export const CordelGridViewer = ({cordels}: any) => {
             cordels?.map(
                 ( cordel: CordelSummary) => (
                     <Grid item key={cordel.id} xs={12} sm={6} md={4}>
-                        <CardCordel
-                            {...cordel}
-                        ></CardCordel>
+                        <CardCordel cordel={cordel}></CardCordel>
                     </Grid>
                 )
             )

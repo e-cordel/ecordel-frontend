@@ -12,6 +12,9 @@ export interface Cordel {
   published: boolean;
   tags: Array<string>;
   xilogravuraUrl: string;
+  year: number;
+  ebookUrl: string;
+  source: string;
 }
 
 export interface CordelSummary {
@@ -20,6 +23,7 @@ export interface CordelSummary {
   xilogravuraUrl: string;
   authorName: string;
   authorId: number;
+  ebookUrl: string;
 }
 
 export interface Author {
