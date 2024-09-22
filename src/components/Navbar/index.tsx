@@ -24,7 +24,7 @@ export default function Navbar() {
             </Typography>
             
             <Nav />
-            <IconButton color="inherit" onClick={toggleColorMode}>
+            <IconButton color="inherit" onClick={toggleColorMode} aria-label="Alterar esquema de cores">
               {mode === "dark" ? <FiSun /> : <FiMoon />}
             </IconButton>
             <AuthButton />

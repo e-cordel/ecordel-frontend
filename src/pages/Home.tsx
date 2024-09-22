@@ -52,6 +52,8 @@ export default function Home() {
               }
               value={searchTitle}
               onChange={(e) => setSearchTitle(e.target.value)}
+              aria-label="Pesquisar cordel"
+              placeholder="Pesquisar cordel"
             />
           </Grid>
         </Grid>

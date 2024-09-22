@@ -1,4 +1,4 @@
-import { Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import React from "react";
 
 export const toParagraphs = (fullText: string) => {
@@ -12,10 +12,10 @@ export const toParagraphs = (fullText: string) => {
   if (indexOfBlock >= 0) {
     paragraphs = text.split('\n\n').map((block, index) => (<p key={`block-${index}`} role='paragraph'>{toLines(block)}</p>));
   }
-  return <section>
-    <Typography variant="h5">Texto do cordel</Typography>
+  return <Box component="section" sx={{mt: 2}}>
+    <Typography variant="h4">Texto do cordel</Typography>
     {paragraphs}
-  </section>;
+  </Box>;
 }
 
 export const toLines = (textBlock: string) => {

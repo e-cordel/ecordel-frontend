@@ -20,12 +20,11 @@ export const CordelViewer = ({ cordel }: CordelViewerProps) => {
         marginBottom: theme.spacing(3),
       }}
     >
-      <T variant="h3" >{cordel.title} </T>
-
+      <T variant="h3" >{cordel.title}</T>
       <Box
         component="img"
         src={cordel.xilogravuraUrl}
-        alt={cordel.title}
+        alt={`Xilogravura do cordel ${cordel.title}`}
         sx={{
           width: '100%',
           maxWidth: '400px',
@@ -35,10 +34,9 @@ export const CordelViewer = ({ cordel }: CordelViewerProps) => {
         }}
       />
 
-      <T variant="body1" paragraph >{cordel.description}</T>
-      <T variant="subtitle2">Autor: <Link underline="none" href={`/autores/${cordel.author.id}`}>{cordel.author.name}</Link></T>
-      {cordel.year && <T variant="subtitle2">Publicado em: {cordel.year}</T>}
-      {cordel.source && <T variant="subtitle2">Fonte: {cordel.source}</T>}
+      <T variant="body1" component="p">Autor: <Link underline="none" href={`/autores/${cordel.author.id}`}>{cordel.author.name}</Link></T>
+      {cordel.year && <T variant="body1" component="p">Ano de publicação: {cordel.year}</T>}
+      {cordel.source && <T variant="body1" component="p">Fonte: {cordel.source}</T>}
       {cordel.ebookUrl && <Button href={cordel.ebookUrl} variant="outlined" endIcon={<Download />}>
         Baixar e-cordel
       </Button>}
