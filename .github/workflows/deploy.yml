@@ -28,7 +28,7 @@ jobs:
         shell: bash
         run: tar -zcf dist.tar.gz ./build/
       - name: Upload build artifact
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: build
           path: dist.tar.gz
