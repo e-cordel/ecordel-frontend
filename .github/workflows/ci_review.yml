@@ -10,8 +10,6 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    env:
-      REVIEW_URL: ecordel-review-${{ github.event.pull_request.number }}.surge.sh
     steps:
       - uses: actions/checkout@v2
       - name: Use Node.js 14.x
@@ -28,20 +26,3 @@ jobs:
         run: yarn build
         env: 
           REACT_APP_API_URL: ${{secrets.API_DEV}}
-      - name: Deploy to review environment
-        run: |      
-          echo https://${{ env.REVIEW_URL }}
-          npx surge --project ./build --domain ecordel-review-${{ github.event.pull_request.number }}.surge.sh
-        env:
-          SURGE_LOGIN: ${{secrets.SURGE_LOGIN}}
-          SURGE_TOKEN: ${{secrets.SURGE_TOKEN}}
-      - uses: actions/github-script@v3
-        with:
-          github-token: ${{secrets.GITHUB_TOKEN}}
-          script: |
-            github.issues.createComment({
-              issue_number: context.issue.number,
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              body: 'Review URL https://${{ env.REVIEW_URL }}'
-            })
