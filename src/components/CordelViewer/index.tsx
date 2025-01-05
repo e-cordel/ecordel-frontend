@@ -1,8 +1,8 @@
-import { Box, Button, Container, Link, Skeleton, Typography as T, useTheme } from "@mui/material";
+import { Box, Button, ButtonGroup, Container, Link, Skeleton, Typography as T, useTheme } from "@mui/material";
 import { useMemo } from "react";
 import { toParagraphs } from "./TextBlockUtils";
 import { Cordel } from "../../types";
-import { Download } from "@mui/icons-material";
+import api from "../../services/api";
 
 type CordelViewerProps = {
   cordel: Cordel
@@ -12,6 +12,47 @@ export const CordelViewer = ({ cordel }: CordelViewerProps) => {
 
   const theme = useTheme();
   const paragraphs = useMemo(() => toParagraphs(cordel.content), [cordel]);
+
+  const downloadFile = async (): Promise<void> => {
+    try {
+      const options = {
+        headers: {
+          "Accept": "text/plain",
+        },
+      };
+      const response = await fetch(`${api.defaults.baseURL!}/cordels/${cordel.id}`, options);
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! Not possible to download the file. Status: ${response.status}`);
+      }
+
+      const contentDisposition = response.headers.get("content-disposition");
+      let filename = "downloaded_file";
+
+      if (contentDisposition && contentDisposition.includes("filename=")) {
+        const matches = contentDisposition.match(/filename="([^"]+)"/);
+        if (matches && matches[1]) {
+          filename = matches[1];
+        }
+      }
+
+      // Convert response to Blob
+      const blob = await response.blob();
+
+      // Create a link to trigger the download
+      const link = document.createElement("a");
+      link.href = window.URL.createObjectURL(blob);
+      link.download = filename;
+
+      // Append link to the document, trigger the download, and clean up
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      window.URL.revokeObjectURL(link.href);
+    } catch (error) {
+      console.error("Error downloading file:", error);
+    }
+  };
 
   return (
     <Container component="main"
@@ -34,13 +75,21 @@ export const CordelViewer = ({ cordel }: CordelViewerProps) => {
         }}
       />
 
+      <T variant="h4" component="p">Dados da obra</T>
       <T variant="body1" component="p">Autor: <Link underline="none" href={`/autores/${cordel.author.id}`}>{cordel.author.name}</Link></T>
-      {cordel.year && <T variant="body1" component="p">Ano de publicação: {cordel.year}</T>}
-      {cordel.source && <T variant="body1" component="p">Fonte: {cordel.source}</T>}
-      {cordel.ebookUrl && <Button href={cordel.ebookUrl} variant="outlined" endIcon={<Download />}>
-        Baixar e-cordel
-      </Button>}
-
+      <T variant="body1" component="p">Ano de publicação: {cordel.year ? cordel.year : "Não informado"}</T>
+      <T variant="body1" component="p">Fonte: {cordel.source ? cordel.source: "Não informado"}</T>
+      
+      <T variant="h4" component="p">Formatos disponíveis para download</T>
+      <ButtonGroup variant="outlined" aria-label="Formatos disponíveis para download">
+        <Button onClick={() =>
+          downloadFile()
+        }>Baixar .TXT</Button>  
+        {cordel.ebookUrl && <Button href={cordel.ebookUrl}>
+          Baixar .EPUB
+        </Button>}
+      </ButtonGroup>
+      
       {paragraphs}
 
     </Container>);

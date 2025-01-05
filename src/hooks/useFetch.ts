@@ -3,7 +3,11 @@ import api from '../services/api';
 
 export function useFetch<Data = any, Error = any>(url: string) {
   const { data, error, isValidating, mutate } = useSWR<Data, Error>(url, async ulr => {
-    const response = await api.get(url);
+    const response = await api.get(url, {
+      headers: {
+        Accept: "application/json",
+      },
+    });
     return response.data;
   });
 
