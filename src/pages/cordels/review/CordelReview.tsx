@@ -22,27 +22,7 @@ import { StructuralNavigation } from "../../../components/StructuralNavigation";
 import { useToast } from "../../../hooks/useToast";
 import api from "../../../services/api";
 
-interface CordelReviewValues {
-  title: string;
-  content: string;
-  published: boolean;
-  xilogravuraUrl: string;
-  year: number;
-  ebookUrl: string;
-  source: string;
-}
-
-interface CordelUpdateValues {
-  author: {
-    id: number;
-  },
-  title: string;
-  description: string;
-  content: string;
-  xilogravuraUrl: string;
-  published: boolean;
-  tags: string[];
-}
+type CordelReviewValues = Partial<Cordel>;
 
 const AUTO_SAVE_INTERVAL = 5000;
 
@@ -55,11 +35,20 @@ export default function CordelReview() {
   const { id } = useParams<{ id: string }>()
   const theme = useTheme();
   const { addToast } = useToast();
-  const { handleSubmit, register, watch } = useForm<CordelReviewValues>();
+  const { handleSubmit, register, watch, reset } = useForm<CordelReviewValues>();
 
   useEffect(() => {
-    api.get<Cordel>(`cordels/${id}`).then(({ data }) => setCordel(data))
-  }, [id])
+    api.get<Cordel>(`cordels/${id}`, {headers: {accept: "application/json"}}).then(({ data }) => {
+      setCordel(data);
+      reset(data);
+    });
+  }, [id, reset])
+
+  useEffect(() => {
+    if (cordel?.title) {
+      document.title = `Revisão - ${cordel.title}`;
+    }
+  }, [cordel?.title]);
 
   useEffect(() => {
     let timeoutId : any; 
@@ -68,8 +57,8 @@ export default function CordelReview() {
         // for each change the timeout will be set. So clear the previous one right away 
         clearTimeout(timeoutId);
         timeoutId = setTimeout( async () => {
-          // @ts-ignore
-          const data: CordelUpdateValues = {
+
+          const data = {
             ...value,
             author: {
               id: Number(cordel?.author.id),
@@ -88,19 +77,24 @@ export default function CordelReview() {
       clearTimeout(timeoutId);
       subscription.unsubscribe();
     }
-  }, [watch, cordel?.tags, cordel?.author.id, cordel?.description, id, addToast]);
+  }, [watch, cordel?.tags, cordel?.author?.id, cordel?.description, id, addToast]);
 
   const onSubmit = async (cordelReviewFields: CordelReviewValues) => {
     try {
 
-      const data: CordelUpdateValues = {
+      const data: CordelReviewValues = {
         ...cordelReviewFields,
         author: {
           id: Number(cordel?.author.id),
         },
-        // TODO add description to the page
         description: cordel?.description || '',
         tags: cordel?.tags || [],
+        xilogravura: {
+          id: cordel?.xilogravura?.id,
+          url: cordelReviewFields.xilogravura?.url || cordel?.xilogravuraUrl || '',
+          title: cordelReviewFields.xilogravura?.title || '',
+          description: cordelReviewFields.xilogravura?.description || '',
+        }
       }
 
       await api.put(`cordels/${id}`, data);
@@ -177,7 +171,7 @@ export default function CordelReview() {
               label="Autor"
               type="author"
               id="author"
-              defaultValue={cordel.author.name}
+              defaultValue={cordel.author?.name}
               autoComplete="Author"
               disabled={true}
             />
@@ -189,9 +183,31 @@ export default function CordelReview() {
               label="URL da Xilogravura"
               type="xilogravuraUrl"
               id="xilogravuraUrl"
-              defaultValue={cordel.xilogravuraUrl}
+              defaultValue={cordel.xilogravura?.url || cordel.xilogravuraUrl}
               autoComplete="xilogravuraUrl"
-              {...register("xilogravuraUrl")}
+              {...register("xilogravura.url")}
+            />
+            <TextField
+              variant="outlined"
+              margin="normal"
+              fullWidth
+              label="Título da Xilogravura"
+              type="xilogravuraTitle"
+              id="xilogravuraTitle"
+              defaultValue={cordel.xilogravura?.title}
+              autoComplete="xilogravuraTitle"
+              {...register("xilogravura.title")}
+            />
+            <TextField
+              variant="outlined"
+              margin="normal"
+              fullWidth
+              label="Descrição da Xilogravura"
+              type="xilogravuraDescription"
+              id="xilogravuraDescription"
+              defaultValue={cordel.xilogravura?.description}
+              autoComplete="xilogravuraDescription"
+              {...register("xilogravura.description")}
             />
             <TextField
               variant="outlined"

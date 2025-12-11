@@ -1,9 +1,10 @@
 import { Container } from "@mui/material";
-import { useParams, useLocation } from "react-router"
+import { useParams, useLocation } from "react-router";
 import { CordelViewer, CordelViewerSkeleton } from "../../components/CordelViewer";
 import { StructuralNavigation } from "../../components/StructuralNavigation";
-import { useFetch } from "../../hooks/useFetch"
+import { useFetch } from "../../hooks/useFetch";
 import { Cordel } from "../../types";
+import { useEffect } from "react";
 
 const CordelDetails = () => {
 
@@ -13,12 +14,20 @@ const CordelDetails = () => {
 
   const { data: cordel } = useFetch<Cordel, Error>(`cordels/${id}`);
 
+  useEffect(() => {
+    if (cordel?.title) {
+      document.title = `Cordel - ${cordel.title}`;
+    }
+  }, [cordel?.title]);
+
   if (!cordel) return <CordelViewerSkeleton />
-  
-  return (<Container>
-    <StructuralNavigation path={location.pathname} title={cordel.title} />
-    <CordelViewer cordel={cordel} />
-  </Container>)
+
+  return (
+    <Container>
+      <StructuralNavigation path={location.pathname} title={cordel.title} />
+      <CordelViewer cordel={cordel} />
+    </Container>
+  );
 }
 
 export default CordelDetails;

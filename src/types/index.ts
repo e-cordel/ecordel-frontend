@@ -1,17 +1,14 @@
 export interface Cordel {
   id: string;
-  author: {
-    id: number;
-    name: string;
-    about: string;
-    email: string;
-  }
+  author: Author;
   title: string;
   description: string;
   content: string;
   published: boolean;
   tags: Array<string>;
-  xilogravuraUrl: string;
+  // deprecated
+  xilogravuraUrl?: string;
+  xilogravura: Xilogravura;
   year: number;
   ebookUrl: string;
   source: string;
@@ -21,6 +18,7 @@ export interface CordelSummary {
   id: number;
   title: string;
   xilogravuraUrl: string;
+  xilogravuraDescription?: string;
   authorName: string;
   authorId: number;
   ebookUrl: string;
@@ -28,7 +26,14 @@ export interface CordelSummary {
 
 export interface Author {
   id: number;
-  name: string;
-  about: string;
-  email: string;
+  name?: string;
+  about?: string;
+  email?: string;
+}
+
+export interface Xilogravura {
+  id?: number | null;
+  url: string;
+  title?:  string;
+  description?: string;
 }

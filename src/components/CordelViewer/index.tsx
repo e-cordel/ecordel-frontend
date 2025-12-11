@@ -64,8 +64,8 @@ export const CordelViewer = ({ cordel }: CordelViewerProps) => {
       <T variant="h3" >{cordel.title}</T>
       <Box
         component="img"
-        src={cordel.xilogravuraUrl}
-        alt={`Xilogravura do cordel ${cordel.title}`}
+        src={cordel.xilogravura?.url || cordel.xilogravuraUrl || "/cover_not_found.png"}
+        alt={cordel.xilogravura?.description || `Capa do cordel: ${cordel.title}`}
         sx={{
           width: '100%',
           maxWidth: '400px',
