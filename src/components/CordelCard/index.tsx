@@ -27,11 +27,9 @@ export default function CordelCard({cordel}: CordelCardProps) {
     >
       <CardHeader  title={cordel.title} subheader={cordel.authorName} />
       <CardMedia
-        sx={{
-          paddingTop: "100%",
-        }}
+        component="img"
         image={cordel.xilogravuraUrl ? cordel.xilogravuraUrl : "/cover_not_found.png"}
-        title="Image title"
+        alt={cordel.xilogravuraDescription || `Capa do cordel: ${cordel.title}`}
       />
       <CardActions >
           <Button size="small" onClick={handleCordel}>
