@@ -29,6 +29,7 @@ const AUTO_SAVE_INTERVAL = 5000;
 export default function CordelReview() {
 
   const [cordel, setCordel] = useState<Cordel | null>(null);
+  const [aiReviewing, setAiReviewing] = useState(false);
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -81,6 +82,17 @@ export default function CordelReview() {
 
   const onSubmit = async (cordelReviewFields: CordelReviewValues) => {
     try {
+      
+      const xilogravuraData = {
+        id: cordel?.xilogravura?.id,
+        url: cordelReviewFields.xilogravura?.url || cordel?.xilogravuraUrl || '',
+        title: cordelReviewFields.xilogravura?.title || '',
+        description: cordelReviewFields.xilogravura?.description || '',
+      };
+
+      const xilogravura = (xilogravuraData.url || xilogravuraData.title || xilogravuraData.description) 
+        ? xilogravuraData 
+        : undefined;
 
       const data: CordelReviewValues = {
         ...cordelReviewFields,
@@ -89,19 +101,36 @@ export default function CordelReview() {
         },
         description: cordel?.description || '',
         tags: cordel?.tags || [],
-        xilogravura: {
-          id: cordel?.xilogravura?.id,
-          url: cordelReviewFields.xilogravura?.url || cordel?.xilogravuraUrl || '',
-          title: cordelReviewFields.xilogravura?.title || '',
-          description: cordelReviewFields.xilogravura?.description || '',
-        }
+        xilogravura
       }
 
       await api.put(`cordels/${id}`, data);
       navigate(-1);
       addToast({ message: "Cordel revisado com sucesso!", type: "success" });
     } catch (error) {
-      addToast({ message: "credenciais inválidas", type: "error" });
+      addToast({ message: "Erro ao salvar o cordel. Verifique os campos obrigatórios.", type: "error" });
+    }
+  };
+
+  const onAiReview = async () => {
+    if (!id || !cordel) {
+      return;
+    }
+
+    try {
+      setAiReviewing(true);
+      const { data } = await api.post<{ content: string }>(`cordels/${id}/ai-review`);
+      const updatedCordel = {
+        ...cordel,
+        content: data.content,
+      };
+      setCordel(updatedCordel);
+      reset(updatedCordel);
+      addToast({ message: "Texto revisado com IA!", type: "success" });
+    } catch (error) {
+      addToast({ message: "Não foi possível revisar o texto com IA.", type: "error" });
+    } finally {
+      setAiReviewing(false);
     }
   };
 
@@ -254,6 +283,16 @@ export default function CordelReview() {
               sx={{ margin: theme.spacing(3, 0, 2) }}
             >
               Salvar
+            </Button>
+            <Button
+              fullWidth
+              variant="outlined"
+              color="secondary"
+              sx={{ margin: theme.spacing(0, 0, 2) }}
+              disabled={aiReviewing}
+              onClick={onAiReview}
+            >
+              {aiReviewing ? "Revisando..." : "Revisar texto com IA"}
             </Button>
             <Grid container>
               <Grid item xs>
