@@ -1,28 +1,32 @@
 import { useState } from "react";
 import {
+  Alert,
+  Box,
+  Button,
   Container,
   Grid,
   InputAdornment,
   OutlinedInput,
   useTheme,
 } from "@mui/material";
-import { useFetch } from "../hooks/useFetch";
 import Hero from "../components/Hero";
 import { FiSearch } from "react-icons/fi";
 import {CordelGridViewer} from "../components/CordelGridViewer";
-import { CordelSummary } from "../types";
-
-interface CordelRequest {
-  content: CordelSummary[];
-}
+import { usePaginatedCordels } from "../hooks/usePaginatedCordels";
 
 export default function Home() {
   const theme = useTheme();
   const [searchTitle, setSearchTitle] = useState("");
 
-  const { data } = useFetch<CordelRequest>(
-    `cordels/summaries?title=${searchTitle}&published`
-  );
+  const {
+    cordels,
+    error,
+    isLoading,
+    isLoadingMore,
+    isReachingEnd,
+    loadMore,
+    retry,
+  } = usePaginatedCordels(searchTitle);
 
   return (
     <>
@@ -52,12 +56,47 @@ export default function Home() {
               }
               value={searchTitle}
               onChange={(e) => setSearchTitle(e.target.value)}
-              aria-label="Pesquisar cordel"
+              inputProps={{ "aria-label": "Pesquisar cordel" }}
               placeholder="Pesquisar cordel"
             />
           </Grid>
         </Grid>
-        <CordelGridViewer cordels={data?.content} />
+        <CordelGridViewer
+          cordels={cordels}
+          loading={isLoading || isLoadingMore}
+        />
+        {error && (
+          <Alert
+            severity="error"
+            sx={{ marginTop: theme.spacing(4) }}
+            action={
+              <Button color="inherit" size="small" onClick={retry}>
+                Tentar novamente
+              </Button>
+            }
+          >
+            Não foi possível carregar os cordéis.
+          </Alert>
+        )}
+        {!error && cordels && !isReachingEnd && (
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              paddingTop: theme.spacing(4),
+            }}
+            aria-live="polite"
+          >
+            <Button
+              type="button"
+              variant="contained"
+              onClick={loadMore}
+              disabled={isLoadingMore}
+            >
+              {isLoadingMore ? "Carregando..." : "Ver mais"}
+            </Button>
+          </Box>
+        )}
       </Container>
     </>
   );
