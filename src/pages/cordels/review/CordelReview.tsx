@@ -23,8 +23,46 @@ import { useToast } from "../../../hooks/useToast";
 import api from "../../../services/api";
 
 type CordelReviewValues = Partial<Cordel>;
+type AiReviewResponse = { content: string };
 
 const AUTO_SAVE_INTERVAL = 5000;
+const AI_REVIEW_POLL_INTERVAL = 2000;
+const AI_REVIEW_MAX_ATTEMPTS = 30;
+
+const wait = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+
+const getAiReviewLocation = (locationHeader?: string) => {
+  if (!locationHeader) {
+    return null;
+  }
+
+  try {
+    const baseUrl = api.defaults.baseURL || window.location.origin;
+    return new URL(locationHeader, baseUrl).toString();
+  } catch {
+    return locationHeader;
+  }
+};
+
+const pollAiReviewResult = async (resultUrl: string) => {
+  for (let attempt = 0; attempt < AI_REVIEW_MAX_ATTEMPTS; attempt += 1) {
+    const response = await api.get<AiReviewResponse>(resultUrl, {
+      validateStatus: (status) => status === 200 || status === 202,
+    });
+
+    if (response.status === 200 && typeof response.data?.content === "string") {
+      return response.data;
+    }
+
+    if (response.status !== 202) {
+      throw new Error("Unexpected AI review status");
+    }
+
+    await wait(AI_REVIEW_POLL_INTERVAL);
+  }
+
+  throw new Error("AI review timed out");
+};
 
 export default function CordelReview() {
 
@@ -119,7 +157,16 @@ export default function CordelReview() {
 
     try {
       setAiReviewing(true);
-      const { data } = await api.post<{ content: string }>(`cordels/${id}/ai-review`);
+      const response = await api.post(`cordels/${id}/ai-reviews`, undefined, {
+        validateStatus: (status) => status === 202,
+      });
+      const resultUrl = getAiReviewLocation(response.headers.location);
+
+      if (!resultUrl) {
+        throw new Error("Missing AI review location");
+      }
+
+      const data = await pollAiReviewResult(resultUrl);
       const updatedCordel = {
         ...cordel,
         content: data.content,
