@@ -11,13 +11,13 @@ Single-page application responsible for displaying e-cordels and allowing editor
 Install dependencies:
 
 ```bash
-npm install
+yarn install
 ```
 
 ## Build the project
 
 ```bash
-npm run build
+yarn build
 ```
 
 Copy `.env.template` to `.env` or `.env.production` and fill in the environment variables for the production environment.
@@ -27,7 +27,7 @@ The production build is generated in the `dist` folder.
 ## Run tests
 
 ```bash
-npm test
+yarn test
 ```
 
 This project uses Vitest. The current setup runs the suite in a non-watch mode (`vitest --run`).
@@ -37,14 +37,16 @@ This project uses Vitest. The current setup runs the suite in a non-watch mode (
 From the project folder, you can run:
 
 ```bash
-npm run start
+yarn start
 ```
 
 or:
 
 ```bash
-npm start
+yarn dev
 ```
+
+`yarn dev` and `yarn start` both run Vite in development mode.
 
 Copy `.env.template` to `.env.development` and fill in the environment variables for the development environment.
 

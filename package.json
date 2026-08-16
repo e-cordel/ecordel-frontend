@@ -17,6 +17,7 @@
     "web-vitals": "^3.5.2"
   },
   "scripts": {
+    "dev": "vite",
     "start": "vite",
     "build": "vite build",
     "test": "vitest --run",
