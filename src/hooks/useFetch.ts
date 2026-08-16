@@ -1,5 +1,5 @@
-import useSWR from 'swr';
-import api from '../services/api';
+import useSWR from "swr";
+import api from "../services/api";
 
 export async function fetchJson<Data = any>(url: string): Promise<Data> {
   const response = await api.get(url, {
@@ -12,7 +12,7 @@ export async function fetchJson<Data = any>(url: string): Promise<Data> {
 }
 
 export function useFetch<Data = any, Error = any>(url: string) {
-  const { data, error, isValidating, mutate } = useSWR<Data, Error>(url, fetchJson);
+  const { data, error, isLoading, isValidating, mutate } = useSWR<Data, Error>(url, fetchJson);
 
-  return { data, error, isValidating, mutate }
+  return { data, error, isLoading, isValidating, mutate };
 }

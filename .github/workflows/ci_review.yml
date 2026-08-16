@@ -4,25 +4,27 @@ on:
   pull_request:
     branches: [main]
 
-  # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - name: Use Node.js 14.x
-        uses: actions/setup-node@v1
+      - uses: actions/checkout@v4
+
+      - name: Use Node.js 20
+        uses: actions/setup-node@v4
         with:
-          node-version: "14.x"
-      - name: Install Dependencies
-        run: |
-          npm install -g yarn
-          yarn install --frozen-lockfile
+          node-version: "20"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
       - name: Run tests
-        run: yarn test
+        run: npm test
+
       - name: Build
-        run: yarn build
-        env: 
-          REACT_APP_API_URL: ${{secrets.API_DEV}}
+        run: npm run build
+        env:
+          VITE_API_URL: ${{ secrets.API_DEV }}

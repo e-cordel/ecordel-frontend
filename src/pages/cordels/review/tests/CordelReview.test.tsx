@@ -1,22 +1,23 @@
 import "@testing-library/jest-dom";
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
+import { vi } from "vitest";
 import CordelReview from "../CordelReview";
 import api from "../../../../services/api";
 
-const mockAddToast = jest.fn();
-const mockNavigate = jest.fn();
+const mockAddToast = vi.fn();
+const mockNavigate = vi.fn();
 
-jest.mock("../../../../services/api");
+vi.mock("../../../../services/api");
 
-jest.mock("../../../../hooks/useToast", () => ({
+vi.mock("../../../../hooks/useToast", () => ({
   useToast: () => ({
     addToast: mockAddToast,
   }),
 }));
 
-jest.mock("react-router", () => {
-  const actual = jest.requireActual("react-router");
+vi.mock("react-router", async () => {
+  const actual = await vi.importActual<typeof import("react-router")>("react-router");
   return {
     ...actual,
     useNavigate: () => mockNavigate,
@@ -25,7 +26,7 @@ jest.mock("react-router", () => {
   };
 });
 
-const mockedApi = api as jest.Mocked<typeof api>;
+const mockedApi = vi.mocked(api);
 
 const cordelMock = {
   id: "1",
@@ -48,11 +49,11 @@ const cordelMock = {
 
 describe("CordelReview page", () => {
   beforeEach(() => {
-    jest.clearAllMocks();
+    vi.clearAllMocks();
   });
 
   afterEach(() => {
-    jest.useRealTimers();
+    vi.useRealTimers();
   });
 
   it("loads and renders cordel fields", async () => {

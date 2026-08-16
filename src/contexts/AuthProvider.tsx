@@ -1,4 +1,4 @@
-import { createContext, ReactChild, useCallback, useState } from "react";
+import { createContext, ReactNode, useCallback, useState } from "react";
 import api from "../services/api";
 
 interface User {
@@ -16,7 +16,7 @@ export interface SignInCredentials {
 }
 
 interface AuthProviderProps {
-  children: ReactChild;
+  children: ReactNode;
 }
 
 export interface AuthContextData {
@@ -31,11 +31,14 @@ export const AuthContext = createContext<AuthContextData>(
 
 export const AuthProvider = ({ children }: AuthProviderProps) => {
   const [data, setData] = useState<AuthState>(() => {
-    let token, user;
+    let token: string | null;
+    let user: string | null;
+
     token = sessionStorage.getItem("@ECordel:token");
     user = sessionStorage.getItem("@ECordel:user");
+
     if (token && user) {
-      api.defaults.headers.authorization = `Bearer ${token}`;
+      api.defaults.headers.common.Authorization = `Bearer ${token}`;
       return { token, user: JSON.parse(user) };
     }
 
@@ -50,9 +53,10 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
       });
       const user = { username };
       const { token } = response.data;
+
       sessionStorage.setItem("@ECordel:token", token);
       sessionStorage.setItem("@ECordel:user", JSON.stringify(user));
-      api.defaults.headers.authorization = `Bearer ${token}`;
+      api.defaults.headers.common.Authorization = `Bearer ${token}`;
       setData({ token, user });
     },
     []

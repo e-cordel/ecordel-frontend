@@ -49,6 +49,7 @@ export function usePaginatedCordels(
   const {
     data,
     error,
+    isLoading,
     isValidating,
     mutate,
     setSize,
@@ -65,7 +66,7 @@ export function usePaginatedCordels(
   return {
     cordels: flattenCordelPages(data),
     error,
-    isLoading: !data && !error,
+    isLoading,
     isLoadingMore,
     isReachingEnd: lastPage?.last ?? false,
     loadMore: () => {

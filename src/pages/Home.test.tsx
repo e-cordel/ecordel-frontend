@@ -2,16 +2,16 @@ import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { BrowserRouter } from "react-router-dom";
 import "@testing-library/jest-dom";
+import { vi } from "vitest";
 import Home from "./Home";
 import {
   PaginatedCordels,
   usePaginatedCordels,
 } from "../hooks/usePaginatedCordels";
 
-jest.mock("../hooks/usePaginatedCordels");
+vi.mock("../hooks/usePaginatedCordels");
 
-const mockedUsePaginatedCordels =
-  usePaginatedCordels as jest.MockedFunction<typeof usePaginatedCordels>;
+const mockedUsePaginatedCordels = vi.mocked(usePaginatedCordels);
 
 const cordel = {
   id: 1,
@@ -37,18 +37,22 @@ const paginatedResult = (
   isLoading: false,
   isLoadingMore: false,
   isReachingEnd: false,
-  loadMore: jest.fn(),
-  retry: jest.fn(),
+  loadMore: vi.fn(),
+  retry: vi.fn(),
   ...overrides,
 });
 
 describe("Home pagination", () => {
-  it("loads more results from an accessible button", () => {
+  beforeEach(() => {
+    vi.clearAllMocks();
+  });
+
+  it("loads more results from an accessible button", async () => {
     const result = paginatedResult();
     mockedUsePaginatedCordels.mockReturnValue(result);
     renderHome();
 
-    userEvent.click(screen.getByRole("button", { name: "Ver mais" }));
+    await userEvent.click(screen.getByRole("button", { name: "Ver mais" }));
 
     expect(result.loadMore).toHaveBeenCalledTimes(1);
   });
@@ -75,7 +79,7 @@ describe("Home pagination", () => {
     ).not.toBeInTheDocument();
   });
 
-  it("shows an error message without removing loaded results", () => {
+  it("shows an error message without removing loaded results", async () => {
     const result = paginatedResult({ error: new Error("request failed") });
     mockedUsePaginatedCordels.mockReturnValue(result);
     renderHome();
@@ -85,17 +89,17 @@ describe("Home pagination", () => {
       screen.getByText("Não foi possível carregar os cordéis.")
     ).toBeInTheDocument();
 
-    userEvent.click(
+    await userEvent.click(
       screen.getByRole("button", { name: "Tentar novamente" })
     );
     expect(result.retry).toHaveBeenCalledTimes(1);
   });
 
-  it("starts a new paginated search when the title changes", () => {
+  it("starts a new paginated search when the title changes", async () => {
     mockedUsePaginatedCordels.mockReturnValue(paginatedResult());
     renderHome();
 
-    userEvent.type(
+    await userEvent.type(
       screen.getByRole("textbox", { name: "Pesquisar cordel" }),
       "Romance"
     );
