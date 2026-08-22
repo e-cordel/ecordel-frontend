@@ -1,6 +1,6 @@
 import {
   createContext,
-  ReactChild,
+  ReactNode,
   useCallback,
   useEffect,
   useState,
@@ -16,7 +16,7 @@ export const ColorModeContext = createContext<ColorModeData>(
   {} as ColorModeData
 );
 
-export const ColorModeProvider = ({ children }: { children: ReactChild }) => {
+export const ColorModeProvider = ({ children }: { children: ReactNode }) => {
   const [mode, setMode] = useState<ModeTypes>("light");
 
   useEffect(() => {
