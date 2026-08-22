@@ -15,12 +15,12 @@ import {
 import { LockOutlined } from "@mui/icons-material";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { useNavigate, useLocation, useParams } from "react-router";
+import { useLocation, useNavigate, useParams } from "react-router";
 import { Link as RouterLink } from "react-router-dom";
-import { Cordel } from "../../../types";
 import { StructuralNavigation } from "../../../components/StructuralNavigation";
 import { useToast } from "../../../hooks/useToast";
 import api from "../../../services/api";
+import { Cordel } from "../../../types";
 
 type CordelReviewValues = Partial<Cordel>;
 type AiReviewResponse = { content: string };
@@ -65,88 +65,83 @@ const pollAiReviewResult = async (resultUrl: string) => {
 };
 
 export default function CordelReview() {
-
   const [cordel, setCordel] = useState<Cordel | null>(null);
   const [aiReviewing, setAiReviewing] = useState(false);
 
   const navigate = useNavigate();
   const location = useLocation();
-  const { id } = useParams<{ id: string }>()
+  const { id } = useParams<{ id: string }>();
   const theme = useTheme();
   const { addToast } = useToast();
   const { handleSubmit, register, watch, reset } = useForm<CordelReviewValues>();
 
   useEffect(() => {
-    api.get<Cordel>(`cordels/${id}`, {headers: {accept: "application/json"}}).then(({ data }) => {
+    api.get<Cordel>(`cordels/${id}`, { headers: { accept: "application/json" } }).then(({ data }) => {
       setCordel(data);
       reset(data);
     });
-  }, [id, reset])
+  }, [id, reset]);
 
   useEffect(() => {
     if (cordel?.title) {
-      document.title = `Revisão - ${cordel.title}`;
+      document.title = `Revisao - ${cordel.title}`;
     }
   }, [cordel?.title]);
 
   useEffect(() => {
-    let timeoutId : any; 
-    const subscription = watch(
-      (value) => {
-        // for each change the timeout will be set. So clear the previous one right away 
-        clearTimeout(timeoutId);
-        timeoutId = setTimeout( async () => {
+    let timeoutId: number;
+    const subscription = watch((value) => {
+      window.clearTimeout(timeoutId);
+      timeoutId = window.setTimeout(async () => {
+        const data = {
+          ...value,
+          author: {
+            id: Number(cordel?.author.id),
+          },
+          tags: cordel?.tags || [],
+          description: cordel?.description || "",
+        };
 
-          const data = {
-            ...value,
-            author: {
-              id: Number(cordel?.author.id),
-            },
-            tags: cordel?.tags || [],
-            description: cordel?.description || ''
-          }
+        await api.put(`cordels/${id}`, data);
+        addToast({ message: "Alteracoes salvas automaticamente!", type: "success" });
+      }, AUTO_SAVE_INTERVAL);
+    });
 
-          await api.put(`cordels/${id}`, data);
-          addToast({ message: "Alterações salvas automaticamente!", type: "success" });
-        }, AUTO_SAVE_INTERVAL);
-      }
-    );
-    
     return () => {
-      clearTimeout(timeoutId);
+      window.clearTimeout(timeoutId);
       subscription.unsubscribe();
-    }
+    };
   }, [watch, cordel?.tags, cordel?.author?.id, cordel?.description, id, addToast]);
 
   const onSubmit = async (cordelReviewFields: CordelReviewValues) => {
     try {
-      
       const xilogravuraData = {
         id: cordel?.xilogravura?.id,
-        url: cordelReviewFields.xilogravura?.url || cordel?.xilogravuraUrl || '',
-        title: cordelReviewFields.xilogravura?.title || '',
-        description: cordelReviewFields.xilogravura?.description || '',
+        url: cordelReviewFields.xilogravura?.url || cordel?.xilogravuraUrl || "",
+        title: cordelReviewFields.xilogravura?.title || "",
+        description: cordelReviewFields.xilogravura?.description || "",
       };
 
-      const xilogravura = (xilogravuraData.url || xilogravuraData.title || xilogravuraData.description) 
-        ? xilogravuraData 
-        : undefined;
+      const xilogravura =
+        xilogravuraData.url || xilogravuraData.title || xilogravuraData.description
+          ? xilogravuraData
+          : undefined;
 
       const data: CordelReviewValues = {
         ...cordelReviewFields,
         author: {
           id: Number(cordel?.author.id),
         },
-        description: cordel?.description || '',
+        description: cordel?.description || "",
         tags: cordel?.tags || [],
-        xilogravura
-      }
+        xilogravura,
+      };
 
       await api.put(`cordels/${id}`, data);
       navigate(-1);
       addToast({ message: "Cordel revisado com sucesso!", type: "success" });
-    } catch (error) {
-      addToast({ message: "Erro ao salvar o cordel. Verifique os campos obrigatórios.", type: "error" });
+    } catch {
+      addToast({ message: "Erro ao salvar o cordel. Verifique os campos obrigatorios.", type: "error" });
     }
   };
 
@@ -174,20 +169,19 @@ export default function CordelReview() {
       setCordel(updatedCordel);
       reset(updatedCordel);
       addToast({ message: "Texto revisado com IA!", type: "success" });
-    } catch (error) {
-      addToast({ message: "Não foi possível revisar o texto com IA.", type: "error" });
+    } catch {
+      addToast({ message: "Nao foi possivel revisar o texto com IA.", type: "error" });
     } finally {
       setAiReviewing(false);
     }
   };
 
-  if (!cordel) return <CordelReviewSkeleton />
+  if (!cordel) return <CordelReviewSkeleton />;
 
   return (
     <Container>
       <StructuralNavigation path={location.pathname} title={cordel.title} />
       <Container component="main" maxWidth="md">
-
         <div
           style={{
             marginTop: theme.spacing(8),
@@ -205,11 +199,11 @@ export default function CordelReview() {
             <LockOutlined />
           </Avatar>
           <Typography component="h1" variant="h5">
-            Revisão de Cordel
+            Revisao de Cordel
           </Typography>
           <form
             style={{
-              width: "100%", // Fix IE 11 issue.
+              width: "100%",
               marginTop: theme.spacing(1),
             }}
             noValidate
@@ -221,7 +215,7 @@ export default function CordelReview() {
               required
               fullWidth
               id="title"
-              label="Título do Cordel"
+              label="Titulo do Cordel"
               autoComplete="title"
               defaultValue={cordel.title}
               autoFocus
@@ -233,10 +227,9 @@ export default function CordelReview() {
               required
               fullWidth
               id="year"
-              label="Ano de publicação"
+              label="Ano de publicacao"
               autoComplete="year"
               defaultValue={cordel.year}
-              autoFocus
               {...register("year")}
             />
             <TextField
@@ -248,8 +241,7 @@ export default function CordelReview() {
               type="author"
               id="author"
               defaultValue={cordel.author?.name}
-              autoComplete="Author"
-              disabled={true}
+              disabled
             />
             <TextField
               variant="outlined"
@@ -260,29 +252,26 @@ export default function CordelReview() {
               type="xilogravuraUrl"
               id="xilogravuraUrl"
               defaultValue={cordel.xilogravura?.url || cordel.xilogravuraUrl}
-              autoComplete="xilogravuraUrl"
               {...register("xilogravura.url")}
             />
             <TextField
               variant="outlined"
               margin="normal"
               fullWidth
-              label="Título da Xilogravura"
+              label="Titulo da Xilogravura"
               type="xilogravuraTitle"
               id="xilogravuraTitle"
               defaultValue={cordel.xilogravura?.title}
-              autoComplete="xilogravuraTitle"
               {...register("xilogravura.title")}
             />
             <TextField
               variant="outlined"
               margin="normal"
               fullWidth
-              label="Descrição da Xilogravura"
+              label="Descricao da Xilogravura"
               type="xilogravuraDescription"
               id="xilogravuraDescription"
               defaultValue={cordel.xilogravura?.description}
-              autoComplete="xilogravuraDescription"
               {...register("xilogravura.description")}
             />
             <TextField
@@ -299,11 +288,10 @@ export default function CordelReview() {
               variant="outlined"
               margin="normal"
               fullWidth
-              label="URL de origem, fonte ou referência"
+              label="URL de origem, fonte ou referencia"
               type="source"
               id="source"
               defaultValue={cordel.source}
-              autoComplete="source"
               {...register("source")}
             />
             <TextField
@@ -316,11 +304,12 @@ export default function CordelReview() {
               id="content"
               defaultValue={cordel.content}
               multiline
-              rows="15"
+              rows={15}
               {...register("content")}
             />
             <FormGroup>
               <FormControlLabel control={<Checkbox defaultChecked={cordel.published} {...register("published")} />} label="Publicado" />
+              <FormControlLabel control={<Checkbox defaultChecked={Boolean(cordel.featured)} {...register("featured")} />} label="Destaque do acervo" />
             </FormGroup>
             <Button
               type="submit"
@@ -351,15 +340,12 @@ export default function CordelReview() {
           </form>
         </div>
       </Container>
-    </Container >
-  )
-
+    </Container>
+  );
 }
 
-
 const CordelReviewSkeleton = () => {
-
-  const theme = useTheme()
+  const theme = useTheme();
 
   return (
     <Container component="main" maxWidth="md">
@@ -384,7 +370,7 @@ const CordelReviewSkeleton = () => {
         </Typography>
         <form
           style={{
-            width: "100%", // Fix IE 11 issue.
+            width: "100%",
             marginTop: theme.spacing(1),
           }}
         >
@@ -392,9 +378,8 @@ const CordelReviewSkeleton = () => {
           <Skeleton height={80} />
           <Skeleton variant="rectangular" height={400} />
           <Skeleton height={80} />
-
         </form>
       </div>
     </Container>
-  )
-}
+  );
+};

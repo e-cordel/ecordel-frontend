@@ -1,8 +1,11 @@
 import { createContext, ReactNode, useCallback, useState } from "react";
 import api from "../services/api";
 
-interface User {
+export interface User {
   username: string;
+  role?: string;
+  roles?: string[];
+  isAdmin?: boolean;
 }
 
 interface AuthState {
@@ -20,7 +23,7 @@ interface AuthProviderProps {
 }
 
 export interface AuthContextData {
-  user: User;
+  user?: User;
   signIn(credentials: SignInCredentials): Promise<void>;
   signOut(): void;
 }
@@ -51,7 +54,20 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
         username,
         password,
       });
-      const user = { username };
+      const userFromResponse = response.data?.user as Partial<User> | undefined;
+      const rolesFromResponse = response.data?.roles as string[] | undefined;
+      const roleFromResponse = response.data?.role as string | undefined;
+      const user: User = {
+        username,
+        ...userFromResponse,
+        roles: userFromResponse?.roles || rolesFromResponse,
+        role: userFromResponse?.role || roleFromResponse,
+        isAdmin: Boolean(
+          userFromResponse?.isAdmin ||
+            roleFromResponse === "ADMIN" ||
+            rolesFromResponse?.includes("ADMIN")
+        ),
+      };
       const { token } = response.data;
 
       sessionStorage.setItem("@ECordel:token", token);
@@ -74,3 +90,10 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     </AuthContext.Provider>
   );
 };
+
+export const userIsAdmin = (user?: User) =>
+  Boolean(
+    user?.isAdmin ||
+      user?.role === "ADMIN" ||
+      user?.roles?.includes("ADMIN")
+  );

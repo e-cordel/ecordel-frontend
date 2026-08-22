@@ -1,39 +1,40 @@
+import { Button, Stack } from "@mui/material";
+import { useLocation, useNavigate } from "react-router-dom";
+import { useAuth } from "../../../hooks/useAuth";
 
-import { Button, Link } from '@mui/material'
-import { useNavigate } from 'react-router'
-import { useAuth } from '../../../hooks/useAuth'
+const links = [
+  { label: "Início", href: "/" },
+  { label: "Autores", href: "/autores" },
+  { label: "Sobre", href: "/sobre" },
+];
 
 export default function Nav() {
-
   const { user } = useAuth();
-
+  const location = useLocation();
   const navigate = useNavigate();
 
-  const linkStyles = { my: 1, mx: 1.5, textDecoration: 'none', color: "text.primary" };
-
   return (
-    <nav>
-      {user && <>
-        <Link
-          component={Button}
-          variant="button"
-          color="text.primary"
-          sx={linkStyles}
-          onClick={() => navigate('/revisao')}
-        >
-          Revisão de Cordéis
-        </Link>
-        <Link
-          component={Button}
-          variant="button"
-          color="text.primary"
-          sx={linkStyles}
-          onClick={() => navigate('/autores')}
-        >
-          Autores
-        </Link>
-      </>
-      }
-    </nav >
-  )
+    <Stack direction="row" spacing={1} alignItems="center" component="nav">
+      {links.map((link) => {
+        const active = location.pathname === link.href;
+        return (
+          <Button
+            key={link.href}
+            color="inherit"
+            onClick={() => navigate(link.href)}
+            sx={{
+              borderBottom: active ? "2px solid currentColor" : "2px solid transparent",
+              borderRadius: 0,
+              px: 1,
+            }}
+          >
+            {link.label}
+          </Button>
+        );
+      })}
+      {user ? (
+        <Button color="inherit" onClick={() => navigate("/revisao")}>Revisão de Cordéis</Button>
+      ) : null}
+    </Stack>
+  );
 }

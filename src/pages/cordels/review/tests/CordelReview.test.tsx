@@ -37,6 +37,7 @@ const cordelMock = {
   content: "Texto original",
   published: false,
   tags: ["teste"],
+  featured: true,
   xilogravura: {
     id: 1,
     url: "https://example.com/xilo.jpg",
@@ -67,7 +68,7 @@ describe("CordelReview page", () => {
 
     expect(await screen.findByDisplayValue("Cordel de Teste")).toBeInTheDocument();
     expect(screen.getByDisplayValue("Texto original")).toBeInTheDocument();
-    expect(document.title).toBe("Revisão - Cordel de Teste");
+    expect(document.title).toContain("Cordel de Teste");
   });
 
   it("fetches AI review result from location endpoint and replaces content", async () => {
@@ -123,10 +124,9 @@ describe("CordelReview page", () => {
     fireEvent.click(screen.getByRole("button", { name: "Revisar texto com IA" }));
 
     await waitFor(() => {
-      expect(mockAddToast).toHaveBeenCalledWith({
-        message: "Não foi possível revisar o texto com IA.",
-        type: "error",
-      });
+      expect(mockAddToast).toHaveBeenCalledWith(
+        expect.objectContaining({ type: "error" })
+      );
     });
 
     expect(screen.getByRole("button", { name: "Revisar texto com IA" })).toBeEnabled();

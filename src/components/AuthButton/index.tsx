@@ -1,5 +1,5 @@
 import { Button, useTheme } from "@mui/material";
-import { FiLogIn, FiLogOut } from "react-icons/fi";
+import { LoginOutlined, LogoutOutlined } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth";
 
@@ -21,9 +21,9 @@ export function AuthButton() {
     return (
       <Button
         color="inherit"
-        endIcon={<FiLogIn />}
+        endIcon={<LoginOutlined />}
         onClick={login}
-        sx={{ marginLeft: theme.spacing(2) }}
+        sx={{ marginLeft: theme.spacing(1) }}
       >
         Login
       </Button>
@@ -32,9 +32,9 @@ export function AuthButton() {
   return (
     <Button
       color="inherit"
-      endIcon={<FiLogOut />}
+      endIcon={<LogoutOutlined />}
       onClick={logout}
-      sx={{ marginLeft: theme.spacing(2) }}
+      sx={{ marginLeft: theme.spacing(1) }}
     >
       Logout
     </Button>
