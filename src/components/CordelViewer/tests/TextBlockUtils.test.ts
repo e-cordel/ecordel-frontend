@@ -17,6 +17,16 @@ describe('paragraphs', () => {
     expect(paragraphs).toHaveLength(1);
   });
 
+  it('should ignore the source section when building paragraphs', () => {
+    const textWithSource = 'Primeiro parágrafo\n\nSegundo parágrafo\n\nFonte:\nhttps://test.com.br'
+
+    render(toParagraphs(textWithSource));
+
+    expect(screen.getAllByRole("paragraph")).toHaveLength(2);
+    expect(screen.getAllByRole("paragraph")[0].textContent).not.toContain('Fonte:');
+    expect(screen.getAllByRole("paragraph")[1].textContent).not.toContain('Fonte:');
+  });
+
 })
 
 describe('source links', () => {
