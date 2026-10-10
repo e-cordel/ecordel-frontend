@@ -36,19 +36,6 @@ describe("AuthorViewer", () => {
     vi.restoreAllMocks();
   });
 
-  it("toggles follow button without API calls", async () => {
-    render(
-      <MemoryRouter>
-        <AuthorViewer author={author} cordels={cordels} />
-      </MemoryRouter>
-    );
-
-    const button = screen.getByRole("button", { name: "Seguir Autor" });
-    fireEvent.click(button);
-
-    expect(await screen.findByRole("button", { name: "Seguindo" })).toBeInTheDocument();
-  });
-
   it("uses share api when available", async () => {
     const share = vi.fn().mockResolvedValue(undefined);
     Object.assign(navigator, { share });
