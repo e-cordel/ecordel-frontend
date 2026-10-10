@@ -2,30 +2,46 @@ import { render, screen } from "@testing-library/react";
 import * as hooks from "../../../../hooks/useAuth";
 import Nav from "../index";
 import { AuthContextData } from "../../../../contexts/AuthProvider";
-import '@testing-library/jest-dom';
-import { BrowserRouter } from "react-router-dom";
+import "@testing-library/jest-dom";
+import { MemoryRouter } from "react-router-dom";
 
 describe("Nav component", () => {
-  it("should render review and authors button if user is loggedin", () => {
+  it("shows public links for anonymous users", () => {
     const authContext: AuthContextData = {
-      user: {
-        username: "username"
-      },
+      user: null,
       signIn: jest.fn(),
-      signOut: jest.fn()
+      signOut: jest.fn(),
     };
-    jest.spyOn(hooks, 'useAuth').mockImplementation( () => authContext );
+    jest.spyOn(hooks, "useAuth").mockImplementation(() => authContext);
 
     render(
-      <BrowserRouter>
-      <Nav />
-      </BrowserRouter>
+      <MemoryRouter>
+        <Nav />
+      </MemoryRouter>
     );
-    
-    const autoresButton = screen.getByText('Autores');
-    const reviewButton = screen.getByText('Revisão de Cordéis');
-    expect(autoresButton).toBeInTheDocument();
-    expect(reviewButton).toBeInTheDocument();
+
+    expect(screen.getByRole("button", { name: "Início" })).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "Autores" })).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "Sobre" })).toBeInTheDocument();
+    expect(screen.queryByRole("button", { name: "Revisão de Cordéis" })).not.toBeInTheDocument();
+  });
+
+  it("shows review link when user is logged in", () => {
+    const authContext: AuthContextData = {
+      user: {
+        username: "username",
+      },
+      signIn: jest.fn(),
+      signOut: jest.fn(),
+    };
+    jest.spyOn(hooks, "useAuth").mockImplementation(() => authContext);
+
+    render(
+      <MemoryRouter>
+        <Nav />
+      </MemoryRouter>
+    );
+
+    expect(screen.getByRole("button", { name: "Revisão de Cordéis" })).toBeInTheDocument();
   });
 });
-

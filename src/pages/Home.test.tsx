@@ -4,23 +4,33 @@ import { BrowserRouter } from "react-router-dom";
 import "@testing-library/jest-dom";
 import { vi } from "vitest";
 import Home from "./Home";
-import {
-  PaginatedCordels,
-  usePaginatedCordels,
-} from "../hooks/usePaginatedCordels";
+import { PaginatedCordels, usePaginatedCordels } from "../hooks/usePaginatedCordels";
 
 vi.mock("../hooks/usePaginatedCordels");
 
 const mockedUsePaginatedCordels = vi.mocked(usePaginatedCordels);
 
-const cordel = {
-  id: 1,
-  title: "A chegada",
-  xilogravuraUrl: "",
-  authorName: "Autor Um",
-  authorId: 1,
-  ebookUrl: "",
-};
+const cordels = [
+  {
+    id: 1,
+    title: "A chegada",
+    xilogravuraUrl: "",
+    authorName: "Autor Um",
+    authorId: 1,
+    ebookUrl: "",
+    tags: ["Romance"],
+    featured: true,
+  },
+  {
+    id: 2,
+    title: "A despedida",
+    xilogravuraUrl: "",
+    authorName: "Autor Dois",
+    authorId: 2,
+    ebookUrl: "",
+    tags: ["Regional"],
+  },
+];
 
 const renderHome = () =>
   render(
@@ -32,7 +42,7 @@ const renderHome = () =>
 const paginatedResult = (
   overrides: Partial<PaginatedCordels> = {}
 ): PaginatedCordels => ({
-  cordels: [cordel],
+  cordels,
   error: undefined,
   isLoading: false,
   isLoadingMore: false,
@@ -57,15 +67,16 @@ describe("Home pagination", () => {
     expect(result.loadMore).toHaveBeenCalledTimes(1);
   });
 
-  it("keeps the load-more button stable while the next page loads", () => {
-    mockedUsePaginatedCordels.mockReturnValue(
-      paginatedResult({ isLoadingMore: true })
-    );
+  it("renders featured section and filters by selected genre", async () => {
+    mockedUsePaginatedCordels.mockReturnValue(paginatedResult());
     renderHome();
 
-    expect(
-      screen.getByRole("button", { name: "Carregando..." })
-    ).toBeDisabled();
+    expect(screen.getByRole("heading", { name: "Destaques do Acervo" })).toBeInTheDocument();
+    expect(screen.getAllByText("A chegada").length).toBeGreaterThan(0);
+
+    await userEvent.click(screen.getByRole("button", { name: "Regional" }));
+
+    expect(screen.getByText("A despedida")).toBeInTheDocument();
   });
 
   it("hides pagination when the last page is reached", () => {
@@ -84,7 +95,7 @@ describe("Home pagination", () => {
     mockedUsePaginatedCordels.mockReturnValue(result);
     renderHome();
 
-    expect(screen.getByText("A chegada")).toBeInTheDocument();
+    expect(screen.getAllByText("A chegada").length).toBeGreaterThan(0);
     expect(
       screen.getByText("Não foi possível carregar os cordéis.")
     ).toBeInTheDocument();

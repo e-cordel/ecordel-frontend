@@ -1,35 +1,62 @@
 import { Box, Typography } from "@mui/material";
 import React from "react";
 
-export const toParagraphs = (fullText: string) => {
-  const indexOfBlock = fullText.indexOf('\n\n')
-  // TODO review. Usar campo source do cordel
-  const indexOfSource = fullText.indexOf('Fonte:')
-
-  const text = indexOfSource === -1 ? fullText : fullText.substring(0, indexOfSource)
-
-  let paragraphs = [<p role='paragraph'>{fullText}</p>];
-  if (indexOfBlock >= 0) {
-    paragraphs = text.split('\n\n').map((block, index) => (<p key={`block-${index}`} role='paragraph'>{toLines(block)}</p>));
+export const stripSourceText = (fullText: string) => {
+  const sourceIndex = fullText.search(/Fonte\s*:/i);
+  if (sourceIndex === -1) {
+    return fullText.trim();
   }
-  return <Box component="section" sx={{mt: 2}}>
-    <Typography variant="h4">Texto do cordel</Typography>
-    {paragraphs}
-  </Box>;
-}
+
+  return fullText.substring(0, sourceIndex).trim();
+};
+
+export const splitIntoParagraphs = (fullText: string) =>
+  stripSourceText(fullText)
+    .split(/\n\s*\n/)
+    .map((block) => block.trim())
+    .filter(Boolean);
+
+export const splitIntoPages = (fullText: string, stanzasPerPage = 2) => {
+  const paragraphs = splitIntoParagraphs(fullText);
+  if (paragraphs.length === 0) {
+    return [] as string[][];
+  }
+
+  const pages: string[][] = [];
+  for (let index = 0; index < paragraphs.length; index += stanzasPerPage) {
+    pages.push(paragraphs.slice(index, index + stanzasPerPage));
+  }
+  return pages;
+};
+
+export const toParagraphs = (fullText: string) => {
+  const paragraphs = splitIntoParagraphs(fullText);
+  const blocks = paragraphs.length > 0 ? paragraphs : [stripSourceText(fullText)];
+
+  return (
+    <Box component="section" sx={{ mt: 2 }}>
+      <Typography variant="h4">Texto do cordel</Typography>
+      {blocks.map((block, index) => (
+        <p key={`block-${index}`} role="paragraph">{toLines(block)}</p>
+      ))}
+    </Box>
+  );
+};
 
 export const toLines = (textBlock: string) => {
-  const indexBreakLine = textBlock.indexOf('\n')
+  const indexBreakLine = textBlock.indexOf("\n");
   if (indexBreakLine >= 0) {
-    return textBlock.split('\n').map((line, index) => (<React.Fragment key={`line-${index}`} >{line}<br /></React.Fragment>));
+    return textBlock
+      .split("\n")
+      .map((line, index) => <React.Fragment key={`line-${index}`}>{line}<br /></React.Fragment>);
   }
-  return textBlock
-}
+  return textBlock;
+};
 
 export const getSourceLink = (fullText: string) => {
-  const firstIndex = fullText.indexOf('https://') === -1 ? fullText.indexOf('http://') : fullText.indexOf('https://');
-  const lastIndex = fullText.indexOf(' ', firstIndex);
-  if (firstIndex === -1) return null
-  const linkText = lastIndex > 0 ? fullText.substring(firstIndex, lastIndex) : fullText.substring(firstIndex)
-  return (<>Fonte: <a href={linkText}>{linkText}</a></>)
-}
+  const match = fullText.match(/https?:\/\/[^\s<>"]+/i);
+  if (!match) return null;
+
+  const linkText = match[0].replace(/[.,;!?]+$/, "");
+  return <>Fonte: <a href={linkText}>{linkText}</a></>;
+};
